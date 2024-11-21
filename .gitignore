@@ -1,4 +1,4 @@
-microservice-template/.gradle
+pay-for-legal-aid-tests/.gradle
 .gradle
 build/
 !gradle/wrapper/gradle-wrapper.jar
