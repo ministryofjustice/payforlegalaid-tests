@@ -20,7 +20,7 @@ jobs:
       - name: Checkout source code repo
         uses: actions/checkout@v4
         with:
-          repository: ministry-of-justice/payforlegalaid
+          repository: ministryofjustice/payforlegalaid
           path: sourceCode
 
       - name: Build source code
