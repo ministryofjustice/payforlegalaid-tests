@@ -32,7 +32,8 @@ jobs:
 
       - name: Run tests
         run: |
-          cd ../testCode
+          cd ..
+          cd testCode
           mvn -B clean test
         env:
           SPRING_PROFILES_ACTIVE: test
