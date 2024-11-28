@@ -30,6 +30,10 @@ jobs:
           cd sourceCode
           mvn -B -DskipTests clean package
 
+      - name: Add source code jar to local maven repository
+        run: mvn install:install-file -Dfile=./sourceCode/pay-for-legal-aid-0.0.1-SNAPSHOT.jar -DgroupId=uk.gov.laa -DartifactId=pay-for-legal-aid -Dversion=0.0.1-SNAPSHOT -Dpackaging=jar
+
+
       - name: Run tests
         run: |
           cd testCode
