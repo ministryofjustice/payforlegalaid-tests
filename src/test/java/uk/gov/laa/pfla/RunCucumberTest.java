@@ -4,6 +4,7 @@ import io.cucumber.java.Before;
 //import org.junit.jupiter.api.BeforeAll;
 //import org.junit.jupiter.api.AfterAll;
 import io.cucumber.java.BeforeAll;
+import io.cucumber.java.AfterAll;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.platform.suite.api.ConfigurationParameter;
 import org.junit.platform.suite.api.IncludeEngines;
@@ -33,10 +34,10 @@ public class RunCucumberTest {
         ServiceManager.startService();
     }
 
-//    @AfterAll
-//    public void teardown() {
-//        System.out.println("CCCCCCCCC *** afterAll");
-//
-//        ServiceManager.stopService();
-//    }
+    @AfterAll
+    public void teardown() {
+        System.out.println("CCCCCCCCC *** afterAll");
+
+        ServiceManager.stopService();
+    }
 }
