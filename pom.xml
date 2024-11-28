@@ -61,13 +61,16 @@
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
             <version>4.5.14</version>
+            <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>uk.gov.laa</groupId>
             <artifactId>pay-for-legal-aid</artifactId>
             <version>0.0.1-SNAPSHOT</version>
+            <scope>test</scope>
         </dependency>
+
     </dependencies>
 
     <build>

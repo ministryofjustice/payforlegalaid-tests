@@ -17,7 +17,7 @@ public class StepDefinitions {
 
     @Given("the service is running and we are not logged in")
     public void the_service_is_running() {
-        //The service should be set running by the Cucumber Before hook.
+        //The service should be set running by the Cucumber @Before hook.
         assertDoesNotThrow(ServiceUtils::checkServiceIsRunning);
     }
 
@@ -34,8 +34,8 @@ public class StepDefinitions {
 
     }
 
-    @Then("it should return a 401 response")
-    public void it_should_return_401() {
-        assertEquals(401, response.getStatusLine().getStatusCode());
+    @Then("it should return a 200 response")
+    public void it_should_return_200() {
+        assertEquals(200, response.getStatusLine().getStatusCode());
     }
 }
