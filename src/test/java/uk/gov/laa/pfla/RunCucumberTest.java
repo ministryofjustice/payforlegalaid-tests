@@ -35,7 +35,7 @@ public class RunCucumberTest {
     }
 
     @AfterAll
-    public void teardown() {
+    public static void teardown() {
         System.out.println("CCCCCCCCC *** afterAll");
 
         ServiceManager.stopService();
