@@ -4,9 +4,10 @@ import java.io.File;
 import java.io.IOException;
 
 public class ServiceManager {
-    private Process serviceProcess;
+    private static Process serviceProcess;
 
-    public void startService() throws IOException {
+    public static void startService() throws IOException {
+        System.out.println("CCCCCCCCC *** started service");
         String jarPath = new File("target/libs/pay-for-legal-aid-0.0.1-SNAPSHOT.jar").getAbsolutePath();
         ProcessBuilder processBuilder = new ProcessBuilder("java", "-jar", "-Dspring.profiles.active=local", jarPath);
         processBuilder.redirectOutput(ProcessBuilder.Redirect.INHERIT);
@@ -14,7 +15,7 @@ public class ServiceManager {
         serviceProcess = processBuilder.start();
     }
 
-    public void stopService() {
+    public static void stopService() {
         if (serviceProcess != null && serviceProcess.isAlive()) {
             serviceProcess.destroy();
         }

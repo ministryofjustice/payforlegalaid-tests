@@ -1,7 +1,9 @@
 package uk.gov.laa.pfla;
 
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.AfterAll;
+import io.cucumber.java.Before;
+//import org.junit.jupiter.api.BeforeAll;
+//import org.junit.jupiter.api.AfterAll;
+import io.cucumber.java.BeforeAll;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.platform.suite.api.ConfigurationParameter;
 import org.junit.platform.suite.api.IncludeEngines;
@@ -24,16 +26,17 @@ public class RunCucumberTest {
     // This is a Junit BeforeAll.
     // Note there is a Cucumber BeforeAll we can also use simultaneously if there is Cucumber Specific Setup needed
     @BeforeAll
-    public void setup() throws IOException {
-        serviceManager = new ServiceManager();
-        serviceManager.startService();
+    public static void setup() throws IOException {
+        System.out.println("CCCCCCCCC *** before");
+
+        //serviceManager = new ServiceManager();
+        ServiceManager.startService();
     }
 
-    @AfterAll
-    public void teardown() {
-
-        if (serviceManager != null) {
-            serviceManager.stopService();
-        }
-    }
+//    @AfterAll
+//    public void teardown() {
+//        System.out.println("CCCCCCCCC *** afterAll");
+//
+//        ServiceManager.stopService();
+//    }
 }
