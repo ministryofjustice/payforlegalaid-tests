@@ -10,6 +10,8 @@ jobs:
     steps:
       - name: Checkout GitHub repository
         uses: actions/checkout@v4
+        with:
+          path: testCode
 
       - name: Setup Java
         uses: actions/setup-java@v4
@@ -29,7 +31,9 @@ jobs:
           mvn -B -DskipTests clean package
 
       - name: Run tests
-        run: mvn -B clean test
+        run: |
+          cd ../testCode
+          mvn -B clean test
         env:
           SPRING_PROFILES_ACTIVE: test
         shell:
