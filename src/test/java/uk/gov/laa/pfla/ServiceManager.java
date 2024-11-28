@@ -7,7 +7,6 @@ public class ServiceManager {
     private static Process serviceProcess;
 
     public static void startService() throws IOException {
-        System.out.println("CCCCCCCCC *** started service");
         String jarPath = new File("target/libs/pay-for-legal-aid-0.0.1-SNAPSHOT.jar").getAbsolutePath();
         ProcessBuilder processBuilder = new ProcessBuilder("java", "-jar", "-Dspring.profiles.active=local", jarPath);
         processBuilder.redirectOutput(ProcessBuilder.Redirect.INHERIT);
