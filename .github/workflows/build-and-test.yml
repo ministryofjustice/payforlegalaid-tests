@@ -17,6 +17,17 @@ jobs:
           distribution: 'corretto'
           java-version: '17'
 
+      - name: Checkout source code repo
+        uses: actions/checkout@v4
+        with:
+          repository: ministry-of-justice/payforlegalaid
+          path: sourceCode
+
+      - name: Build source code
+        run: |
+          cd sourceCode
+          mvn -B -DskipTests clean package
+
       - name: Run tests
         run: mvn -B clean test
         env:
