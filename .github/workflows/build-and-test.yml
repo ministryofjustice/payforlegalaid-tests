@@ -32,7 +32,6 @@ jobs:
 
       - name: Run tests
         run: |
-          cd ..
           cd testCode
           mvn -B clean test
         env:
