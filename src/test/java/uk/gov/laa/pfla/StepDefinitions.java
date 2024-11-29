@@ -36,6 +36,6 @@ public class StepDefinitions {
 
     @Then("it should return a 200 response")
     public void it_should_return_200() {
-        assertEquals(200, response.getStatusLine().getStatusCode());
+        assertEquals(200, response.getStatusLine().getStatusCode(), "Expected 200 OK response but received " + response.getStatusLine().getStatusCode());
     }
 }
