@@ -42,3 +42,6 @@ jobs:
         shell:
           bash
 
+      - name: Debug
+        run: mvn dependency:tree | grep slf4j
+
