@@ -16,7 +16,7 @@ public class ServiceManager {
 
     public static void stopService() {
         if (serviceProcess != null && serviceProcess.isAlive()) {
-            serviceProcess.destroy();
+            serviceProcess.destroyForcibly();
         }
     }
 
