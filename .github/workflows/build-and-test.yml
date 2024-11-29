@@ -36,8 +36,7 @@ jobs:
       - name: Run tests
         run: |
           cd testCode
-          mvn -B clean compile
-          mvn dependency:tree | grep slf4j
+          mvn -B clean test
         env:
           SPRING_PROFILES_ACTIVE: test
         shell:
