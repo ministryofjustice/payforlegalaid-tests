@@ -4,9 +4,10 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.apache.http.HttpResponse;
+import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
+import org.apache.http.impl.client.HttpClientBuilder;
 import uk.gov.laa.pfla.utils.ServiceUtils;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
@@ -23,9 +24,10 @@ public class StepDefinitions {
 
     @When("it calls the actuator endpoint")
     public void call_health_api() {
+        RequestConfig requestConfig = RequestConfig.custom().setConnectTimeout(30 * 1000).build(); // 30 seconds
 
         assertDoesNotThrow(() -> {
-                    try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
+                    try (CloseableHttpClient httpClient = HttpClientBuilder.create().setDefaultRequestConfig(requestConfig).build()) {
                         HttpGet request = new HttpGet(ServiceUtils.getUrl("actuator"));
                         response = httpClient.execute(request);
                     }
