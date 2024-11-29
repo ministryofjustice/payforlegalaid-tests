@@ -36,12 +36,14 @@ jobs:
       - name: Run tests
         run: |
           cd testCode
-          mvn -B clean install
+          mvn -B clean compile
         env:
           SPRING_PROFILES_ACTIVE: test
         shell:
           bash
 
       - name: Debug
-        run: mvn dependency:tree | grep slf4j
+        run: | 
+          cd testCode
+          mvn dependency:tree | grep slf4j
 
