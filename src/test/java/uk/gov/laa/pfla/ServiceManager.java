@@ -12,6 +12,11 @@ public class ServiceManager {
         processBuilder.redirectOutput(ProcessBuilder.Redirect.INHERIT);
         processBuilder.redirectError(ProcessBuilder.Redirect.INHERIT);
         serviceProcess = processBuilder.start();
+
+        // Attempt to stop the service running even if the JVM unexpectedly exits
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            serviceProcess.destroyForcibly();
+        }));
     }
 
     public static void stopService() {
