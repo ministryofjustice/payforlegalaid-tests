@@ -1,7 +1,11 @@
 package uk.gov.laa.pfla.utils;
 
+import io.restassured.response.Response;
+
 import java.io.IOException;
 import java.net.Socket;
+
+import static io.restassured.RestAssured.given;
 
 public final class ServiceUtils {
 
@@ -22,8 +26,8 @@ public final class ServiceUtils {
         throw new RuntimeException("Service did not start in time");
     }
 
-    public static String getUrl(String urlToAppend) {
-        return String.format("http://%s:%d/%s", serverName, payForLegalAidPort, urlToAppend);
+    public static Response makeGetCall(String endpoint) {
+        return given().baseUri(String.format("http://%s:%d/", serverName, payForLegalAidPort)).get(endpoint);
     }
 
 }
