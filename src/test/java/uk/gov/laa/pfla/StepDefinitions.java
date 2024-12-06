@@ -48,8 +48,8 @@ public class StepDefinitions {
     @Then("it should return a list of all the reports in the database")
     public void return_list_of_reports() {
 
-        List<Object> blah = response.jsonPath().getList("reportList");
-        assertFalse(blah.isEmpty(), "Expected report details to be returned");
+        List<Object> reportList = response.jsonPath().getList("reportList");
+        assertFalse(reportList.isEmpty(), "Expected report details to be returned");
     }
 
 
