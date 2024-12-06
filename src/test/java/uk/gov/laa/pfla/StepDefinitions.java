@@ -49,10 +49,18 @@ public class StepDefinitions {
 
     @Then("it should return a list of all the reports in the database")
     public void return_list_of_reports() {
-
         List<Object> reportList = response.jsonPath().getList("reportList");
         assertFalse(reportList.isEmpty(), "Expected report details to be returned");
     }
 
+    @When("it calls the get report endpoint with id {string}")
+    public void call_report_endpoint_for_given_id(String givenId){
+       response = makeGetCall("report", givenId);
+    }
+
+    @Then("it should return details for report with id {string}")
+    public void return_report_details(String givenId){
+        assertEquals(givenId, response.jsonPath().getString("id"));
+    }
 
 }

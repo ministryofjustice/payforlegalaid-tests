@@ -30,4 +30,8 @@ public final class ServiceUtils {
         return given().baseUri(String.format("http://%s:%d/", serverName, payForLegalAidPort)).get(endpoint);
     }
 
+    public static Response makeGetCall(String endpoint, String parameter) {
+        return makeGetCall(String.format("%s/%s", endpoint, parameter));
+    }
+
 }
