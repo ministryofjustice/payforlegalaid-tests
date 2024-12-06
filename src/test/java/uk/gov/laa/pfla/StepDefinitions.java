@@ -8,7 +8,9 @@ import uk.gov.laa.pfla.utils.ServiceUtils;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static uk.gov.laa.pfla.utils.ServiceUtils.makeGetCall;
 
 public class StepDefinitions {
