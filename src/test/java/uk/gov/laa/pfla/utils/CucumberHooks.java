@@ -12,7 +12,8 @@ public class CucumberHooks {
     // We can also use a Junit one if we need to, they behave slightly differently.
     @BeforeAll
     public static void setup() throws IOException {
-        ServiceManager.startService();
+        //TODO likely needs removing
+//        ServiceManager.startService();
     }
 
     @AfterAll

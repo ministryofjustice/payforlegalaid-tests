@@ -110,6 +110,30 @@
 
     </dependencies>
 
+    <profiles>
+        <profile>
+            <id>test</id>
+            <properties>
+                <cucumber.tags>@test</cucumber.tags>
+                <env.BASE_URL>http://localhost:8080/</env.BASE_URL>
+            </properties>
+        </profile>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <cucumber.tags>@dev</cucumber.tags>
+                <env.BASE_URL>https://laa-get-payments-finance-data-dev.apps.live.cloud-platform.service.justice.gov.uk/</env.BASE_URL>
+            </properties>
+        </profile>
+<!--        <profile>-->
+<!--            <id>uat</id>-->
+<!--            <properties>-->
+<!--                <env.BASE_URL>https://laa-get-payments-finance-data-uat.apps.live.cloud-platform.service.justice.gov.uk/</env.BASE_URL>-->
+<!--                <cucumber.tags>@uat</cucumber.tags>-->
+<!--            </properties>-->
+<!--        </profile>-->
+    </profiles>
+
     <build>
         <plugins>
             <plugin>
@@ -127,14 +151,15 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven-surefire-plugin.version}</version>
                 <configuration>
-                    <properties>
-                        <!-- Work around. Surefire does not include enough
-                             information to disambiguate between different
-                             examples and scenarios. -->
-                        <configurationParameters>
-                            cucumber.junit-platform.naming-strategy=long
-                        </configurationParameters>
-                    </properties>
+                    <systemPropertyVariables>
+                        <cucumber.filter.tags>${cucumber.tags}</cucumber.filter.tags>
+                    </systemPropertyVariables>
+                    <systemProperties>
+                        <property>
+                            <name>BASE_URL</name>
+                            <value>${env.BASE_URL}</value>
+                        </property>
+                    </systemProperties>
                 </configuration>
             </plugin>
             <plugin>
