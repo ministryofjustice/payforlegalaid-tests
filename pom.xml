@@ -22,6 +22,9 @@
         <lombok.version>1.18.30</lombok.version>
         <log4j-to-slf4j.version>2.20.0</log4j-to-slf4j.version>
         <rest-assured.version>5.5.0</rest-assured.version>
+        <jakarta.servlet-api.version>6.1.0</jakarta.servlet-api.version>
+        <azure-core.version>1.54.1</azure-core.version>
+        <h2.version>2.2.224</h2.version>
     </properties>
 
     <dependencyManagement>
@@ -75,12 +78,12 @@
             <scope>test</scope>
         </dependency>
 
-<!--        <dependency>-->
-<!--            <groupId>uk.gov.laa</groupId>-->
-<!--            <artifactId>pay-for-legal-aid</artifactId>-->
-<!--            <version>${pay-for-legal-aid.version}</version>-->
-<!--            <scope>local</scope>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>uk.gov.laa</groupId>
+            <artifactId>pay-for-legal-aid</artifactId>
+            <version>${pay-for-legal-aid.version}</version>
+            <scope>local</scope>
+        </dependency>
 
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -108,14 +111,35 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+            <version>${jakarta.servlet-api.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.azure</groupId>
+            <artifactId>azure-core</artifactId>
+            <version>${azure-core.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>${h2.version}</version> <!-- Use the correct version -->
+        </dependency>
+
     </dependencies>
 
     <profiles>
         <profile>
-            <id>test</id>
+            <id>local</id>
             <properties>
-                <cucumber.tags>@test</cucumber.tags>
+                <cucumber.tags>@local</cucumber.tags>
                 <env.BASE_URL>http://localhost:8080/</env.BASE_URL>
+                <env.SERVICE>local</env.SERVICE>
             </properties>
         </profile>
         <profile>
@@ -123,15 +147,16 @@
             <properties>
                 <cucumber.tags>@dev</cucumber.tags>
                 <env.BASE_URL>https://laa-get-payments-finance-data-dev.apps.live.cloud-platform.service.justice.gov.uk/</env.BASE_URL>
+                <env.SERVICE>dev</env.SERVICE>
             </properties>
         </profile>
-<!--        <profile>-->
-<!--            <id>uat</id>-->
-<!--            <properties>-->
-<!--                <env.BASE_URL>https://laa-get-payments-finance-data-uat.apps.live.cloud-platform.service.justice.gov.uk/</env.BASE_URL>-->
-<!--                <cucumber.tags>@uat</cucumber.tags>-->
-<!--            </properties>-->
-<!--        </profile>-->
+        <profile>
+            <id>uat</id>
+            <properties>
+                <env.BASE_URL>https://laa-get-payments-finance-data-uat.apps.live.cloud-platform.service.justice.gov.uk/</env.BASE_URL>
+                <cucumber.tags>@uat</cucumber.tags>
+            </properties>
+        </profile>
     </profiles>
 
     <build>
@@ -158,6 +183,10 @@
                         <property>
                             <name>BASE_URL</name>
                             <value>${env.BASE_URL}</value>
+                        </property>
+                        <property>
+                            <name>SERVICE</name>
+                            <value>${env.SERVICE}</value>
                         </property>
                     </systemProperties>
                 </configuration>

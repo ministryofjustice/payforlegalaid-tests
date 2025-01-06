@@ -1,7 +1,18 @@
-Feature: Get single report metadata
+Feature: Get Single Report
 
-#  Scenario: Should return report that exists
-#    Given the service is running and we are logged in
-#    When it calls the get report endpoint with id "1"
-#    Then it should return a 200 response
-#    Then it should return details for report with id "1"
+  Background:
+    Given the service is running
+    Given csv test data is setup in database
+
+  @local @dev @uat
+  Scenario: Should return report that exists
+    When "valid" cookie is provided for authentication
+    And it calls the get reports endpoint with id "c16eb360-6f61-4588-882e-a9528429e82e"
+    Then it should return a 200 response
+    Then it should return details for report with id "c16eb360-6f61-4588-882e-a9528429e82e"
+
+  @dev @uat
+  Scenario: Should redirect to login
+    When "invalid" cookie is provided for authentication
+    And it calls the get reports endpoint with id "c16eb360-6f61-4588-882e-a9528429e82e"
+    Then it should return a 302 response
