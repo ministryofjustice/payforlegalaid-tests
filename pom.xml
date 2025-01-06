@@ -75,13 +75,6 @@
             <scope>test</scope>
         </dependency>
 
-<!--        <dependency>-->
-<!--            <groupId>uk.gov.laa</groupId>-->
-<!--            <artifactId>pay-for-legal-aid</artifactId>-->
-<!--            <version>${pay-for-legal-aid.version}</version>-->
-<!--            <scope>local</scope>-->
-<!--        </dependency>-->
-
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -108,14 +101,21 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+            <version>6.1.0</version> <!-- Use the correct version -->
+        </dependency>
+
     </dependencies>
 
     <profiles>
         <profile>
-            <id>test</id>
+            <id>local</id>
             <properties>
-                <cucumber.tags>@test</cucumber.tags>
+                <cucumber.tags>@local</cucumber.tags>
                 <env.BASE_URL>http://localhost:8080/</env.BASE_URL>
+                <env.SERVICE>local</env.SERVICE>
             </properties>
         </profile>
         <profile>
@@ -123,15 +123,16 @@
             <properties>
                 <cucumber.tags>@dev</cucumber.tags>
                 <env.BASE_URL>https://laa-get-payments-finance-data-dev.apps.live.cloud-platform.service.justice.gov.uk/</env.BASE_URL>
+                <env.SERVICE>dev</env.SERVICE>
             </properties>
         </profile>
-<!--        <profile>-->
-<!--            <id>uat</id>-->
-<!--            <properties>-->
-<!--                <env.BASE_URL>https://laa-get-payments-finance-data-uat.apps.live.cloud-platform.service.justice.gov.uk/</env.BASE_URL>-->
-<!--                <cucumber.tags>@uat</cucumber.tags>-->
-<!--            </properties>-->
-<!--        </profile>-->
+        <profile>
+            <id>uat</id>
+            <properties>
+                <env.BASE_URL>https://laa-get-payments-finance-data-uat.apps.live.cloud-platform.service.justice.gov.uk/</env.BASE_URL>
+                <cucumber.tags>@uat</cucumber.tags>
+            </properties>
+        </profile>
     </profiles>
 
     <build>
@@ -158,6 +159,10 @@
                         <property>
                             <name>BASE_URL</name>
                             <value>${env.BASE_URL}</value>
+                        </property>
+                        <property>
+                            <name>SERVICE</name>
+                            <value>${env.SERVICE}</value>
                         </property>
                     </systemProperties>
                 </configuration>
