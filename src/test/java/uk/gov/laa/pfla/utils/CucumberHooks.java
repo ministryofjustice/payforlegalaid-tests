@@ -8,14 +8,6 @@ import java.io.IOException;
 
 public class CucumberHooks {
 
-    // This is a Cucucmber BeforeAll
-    // We can also use a Junit one if we need to, they behave slightly differently.
-    @BeforeAll
-    public static void setup() throws IOException {
-        //TODO likely needs removing
-//        ServiceManager.startService();
-    }
-
     @AfterAll
     public static void teardown() {
         ServiceManager.stopService();

@@ -13,75 +13,66 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static uk.gov.laa.pfla.utils.AzureAdAuthUtil.authenticateAndGetToken;
 import static uk.gov.laa.pfla.utils.ServiceUtils.makeGetCall;
-import static uk.gov.laa.pfla.utils.ServiceUtils.makeGetCallWithToken;
+import static uk.gov.laa.pfla.utils.ServiceUtils.makeGetCallWithAuth;
 
 public class StepDefinitions {
     private Response response;
-    private String token;
+    private String cookie;
 
     @Given("the local service is running")
-    public void the_local_service_is_running() throws IOException {
+    public void theLocalServiceIsRunning() throws IOException {
         ServiceManager.startService();
         assertDoesNotThrow(ServiceUtils::checkLocalServiceIsRunning);
     }
 
     @Given("the service is running")
-    public void the_service_is_running() {
+    public void theServiceIsRunning() {
         assertDoesNotThrow(ServiceUtils::checkServiceIsRunning);
     }
 
     @And("a user is logged in")
-    public void user_is_logged_in(){
-        token = authenticateAndGetToken();
+    public void userIsLoggedIn(){
+        cookie = "JSESSIONID=[Insert cookie value here]";
     }
 
     @When("it calls the actuator endpoint")
-    public void call_health_api() {
+    public void callHealthApi() {
         response = makeGetCall("actuator", System.getProperty("BASE_URL"));
     }
 
     @Then("it should return a 200 response")
-    public void it_should_return_200() {
+    public void itShouldReturn200() {
         assertEquals(200, response.getStatusCode(), "Expected 200 OK response but received " + response.getStatusCode());
     }
 
     @Then("it should return a 302 response")
-    public void it_should_return_302() {
+    public void itShouldReturn302() {
         assertEquals(302, response.getStatusCode(), "Expected 302 OK response but received " + response.getStatusCode());
     }
 
     @When("it calls the reports endpoint")
-    public void call_reports_endpoint() {
-        response = makeGetCall("reports", System.getProperty("BASE_URL"));
-    }
-
-    @When("it calls the reports endpoint with auth token")
-    public void call_reports_endpoint_with_token() {
-        response = makeGetCallWithToken("reports", System.getProperty("BASE_URL"), token);
-    }
-
-    @When("it calls the csv endpoint with auth token")
-    public void call_csv_endpoint_with_token() {
-        response = makeGetCallWithToken("csv/1", System.getProperty("BASE_URL"), token);
+    public void callReportsEndpoint() {
+        if (cookie != null) {
+            response = makeGetCallWithAuth("reports?continue", System.getProperty("BASE_URL"), cookie);
+        } else {
+            response = makeGetCall("reports", System.getProperty("BASE_URL"));
+        }
     }
 
     @Then("it should return a list of all the reports in the database")
-    public void return_list_of_reports() {
-        System.out.println("********************** " + response.jsonPath().getList("reportList"));
-
+    public void returnListOfReports() {
         List<Object> reportList = response.jsonPath().getList("reportList");
         assertFalse(reportList.isEmpty(), "Expected report details to be returned");
     }
 
     @When("it calls the get report endpoint with id {string}")
-    public void call_report_endpoint_for_given_id(String givenId){
-       response = makeGetCallWithToken("report", givenId, token);
+    public void callReportEndpointForGivenId(String givenId){
+       response = makeGetCall("report", givenId);
     }
 
     @Then("it should return details for report with id {string}")
-    public void return_report_details(String givenId){
+    public void returnReportDetails(String givenId){
         assertEquals(givenId, response.jsonPath().getString("id"));
     }
 

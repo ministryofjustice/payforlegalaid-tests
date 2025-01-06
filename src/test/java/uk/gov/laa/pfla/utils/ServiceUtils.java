@@ -37,17 +37,12 @@ public final class ServiceUtils {
                 .get(endpoint);
     }
 
-    public static Response makeGetCall(String endpoint, String parameter, String baseUrl, String token) {
-        if (token != null) {
+    public static Response makeGetCall(String endpoint, String parameter, String baseUrl) {
             return makeGetCall(String.format("%s/%s", endpoint, parameter), baseUrl);
-        } else {
-            return makeGetCallWithToken(String.format("%s/%s", endpoint, parameter), baseUrl,token);
-        }
     }
 
-    public static Response makeGetCallWithToken(String endpoint, String baseUrl, String token) {
-        System.out.println("TOKEN: " +token);
-        return given().baseUri(baseUrl).headers("Authorization", token).redirects().follow(false)
+    public static Response makeGetCallWithAuth(String endpoint, String baseUrl, String cookie) {
+        return given().baseUri(baseUrl).headers("cookie", cookie)
                 .get(endpoint);
     }
 
