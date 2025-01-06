@@ -75,12 +75,12 @@
             <scope>test</scope>
         </dependency>
 
-<!--        <dependency>-->
-<!--            <groupId>uk.gov.laa</groupId>-->
-<!--            <artifactId>pay-for-legal-aid</artifactId>-->
-<!--            <version>${pay-for-legal-aid.version}</version>-->
-<!--            <scope>local</scope>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>uk.gov.laa</groupId>
+            <artifactId>pay-for-legal-aid</artifactId>
+            <version>${pay-for-legal-aid.version}</version>
+            <scope>local</scope>
+        </dependency>
 
         <dependency>
             <groupId>org.projectlombok</groupId>
