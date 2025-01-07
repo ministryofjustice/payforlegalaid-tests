@@ -5,6 +5,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.response.Response;
+import jakarta.servlet.http.Cookie;
 import uk.gov.laa.pfla.utils.ServiceUtils;
 
 import java.io.IOException;
@@ -18,26 +19,29 @@ import static uk.gov.laa.pfla.utils.ServiceUtils.makeGetCallWithAuth;
 
 public class StepDefinitions {
     private Response response;
-    private String cookie;
-
-    @Given("the local service is running")
-    public void theLocalServiceIsRunning() throws IOException {
-        ServiceManager.startService();
-        assertDoesNotThrow(ServiceUtils::checkLocalServiceIsRunning);
-    }
+    private Cookie cookie;
 
     @Given("the service is running")
-    public void theServiceIsRunning() {
-        assertDoesNotThrow(ServiceUtils::checkServiceIsRunning);
+    public void theServiceIsRunning() throws IOException {
+        if (System.getProperty("SERVICE").equals("local")) {
+            ServiceManager.startService();
+            assertDoesNotThrow(ServiceUtils::checkLocalServiceIsRunning);
+        } else {
+            Response actuatorResponse = ServiceUtils.checkServiceIsRunning();
+            assertEquals(200, actuatorResponse.getStatusCode(), "Expected 200 OK response but received " + actuatorResponse.getStatusCode());
+        }
     }
 
-    @And("a user is logged in")
-    public void userIsLoggedIn(){
-        cookie = "JSESSIONID=[Insert cookie value here]";
+    @When("{string} cookie is provided for authentication")
+    public void populateCookie(String cookieType) {
+        if (System.getProperty("SERVICE").equals("dev") && cookieType.equals("valid")) {
+            cookie = new Cookie("JSESSIONID", "993FB3D72AA2FEE19CCA7A039E7CBAF7");
+            cookie.setMaxAge(Integer.MAX_VALUE);
+        }
     }
 
     @When("it calls the actuator endpoint")
-    public void callHealthApi() {
+    public void callActuatorApi() {
         response = makeGetCall("actuator", System.getProperty("BASE_URL"));
     }
 
@@ -51,7 +55,7 @@ public class StepDefinitions {
         assertEquals(302, response.getStatusCode(), "Expected 302 OK response but received " + response.getStatusCode());
     }
 
-    @When("it calls the reports endpoint")
+    @And("it calls the reports endpoint")
     public void callReportsEndpoint() {
         if (cookie != null) {
             response = makeGetCallWithAuth("reports?continue", System.getProperty("BASE_URL"), cookie);
@@ -66,14 +70,13 @@ public class StepDefinitions {
         assertFalse(reportList.isEmpty(), "Expected report details to be returned");
     }
 
-    @When("it calls the get report endpoint with id {string}")
-    public void callReportEndpointForGivenId(String givenId){
-       response = makeGetCall("report", givenId);
+    @And("it calls the get reports endpoint with id {string}")
+    public void callReportEndpointForGivenId(String givenId) {
+        response = makeGetCall("reports/" + givenId, System.getProperty("BASE_URL"));
     }
 
     @Then("it should return details for report with id {string}")
-    public void returnReportDetails(String givenId){
+    public void returnReportDetails(String givenId) {
         assertEquals(givenId, response.jsonPath().getString("id"));
     }
-
 }

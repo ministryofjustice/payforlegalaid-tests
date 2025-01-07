@@ -112,10 +112,11 @@
 
     <profiles>
         <profile>
-            <id>test</id>
+            <id>local</id>
             <properties>
-                <cucumber.tags>@test</cucumber.tags>
+                <cucumber.tags>@local</cucumber.tags>
                 <env.BASE_URL>http://localhost:8080/</env.BASE_URL>
+                <env.SERVICE>local</env.SERVICE>
             </properties>
         </profile>
         <profile>
@@ -123,6 +124,7 @@
             <properties>
                 <cucumber.tags>@dev</cucumber.tags>
                 <env.BASE_URL>https://laa-get-payments-finance-data-dev.apps.live.cloud-platform.service.justice.gov.uk/</env.BASE_URL>
+                <env.SERVICE>dev</env.SERVICE>
             </properties>
         </profile>
 <!--        <profile>-->
@@ -158,6 +160,10 @@
                         <property>
                             <name>BASE_URL</name>
                             <value>${env.BASE_URL}</value>
+                        </property>
+                        <property>
+                            <name>SERVICE</name>
+                            <value>${env.SERVICE}</value>
                         </property>
                     </systemProperties>
                 </configuration>

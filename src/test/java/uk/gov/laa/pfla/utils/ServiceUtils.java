@@ -1,6 +1,7 @@
 package uk.gov.laa.pfla.utils;
 
 import io.restassured.response.Response;
+import jakarta.servlet.http.Cookie;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -26,10 +27,8 @@ public final class ServiceUtils {
         throw new RuntimeException("Service did not start in time");
     }
 
-    public static void checkServiceIsRunning() {
-        //TODO not fit for purpose as 200 interferes with /reports response
-//        Response response = makeGetCall("health", System.getProperty("BASE_URL"));
-//        assertEquals(200, response.getStatusCode(), "Expected 200 OK response but received " + response.getStatusCode());
+    public static Response checkServiceIsRunning() {
+        return makeGetCall("actuator", System.getProperty("BASE_URL"));
     }
 
     public static Response makeGetCall(String endpoint, String baseUrl) {
@@ -41,8 +40,8 @@ public final class ServiceUtils {
             return makeGetCall(String.format("%s/%s", endpoint, parameter), baseUrl);
     }
 
-    public static Response makeGetCallWithAuth(String endpoint, String baseUrl, String cookie) {
-        return given().baseUri(baseUrl).headers("cookie", cookie)
+    public static Response makeGetCallWithAuth(String endpoint, String baseUrl, Cookie cookie) {
+        return given().baseUri(baseUrl).redirects().follow(false).headers("cookie", cookie.getName() + "=" + cookie.getValue())
                 .get(endpoint);
     }
 
