@@ -35,12 +35,12 @@ public final class ServiceUtils {
         return given().baseUri(baseUrl).redirects().follow(false)
                 .get(endpoint);
     }
+//
+//    public static Response makeGetCall(String endpoint, String parameter, String baseUrl) {
+//            return makeGetCall(String.format("%s/%s", endpoint, parameter), baseUrl);
+//    }
 
-    public static Response makeGetCall(String endpoint, String parameter, String baseUrl) {
-            return makeGetCall(String.format("%s/%s", endpoint, parameter), baseUrl);
-    }
-
-    public static Response makeGetCallWithAuth(String endpoint, String baseUrl, Cookie cookie) {
+    public static Response makeGetCall(String endpoint, String baseUrl, Cookie cookie) {
         return given().baseUri(baseUrl).redirects().follow(false).headers("cookie", cookie.getName() + "=" + cookie.getValue())
                 .get(endpoint);
     }

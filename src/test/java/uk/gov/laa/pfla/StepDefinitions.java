@@ -15,7 +15,6 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static uk.gov.laa.pfla.utils.ServiceUtils.makeGetCall;
-import static uk.gov.laa.pfla.utils.ServiceUtils.makeGetCallWithAuth;
 
 public class StepDefinitions {
     private Response response;
@@ -58,7 +57,7 @@ public class StepDefinitions {
     @And("it calls the reports endpoint")
     public void callReportsEndpoint() {
         if (cookie != null) {
-            response = makeGetCallWithAuth("reports?continue", System.getProperty("BASE_URL"), cookie);
+            response = makeGetCall("reports?continue", System.getProperty("BASE_URL"));
         } else {
             response = makeGetCall("reports", System.getProperty("BASE_URL"));
         }
@@ -72,7 +71,11 @@ public class StepDefinitions {
 
     @And("it calls the get reports endpoint with id {string}")
     public void callReportEndpointForGivenId(String givenId) {
-        response = makeGetCall("reports/" + givenId, System.getProperty("BASE_URL"));
+        if (cookie != null) {
+            response = makeGetCall("reports/" + givenId, System.getProperty("BASE_URL"), cookie);
+        } else {
+            response = makeGetCall("reports/" + givenId, System.getProperty("BASE_URL"));
+        }
     }
 
     @Then("it should return details for report with id {string}")
