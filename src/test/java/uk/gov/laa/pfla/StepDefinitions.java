@@ -34,9 +34,9 @@ public class StepDefinitions {
 
     @When("{string} cookie is provided for authentication")
     public void populateCookie(String cookieType) {
+        //TODO This is not a permanent solution but allows us to update the cookie without changing the code for now!
         if (System.getProperty("SERVICE").equals("dev") && cookieType.equals("valid")) {
-            cookie = new Cookie("JSESSIONID", "993FB3D72AA2FEE19CCA7A039E7CBAF7");
-            cookie.setMaxAge(Integer.MAX_VALUE);
+            cookie = new Cookie("JSESSIONID", System.getProperty("cookie"));
         }
     }
 
