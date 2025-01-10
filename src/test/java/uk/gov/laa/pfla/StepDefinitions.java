@@ -1,5 +1,6 @@
 package uk.gov.laa.pfla;
 
+import com.azure.core.http.ContentType;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -14,6 +15,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static uk.gov.laa.pfla.utils.ServiceUtils.makeGetCall;
 import static uk.gov.laa.pfla.utils.ServiceUtils.makeGetCallWithAuth;
 
@@ -79,4 +81,22 @@ public class StepDefinitions {
     public void returnReportDetails(String givenId) {
         assertEquals(givenId, response.jsonPath().getString("id"));
     }
+
+    @And("it calls the get csv endpoint")
+    public void callCsvEndpoint() {
+        if (cookie != null) {
+            response = makeGetCallWithAuth("csv/1?continue", System.getProperty("BASE_URL"), cookie);
+        } else {
+            response = makeGetCall("csv/1", System.getProperty("BASE_URL"));
+        }
+    }
+
+    @Then("it should return the csv file")
+    public void returnCsvFile() {
+        assertEquals(ContentType.APPLICATION_OCTET_STREAM, response.contentType());
+        assertTrue(response.getHeader("Content-Disposition").contains("attachment"));
+        assertTrue(response.getHeader("Content-Disposition").contains(".csv"));
+        assertFalse(response.getBody().asString().isEmpty());
+    }
+
 }
