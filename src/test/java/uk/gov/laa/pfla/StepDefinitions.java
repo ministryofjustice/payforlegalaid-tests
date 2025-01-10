@@ -15,11 +15,10 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static uk.gov.laa.pfla.utils.ServiceUtils.makeGetCall;
-import static uk.gov.laa.pfla.utils.ServiceUtils.makeGetCallWithAuth;
 
 public class StepDefinitions {
     private Response response;
-    private Cookie cookie;
+    private Cookie cookie = new Cookie("JSESSIONID", "");
 
     @Given("the service is running")
     public void theServiceIsRunning() throws IOException {
@@ -36,7 +35,7 @@ public class StepDefinitions {
     public void populateCookie(String cookieType) {
         //TODO This is not a permanent solution but allows us to update the cookie without changing the code for now!
         if (System.getProperty("SERVICE").equals("dev") && cookieType.equals("valid")) {
-            cookie = new Cookie("JSESSIONID", System.getProperty("cookie"));
+            cookie.setValue(System.getProperty("cookie"));
         }
     }
 
@@ -57,11 +56,7 @@ public class StepDefinitions {
 
     @And("it calls the reports endpoint")
     public void callReportsEndpoint() {
-        if (cookie != null) {
-            response = makeGetCallWithAuth("reports?continue", System.getProperty("BASE_URL"), cookie);
-        } else {
-            response = makeGetCall("reports", System.getProperty("BASE_URL"));
-        }
+        response = makeGetCall("reports", System.getProperty("BASE_URL"), cookie);
     }
 
     @Then("it should return a list of all the reports in the database")
