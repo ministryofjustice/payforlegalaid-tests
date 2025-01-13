@@ -47,7 +47,7 @@ jobs:
           bash
 
       - name: Kill External Java Service
-        run: ps
+        run: ps aux
 
 
 
