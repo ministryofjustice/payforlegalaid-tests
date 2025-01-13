@@ -6,26 +6,26 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.response.Response;
 import jakarta.servlet.http.Cookie;
-import uk.gov.laa.pfla.utils.ServiceUtils;
 
 import java.io.IOException;
+import java.net.Socket;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static uk.gov.laa.pfla.utils.ServiceUtils.makeGetCall;
+import static io.restassured.RestAssured.given;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class StepDefinitions {
     private Response response;
     private Cookie cookie;
+    public static final int payForLegalAidPort = 8080;
+    public static final String serverName = "localhost";
 
     @Given("the service is running")
-    public void theServiceIsRunning() throws IOException {
+    public void theServiceIsRunning() throws IOException, InterruptedException {
         if (System.getProperty("SERVICE").equals("local")) {
-            assertDoesNotThrow(ServiceUtils::checkLocalServiceIsRunning);
+            assertTrue(isLocalServiceIsRunning());
         } else {
-            Response actuatorResponse = ServiceUtils.checkServiceIsRunning();
+            Response actuatorResponse = checkServiceIsRunning();
             assertEquals(200, actuatorResponse.getStatusCode(), "Expected 200 OK response but received " + actuatorResponse.getStatusCode());
         }
     }
@@ -73,4 +73,33 @@ public class StepDefinitions {
     public void returnReportDetails(String givenId) {
         assertEquals(givenId, response.jsonPath().getString("id"));
     }
+
+    private boolean isLocalServiceIsRunning() throws InterruptedException {
+        int timeout = 30; // Seconds
+        while (timeout > 0) {
+            try (Socket socket = new Socket(serverName, payForLegalAidPort)) {
+                //Service is ready to be called
+                return true;
+            } catch (IOException e) {
+                Thread.sleep(1000);
+                timeout--;
+            }
+        }
+        return false;
+    }
+
+    private Response checkServiceIsRunning() {
+        return makeGetCall("actuator", System.getProperty("BASE_URL"));
+    }
+
+    private Response makeGetCall(String endpoint, String baseUrl) {
+        return given().baseUri(baseUrl).redirects().follow(false)
+                .get(endpoint);
+    }
+
+    private Response makeGetCall(String endpoint, String baseUrl, Cookie cookie) {
+        return given().baseUri(baseUrl).redirects().follow(false).headers("cookie", cookie.getName() + "=" + cookie.getValue())
+                .get(endpoint);
+    }
+
 }
