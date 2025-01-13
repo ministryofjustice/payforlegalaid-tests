@@ -48,7 +48,7 @@ jobs:
 
       - name: Kill External Java Service
         run: |
-          pkill -f "mvn spring-boot:run -Dspring-boot.run.profiles=local &"  # Kill the service process
+          pkill -f "mvn spring-boot:run -Dspring-boot.run.profiles=local"  # Kill the service process
 
 
 
