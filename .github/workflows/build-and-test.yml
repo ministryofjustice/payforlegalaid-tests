@@ -38,7 +38,3 @@ jobs:
 
         shell:
           bash
-
-      - name: Check running services
-        run: ps aux
-
