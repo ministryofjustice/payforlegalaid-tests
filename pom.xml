@@ -127,13 +127,13 @@
                 <env.SERVICE>dev</env.SERVICE>
             </properties>
         </profile>
-<!--        <profile>-->
-<!--            <id>uat</id>-->
-<!--            <properties>-->
-<!--                <env.BASE_URL>https://laa-get-payments-finance-data-uat.apps.live.cloud-platform.service.justice.gov.uk/</env.BASE_URL>-->
-<!--                <cucumber.tags>@uat</cucumber.tags>-->
-<!--            </properties>-->
-<!--        </profile>-->
+        <profile>
+            <id>uat</id>
+            <properties>
+                <env.BASE_URL>https://laa-get-payments-finance-data-uat.apps.live.cloud-platform.service.justice.gov.uk/</env.BASE_URL>
+                <cucumber.tags>@uat</cucumber.tags>
+            </properties>
+        </profile>
     </profiles>
 
     <build>

@@ -18,7 +18,7 @@ import static uk.gov.laa.pfla.utils.ServiceUtils.makeGetCall;
 
 public class StepDefinitions {
     private Response response;
-    private Cookie cookie = new Cookie("JSESSIONID", "");
+    private Cookie cookie;
 
     @Given("the service is running")
     public void theServiceIsRunning() throws IOException {
@@ -33,10 +33,10 @@ public class StepDefinitions {
 
     @When("{string} cookie is provided for authentication")
     public void populateCookie(String cookieType) {
+        cookie = new Cookie("JSESSIONID", "");
         //TODO This is not a permanent solution but allows us to update the cookie without changing the code for now!
-        if (System.getProperty("SERVICE").equals("dev") && cookieType.equals("valid")) {
+        if (cookieType.equals("valid"))
             cookie.setValue(System.getProperty("cookie"));
-        }
     }
 
     @When("it calls the actuator endpoint")
