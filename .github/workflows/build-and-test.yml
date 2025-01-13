@@ -41,6 +41,7 @@ jobs:
         run: |
           cd testCode
           mvn -B clean install -Plocal
+          ps aux
 #        env:
 #          SPRING_PROFILES_ACTIVE: test
         shell:
