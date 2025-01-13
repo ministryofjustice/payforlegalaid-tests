@@ -23,7 +23,6 @@ public class StepDefinitions {
     @Given("the service is running")
     public void theServiceIsRunning() throws IOException {
         if (System.getProperty("SERVICE").equals("local")) {
-            ServiceManager.startService();
             assertDoesNotThrow(ServiceUtils::checkLocalServiceIsRunning);
         } else {
             Response actuatorResponse = ServiceUtils.checkServiceIsRunning();

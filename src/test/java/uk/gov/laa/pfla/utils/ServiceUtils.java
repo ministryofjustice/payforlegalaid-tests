@@ -14,7 +14,7 @@ public final class ServiceUtils {
     public static final String serverName = "localhost";
 
     public static void checkLocalServiceIsRunning() throws InterruptedException {
-        int timeout = 5; // Seconds
+        int timeout = 30; // Seconds
         while (timeout > 0) {
             try (Socket socket = new Socket(serverName, payForLegalAidPort)) {
                 //Service is ready to be called
