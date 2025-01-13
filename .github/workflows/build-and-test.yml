@@ -29,16 +29,20 @@ jobs:
         run: |
           cd sourceCode
           mvn -B -DskipTests clean package
-
-      - name: Add source code jar to local maven repository
-        run: mvn install:install-file -Dfile=sourceCode/target/pay-for-legal-aid-0.0.1-SNAPSHOT.jar -DgroupId=uk.gov.laa -DartifactId=pay-for-legal-aid -Dversion=0.0.1-SNAPSHOT -Dpackaging=jar
+          java -jar -Dspring.profiles.active=local target/pay-for-legal-aid-0.0.1-SNAPSHOT.jar
+#
+#      - name: Add source code jar to local maven repository
+#        run: mvn install:install-file -Dfile=sourceCode/target/pay-for-legal-aid-0.0.1-SNAPSHOT.jar -DgroupId=uk.gov.laa -DartifactId=pay-for-legal-aid -Dversion=0.0.1-SNAPSHOT -Dpackaging=jar
+#
+#      - name: run source code jar
+#        run: mvn install:install-file -Dfile=sourceCode/target/pay-for-legal-aid-0.0.1-SNAPSHOT.jar -DgroupId=uk.gov.laa -DartifactId=pay-for-legal-aid -Dversion=0.0.1-SNAPSHOT -Dpackaging=jar
 
       - name: Run tests
         run: |
           cd testCode
           mvn -B clean install -Plocal
-        env:
-          SPRING_PROFILES_ACTIVE: test
+#        env:
+#          SPRING_PROFILES_ACTIVE: test
         shell:
           bash
 
