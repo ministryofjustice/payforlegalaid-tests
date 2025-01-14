@@ -76,13 +76,6 @@
         </dependency>
 
         <dependency>
-            <groupId>uk.gov.laa</groupId>
-            <artifactId>pay-for-legal-aid</artifactId>
-            <version>${pay-for-legal-aid.version}</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
@@ -108,7 +101,39 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+            <version>6.1.0</version> <!-- Use the correct version -->
+        </dependency>
+
     </dependencies>
+
+    <profiles>
+        <profile>
+            <id>local</id>
+            <properties>
+                <cucumber.tags>@local</cucumber.tags>
+                <env.BASE_URL>http://localhost:8080/</env.BASE_URL>
+                <env.SERVICE>local</env.SERVICE>
+            </properties>
+        </profile>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <cucumber.tags>@dev</cucumber.tags>
+                <env.BASE_URL>https://laa-get-payments-finance-data-dev.apps.live.cloud-platform.service.justice.gov.uk/</env.BASE_URL>
+                <env.SERVICE>dev</env.SERVICE>
+            </properties>
+        </profile>
+        <profile>
+            <id>uat</id>
+            <properties>
+                <env.BASE_URL>https://laa-get-payments-finance-data-uat.apps.live.cloud-platform.service.justice.gov.uk/</env.BASE_URL>
+                <cucumber.tags>@uat</cucumber.tags>
+            </properties>
+        </profile>
+    </profiles>
 
     <build>
         <plugins>
@@ -127,14 +152,19 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven-surefire-plugin.version}</version>
                 <configuration>
-                    <properties>
-                        <!-- Work around. Surefire does not include enough
-                             information to disambiguate between different
-                             examples and scenarios. -->
-                        <configurationParameters>
-                            cucumber.junit-platform.naming-strategy=long
-                        </configurationParameters>
-                    </properties>
+                    <systemPropertyVariables>
+                        <cucumber.filter.tags>${cucumber.tags}</cucumber.filter.tags>
+                    </systemPropertyVariables>
+                    <systemProperties>
+                        <property>
+                            <name>BASE_URL</name>
+                            <value>${env.BASE_URL}</value>
+                        </property>
+                        <property>
+                            <name>SERVICE</name>
+                            <value>${env.SERVICE}</value>
+                        </property>
+                    </systemProperties>
                 </configuration>
             </plugin>
             <plugin>
