@@ -1,6 +1,6 @@
 Feature: Call Actuator Endpoint
 
-  @local @dev
+  @local @dev @uat
   Scenario: Return 200 response
     Given the service is running
     When it calls the actuator endpoint
