@@ -21,7 +21,7 @@ public class StepDefinitions {
     public static final String serverName = "localhost";
 
     @Given("the service is running")
-    public void theServiceIsRunning() throws IOException, InterruptedException {
+    public void theServiceIsRunning() throws InterruptedException {
         if (System.getProperty("SERVICE").equals("local")) {
             assertTrue(isLocalServiceIsRunning());
         } else {
@@ -66,7 +66,7 @@ public class StepDefinitions {
 
     @And("it calls the get reports endpoint with id {string}")
     public void callReportEndpointForGivenId(String givenId) {
-        response = makeGetCall("reports/" + givenId, System.getProperty("BASE_URL"));
+        response = makeGetCall("reports/" + givenId, System.getProperty("BASE_URL"), cookie);
     }
 
     @Then("it should return details for report with id {string}")
