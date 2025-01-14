@@ -6,7 +6,7 @@ This repository contains acceptance tests for the [Get Payments and Finance Data
 
 # How to run the tests against your local system
 1. Checkout the [Get Payments and Finance Data repository](https://github.com/ministryofjustice/payforlegalaid)
-2. For that repository, run `mvn clean install`
+2. For that repository, run `mvn clean install` followed by `java -jar -Dspring.profiles.active=local target/pay-for-legal-aid-0.0.1-SNAPSHOT.jar`
 3. Checkout this repository
 4. For this repository, run `mvn clean test -Plocal`
 

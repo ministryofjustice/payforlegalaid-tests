@@ -76,13 +76,6 @@
         </dependency>
 
         <dependency>
-            <groupId>uk.gov.laa</groupId>
-            <artifactId>pay-for-legal-aid</artifactId>
-            <version>${pay-for-legal-aid.version}</version>
-            <scope>local</scope>
-        </dependency>
-
-        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
@@ -108,6 +101,12 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+            <version>6.1.0</version> <!-- Use the correct version -->
+        </dependency>
+
     </dependencies>
 
     <profiles>
@@ -127,13 +126,13 @@
                 <env.SERVICE>dev</env.SERVICE>
             </properties>
         </profile>
-<!--        <profile>-->
-<!--            <id>uat</id>-->
-<!--            <properties>-->
-<!--                <env.BASE_URL>https://laa-get-payments-finance-data-uat.apps.live.cloud-platform.service.justice.gov.uk/</env.BASE_URL>-->
-<!--                <cucumber.tags>@uat</cucumber.tags>-->
-<!--            </properties>-->
-<!--        </profile>-->
+        <profile>
+            <id>uat</id>
+            <properties>
+                <env.BASE_URL>https://laa-get-payments-finance-data-uat.apps.live.cloud-platform.service.justice.gov.uk/</env.BASE_URL>
+                <cucumber.tags>@uat</cucumber.tags>
+            </properties>
+        </profile>
     </profiles>
 
     <build>
