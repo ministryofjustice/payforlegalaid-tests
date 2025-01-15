@@ -87,9 +87,6 @@ public class StepDefinitions {
     @Given("csv test data is setup in database")
     public void addLocalTestDataForCsvReport() {
 
-        out.println("CCCCCC In CSV etest data setup");
-
-
         JdbcDataSource dataSource = new JdbcDataSource();
         dataSource.setURL("jdbc:h2:file:~/localGpfdDb;MODE=Oracle");
         dataSource.setUser("sa");
@@ -109,9 +106,9 @@ public class StepDefinitions {
 
     }
 
-    @And("it calls the get csv endpoint")
-    public void callCsvEndpoint() {
-        response = makeGetCall("csv/c16eb360-6f61-4588-882e-a9528429e82e", System.getProperty("BASE_URL"), cookie);
+    @And("it calls the get csv endpoint with id {string}")
+    public void callCsvEndpoint(String givenId) {
+        response = makeGetCall("csv/" + givenId, System.getProperty("BASE_URL"), cookie);
     }
 
     @Then("it should return the csv file")
