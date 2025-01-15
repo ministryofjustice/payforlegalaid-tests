@@ -1,0 +1,2 @@
+MERGE INTO GPFD.CSV_TO_SQL_MAPPING_TABLE(ID,REPORT_NAME,SQL_QUERY,BASE_URL,REPORT_OWNER,REPORT_CREATOR,REPORT_DESCRIPTION,EXCEL_REPORT,EXCEL_SHEET_NUM,CSV_NAME,OWNER_EMAIL)
+VALUES ('c16eb360-6f61-4588-882e-a9528429e82e','acceptance_test_table','SELECT * FROM ANY_REPORT.ACC_TEST_SUMMARY',' https://justiceuk.sharepoint.com/:x:/r/sites/FinanceSysReference/Shared%20Documents/General/Monthly%20Accounts/Sharepoint%20base%20reports/test','Chancey Mctavish','Sophia Patel','Summary of some data for the test','Test_data',1,'Test_Analysis','owneremail@email.com');

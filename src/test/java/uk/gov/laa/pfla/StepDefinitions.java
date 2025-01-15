@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Objects;
 
 import static io.restassured.RestAssured.given;
+import static java.lang.System.out;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -86,6 +87,9 @@ public class StepDefinitions {
     @Given("csv test data is setup in database")
     public void addLocalTestDataForCsvReport() {
 
+        out.println("CCCCCC In CSV etest data setup");
+
+
         JdbcDataSource dataSource = new JdbcDataSource();
         dataSource.setURL("jdbc:h2:file:~/localGpfdDb;MODE=Oracle");
         dataSource.setUser("sa");
@@ -94,9 +98,11 @@ public class StepDefinitions {
         try (Connection connection = dataSource.getConnection();
              InputStreamReader schema = new InputStreamReader(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("any_report_schema.sql")));
              InputStreamReader data = new InputStreamReader(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("any_report_data.sql")));
+             InputStreamReader gpfd = new InputStreamReader(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("gpfd_test_data.sql")));
         ) {
             RunScript.execute(connection, schema);
             RunScript.execute(connection, data);
+            RunScript.execute(connection, gpfd);
         } catch (SQLException | IOException e) {
             throw new RuntimeException("Exception while setting up database: " + e.getMessage(), e);
         }
@@ -105,7 +111,7 @@ public class StepDefinitions {
 
     @And("it calls the get csv endpoint")
     public void callCsvEndpoint() {
-        response = makeGetCall("csv/1", System.getProperty("BASE_URL"), cookie);
+        response = makeGetCall("csv/c16eb360-6f61-4588-882e-a9528429e82e", System.getProperty("BASE_URL"), cookie);
     }
 
     @Then("it should return the csv file")
