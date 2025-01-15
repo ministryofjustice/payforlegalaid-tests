@@ -19,7 +19,6 @@ import java.util.List;
 import java.util.Objects;
 
 import static io.restassured.RestAssured.given;
-import static java.lang.System.out;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -86,22 +85,24 @@ public class StepDefinitions {
 
     @Given("csv test data is setup in database")
     public void addLocalTestDataForCsvReport() {
+        if (System.getProperty("SERVICE").equals("local")) {
 
-        JdbcDataSource dataSource = new JdbcDataSource();
-        dataSource.setURL("jdbc:h2:file:~/localGpfdDb;MODE=Oracle");
-        dataSource.setUser("sa");
-        dataSource.setPassword("");
+            JdbcDataSource dataSource = new JdbcDataSource();
+            dataSource.setURL("jdbc:h2:file:~/localGpfdDb;MODE=Oracle");
+            dataSource.setUser("sa");
+            dataSource.setPassword("");
 
-        try (Connection connection = dataSource.getConnection();
-             InputStreamReader schema = new InputStreamReader(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("any_report_schema.sql")));
-             InputStreamReader data = new InputStreamReader(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("any_report_data.sql")));
-             InputStreamReader gpfd = new InputStreamReader(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("gpfd_test_data.sql")));
-        ) {
-            RunScript.execute(connection, schema);
-            RunScript.execute(connection, data);
-            RunScript.execute(connection, gpfd);
-        } catch (SQLException | IOException e) {
-            throw new RuntimeException("Exception while setting up database: " + e.getMessage(), e);
+            try (Connection connection = dataSource.getConnection();
+                 InputStreamReader schema = new InputStreamReader(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("any_report_schema.sql")));
+                 InputStreamReader data = new InputStreamReader(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("any_report_data.sql")));
+                 InputStreamReader gpfd = new InputStreamReader(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("gpfd_test_data.sql")));
+            ) {
+                RunScript.execute(connection, schema);
+                RunScript.execute(connection, data);
+                RunScript.execute(connection, gpfd);
+            } catch (SQLException | IOException e) {
+                throw new RuntimeException("Exception while setting up database: " + e.getMessage(), e);
+            }
         }
 
     }
