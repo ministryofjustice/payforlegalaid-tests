@@ -1,5 +1,6 @@
 package uk.gov.laa.pfla;
 
+import org.json.JSONObject;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -53,6 +54,11 @@ public class StepDefinitions {
         assertEquals(302, response.getStatusCode(), "Expected 302 OK response but received " + response.getStatusCode());
     }
 
+    @Then("it should return a 404 response")
+    public void itShouldReturn404() {
+        assertEquals(404, response.getStatusCode(), "Expected 404 OK response but received " + response.getStatusCode());
+    }
+
     @And("it calls the reports endpoint")
     public void callReportsEndpoint() {
         response = makeGetCall("reports", System.getProperty("BASE_URL"), cookie);
@@ -62,6 +68,12 @@ public class StepDefinitions {
     public void returnListOfReports() {
         List<Object> reportList = response.jsonPath().getList("reportList");
         assertFalse(reportList.isEmpty(), "Expected report details to be returned");
+    }
+
+    @Then("it should return error message {string}")
+    public void returnErrorMessage(String errorMessage) throws Exception {
+        JSONObject json = new JSONObject(response.getBody().asString());
+        assertTrue(json.getString("error").contentEquals(errorMessage));
     }
 
     @And("it calls the get reports endpoint with id {string}")
