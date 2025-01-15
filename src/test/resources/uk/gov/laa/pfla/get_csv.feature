@@ -5,6 +5,7 @@ Feature: Get CSV report
 
   @local @dev
   Scenario: Should create and return the CSV report
+    Given csv test data is setup in database
     When "valid" cookie is provided for authentication
     And it calls the get csv endpoint
     Then it should return a 200 response

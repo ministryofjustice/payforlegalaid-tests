@@ -22,6 +22,9 @@
         <lombok.version>1.18.30</lombok.version>
         <log4j-to-slf4j.version>2.20.0</log4j-to-slf4j.version>
         <rest-assured.version>5.5.0</rest-assured.version>
+        <jakarta.servlet-api.version>6.1.0</jakarta.servlet-api.version>
+        <azure-core.version>1.54.1</azure-core.version>
+        <h2.version>2.2.224</h2.version>
     </properties>
 
     <dependencyManagement>
@@ -104,7 +107,21 @@
         <dependency>
             <groupId>jakarta.servlet</groupId>
             <artifactId>jakarta.servlet-api</artifactId>
-            <version>6.1.0</version>
+            <version>${jakarta.servlet-api.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.azure</groupId>
+            <artifactId>azure-core</artifactId>
+            <version>${azure-core.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>${h2.version}</version>
         </dependency>
 
     </dependencies>

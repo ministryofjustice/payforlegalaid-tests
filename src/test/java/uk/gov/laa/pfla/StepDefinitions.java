@@ -7,13 +7,21 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.response.Response;
 import jakarta.servlet.http.Cookie;
+import org.h2.jdbcx.JdbcDataSource;
+import org.h2.tools.RunScript;
 
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.Socket;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.Objects;
 
 import static io.restassured.RestAssured.given;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class StepDefinitions {
     private Response response;
@@ -75,13 +83,29 @@ public class StepDefinitions {
         assertEquals(givenId, response.jsonPath().getString("id"));
     }
 
+    @Given("csv test data is setup in database")
+    public void addLocalTestDataForCsvReport() {
+
+        JdbcDataSource dataSource = new JdbcDataSource();
+        dataSource.setURL("jdbc:h2:file:~/localGpfdDb;MODE=Oracle");
+        dataSource.setUser("sa");
+        dataSource.setPassword("");
+
+        try (Connection connection = dataSource.getConnection();
+             InputStreamReader schema = new InputStreamReader(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("any_report_schema.sql")));
+             InputStreamReader data = new InputStreamReader(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("any_report_data.sql")));
+        ) {
+            RunScript.execute(connection, schema);
+            RunScript.execute(connection, data);
+        } catch (SQLException | IOException e) {
+            throw new RuntimeException("Exception while setting up database: " + e.getMessage(), e);
+        }
+
+    }
+
     @And("it calls the get csv endpoint")
     public void callCsvEndpoint() {
-        if (cookie != null) {
-            response = makeGetCallWithAuth("csv/1?continue", System.getProperty("BASE_URL"), cookie);
-        } else {
-            response = makeGetCall("csv/1", System.getProperty("BASE_URL"));
-        }
+        response = makeGetCall("csv/1", System.getProperty("BASE_URL"), cookie);
     }
 
     @Then("it should return the csv file")
@@ -119,5 +143,6 @@ public class StepDefinitions {
         return given().baseUri(baseUrl).redirects().follow(false).headers("cookie", cookie.getName() + "=" + cookie.getValue())
                 .get(endpoint);
     }
+
 
 }
