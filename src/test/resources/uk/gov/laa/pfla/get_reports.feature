@@ -1,4 +1,4 @@
-Feature: List All Available Reports2
+Feature: List All Available Reports
 
   Background:
     Given the service is running
