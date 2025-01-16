@@ -6,10 +6,17 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.response.Response;
 import jakarta.servlet.http.Cookie;
+import org.apache.http.entity.ContentType;
+import org.h2.jdbcx.JdbcDataSource;
+import org.h2.tools.RunScript;
 
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.Socket;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.Objects;
 
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.*;
@@ -72,6 +79,45 @@ public class StepDefinitions {
     @Then("it should return details for report with id {string}")
     public void returnReportDetails(String givenId) {
         assertEquals(givenId, response.jsonPath().getString("id"));
+    }
+
+    @Given("csv test data is setup in database")
+    public void addLocalTestDataForCsvReport() {
+        if (System.getProperty("SERVICE").equals("local")) {
+
+            JdbcDataSource dataSource = new JdbcDataSource();
+            dataSource.setURL("jdbc:h2:file:~/localGpfdDb;MODE=Oracle");
+            dataSource.setUser("sa");
+            dataSource.setPassword("");
+
+            try (Connection connection = dataSource.getConnection();
+                 InputStreamReader schema = new InputStreamReader(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("any_report_schema.sql")));
+                 InputStreamReader data = new InputStreamReader(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("any_report_data.sql")));
+                 InputStreamReader gpfd = new InputStreamReader(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("gpfd_test_data.sql")));
+            ) {
+                RunScript.execute(connection, schema);
+                RunScript.execute(connection, data);
+                RunScript.execute(connection, gpfd);
+                RunScript.execute(connection, gpfd);
+            } catch (SQLException | IOException e) {
+                throw new RuntimeException("Exception while setting up database: " + e.getMessage(), e);
+            }
+
+        }
+
+    }
+
+    @And("it calls the get csv endpoint with id {string}")
+    public void callCsvEndpoint(String givenId) {
+        response = makeGetCall("csv/" + givenId, System.getProperty("BASE_URL"), cookie);
+    }
+
+    @Then("it should return the csv file")
+    public void returnCsvFile() {
+        assertEquals(ContentType.APPLICATION_OCTET_STREAM.getMimeType(), response.contentType());
+        assertTrue(response.getHeader("Content-Disposition").contains("attachment"));
+        assertTrue(response.getHeader("Content-Disposition").contains(".csv"));
+        assertFalse(response.getBody().asString().isEmpty());
     }
 
     private boolean isLocalServiceIsRunning() throws InterruptedException {
