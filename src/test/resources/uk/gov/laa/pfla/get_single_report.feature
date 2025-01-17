@@ -20,6 +20,6 @@ Feature: Get Single Report
   @local @dev @uat
   Scenario: Should return unrecognised id error for unknown id
     When "valid" cookie is provided for authentication
-    And it calls the get reports endpoint with id "899"
+    And it calls the get reports endpoint with id "01010101-0101-0101-0101-010101010101"
     Then it should return a 404 response
     Then it should return error message "Report with unrecognised ID"
