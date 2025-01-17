@@ -14,7 +14,7 @@ This repository contains acceptance tests for the [Get Payments and Finance Data
 # How to run the tests against the dev environment system
 1. Checkout this repository
 2. currently a valid JSESSIONID cookie needs to be retrieved from the browser and passed in as a run parameter to allow tests to run against dev. THIS IS A TEMPORARY SOLUTION.
-4. Run `mvn clean test -Pdev -Dcookie=<JSESSIONID value>`
+3. Run `mvn clean test -Pdev -Dcookie=<JSESSIONID value>`
 
 
 
