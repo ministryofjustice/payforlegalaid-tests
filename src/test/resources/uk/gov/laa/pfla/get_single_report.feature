@@ -16,3 +16,10 @@ Feature: Get Single Report
     When "invalid" cookie is provided for authentication
     And it calls the get reports endpoint with id "c16eb360-6f61-4588-882e-a9528429e82e"
     Then it should return a 302 response
+
+  @local @dev @uat
+  Scenario: Should return unrecognised id error for unknown id
+    When "valid" cookie is provided for authentication
+    And it calls the get reports endpoint with id "01010101-0101-0101-0101-010101010101"
+    Then it should return a 404 response
+    Then it should return error message "Report with unrecognised ID"
