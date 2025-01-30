@@ -1,7 +1,7 @@
 Feature: List All Available Reports
 
   Background:
-    Given the service is running
+    Given foo-bar
 
     @dev @local @uat
   Scenario: Should return all reports
