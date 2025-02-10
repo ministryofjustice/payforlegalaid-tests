@@ -12,6 +12,7 @@ import org.h2.tools.RunScript;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
@@ -24,20 +25,16 @@ public class StepDefinitions {
     private Response response;
     public static final int payForLegalAidPort = 8080;
     public static final String serverName = "localhost";
+    public static final String baseUrl = "http://localhost:8080/";
 
     @Given("the service is running")
     public void theServiceIsRunning() throws InterruptedException {
-        if (System.getProperty("SERVICE").equals("local")) {
-            assertTrue(isLocalServiceIsRunning());
-        } else {
-            Response actuatorResponse = checkServiceIsRunning();
-            assertEquals(200, actuatorResponse.getStatusCode(), "Expected 200 OK response but received " + actuatorResponse.getStatusCode());
-        }
+            assertTrue(isServiceIsRunning());
     }
 
     @When("it calls the actuator endpoint")
     public void callActuatorApi() {
-        response = makeGetCall("actuator", System.getProperty("BASE_URL"));
+        response = makeGetCall("actuator", baseUrl);
     }
 
     @Then("it should return a 200 response")
@@ -57,7 +54,7 @@ public class StepDefinitions {
 
     @When("it calls the reports endpoint")
     public void callReportsEndpoint() {
-        response = makeGetCall("reports", System.getProperty("BASE_URL"));
+        response = makeGetCall("reports", baseUrl);
     }
 
     @Then("it should return a list of all the reports in the database")
@@ -74,7 +71,7 @@ public class StepDefinitions {
 
     @When("it calls the get reports endpoint with id {string}")
     public void callReportEndpointForGivenId(String givenId) {
-        response = makeGetCall("reports/" + givenId, System.getProperty("BASE_URL"));
+        response = makeGetCall("reports/" + givenId, baseUrl);
     }
 
     @Then("it should return details for report with id {string}")
@@ -110,7 +107,7 @@ public class StepDefinitions {
 
     @When("it calls the get csv endpoint with id {string}")
     public void callCsvEndpoint(String givenId) {
-        response = makeGetCall("csv/" + givenId, System.getProperty("BASE_URL"));
+        response = makeGetCall("csv/" + givenId, baseUrl);
     }
 
     @Then("it should return the csv file")
@@ -121,7 +118,8 @@ public class StepDefinitions {
         assertFalse(response.getBody().asString().isEmpty());
     }
 
-    private boolean isLocalServiceIsRunning() throws InterruptedException {
+    private boolean isServiceIsRunning() throws InterruptedException {
+        log.info("Confirming service is running");
         int timeout = 30; // Seconds
         while (timeout > 0) {
             try (Socket socket = new Socket(serverName, payForLegalAidPort)) {
@@ -136,7 +134,7 @@ public class StepDefinitions {
     }
 
     private Response checkServiceIsRunning() {
-        return makeGetCall("actuator", System.getProperty("BASE_URL"));
+        return makeGetCall("actuator", baseUrl);
     }
 
     private Response makeGetCall(String endpoint, String baseUrl) {
