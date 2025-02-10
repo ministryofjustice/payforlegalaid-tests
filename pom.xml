@@ -123,6 +123,12 @@
             <version>${h2.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>uk.gov.laa</groupId>
+            <artifactId>pay-for-legal-aid</artifactId>
+            <version>${pay-for-legal-aid.version}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <profiles>
