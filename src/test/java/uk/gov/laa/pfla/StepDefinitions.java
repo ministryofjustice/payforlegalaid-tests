@@ -30,6 +30,8 @@ public class StepDefinitions {
 
     @Given("the service is running")
     public void theServiceIsRunning() throws InterruptedException {
+//        uk.gov.laa.gpfd.App;
+
         if (System.getProperty("SERVICE").equals("local")) {
             assertTrue(isLocalServiceIsRunning());
         } else {
