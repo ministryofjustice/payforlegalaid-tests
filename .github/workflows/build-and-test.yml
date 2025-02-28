@@ -28,13 +28,12 @@ jobs:
       - name: Build source code
         run: |
           cd sourceCode
-          mvn -B -DskipTests clean package
-          java -jar -Dspring.profiles.active=local target/pay-for-legal-aid-0.0.1-SNAPSHOT.jar &
+          mvn -B -DskipTests clean install
 
       - name: Run tests
         run: |
           cd testCode
-          mvn -B clean install -Plocal
+          mvn -B clean test
 
         shell:
           bash
