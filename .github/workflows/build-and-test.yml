@@ -32,7 +32,7 @@ jobs:
       - name: Build source code
         run: |
           cd sourceCode
-          mvn -B -DskipTests clean install
+          mvn -B -DskipTests clean install -s .github/settings.xml
 
       - name: Run tests
         run: |
