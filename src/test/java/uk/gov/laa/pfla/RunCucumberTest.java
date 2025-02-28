@@ -1,15 +1,16 @@
 package uk.gov.laa.pfla;
 
-import org.junit.platform.suite.api.ConfigurationParameter;
-import org.junit.platform.suite.api.IncludeEngines;
-import org.junit.platform.suite.api.SelectPackages;
+import io.cucumber.java.BeforeAll;
+import org.junit.platform.suite.api.SelectClasspathResource;
 import org.junit.platform.suite.api.Suite;
-
-import static io.cucumber.junit.platform.engine.Constants.PLUGIN_PROPERTY_NAME;
+import org.springframework.boot.SpringApplication;
 
 @Suite
-@IncludeEngines("cucumber")
-@SelectPackages("uk")
-@ConfigurationParameter(key = PLUGIN_PROPERTY_NAME, value = "pretty")
+@SelectClasspathResource("features")
 public class RunCucumberTest {
+
+    @BeforeAll
+    public static void setup() {
+        SpringApplication.run(Main.class);
+    }
 }
