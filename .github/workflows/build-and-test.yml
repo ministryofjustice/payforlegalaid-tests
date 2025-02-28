@@ -37,7 +37,7 @@ jobs:
       - name: Run tests
         run: |
           cd testCode
-          mvn -B clean test
+          mvn -B clean test -s .github/settings.xml
 
         shell:
           bash
