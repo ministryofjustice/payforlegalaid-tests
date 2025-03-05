@@ -43,6 +43,21 @@ jobs:
         shell:
           bash
 
+      - uses: './.github/login-to-aws'
+        env:
+          ROLE: ${{ secrets.PROD_ECR_ROLE_TO_ASSUME }}
+          AWS_REGION: ${{ vars.PROD_ECR_REGION }}
+
+      - name: Login to container repository
+        uses: aws-actions/amazon-ecr-login@v2
+        id: login-ecr
+
+      - uses: './.github/build-push-docker-image'
+        env:
+          REPOSITORY: ${{ vars.PROD_ECR_REPOSITORY }}
+          IMAGE_TAG: ${{ github.sha }}
+          REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+
       - name: Generate Kubernetes files from templates
         env:
           IMAGE_TAG: ${{ github.sha }} # Tags ECR image with commit sha
@@ -53,7 +68,7 @@ jobs:
           ENV_NAME: dev
         run: |
           cat deployments/development/deployment.tpl | envsubst > deployments/development/deployment.yml
-        
+
       - name: Authenticate with Cloud Platform and Deploy
         env:
           KUBE_NAMESPACE: ${{ secrets.KUBE_NAMESPACE_DEV }}
