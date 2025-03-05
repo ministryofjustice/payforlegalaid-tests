@@ -13,18 +13,20 @@ jobs:
   run_tests:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout Github Repository
+        uses: actions/checkout@v4
 #      TODO - add back in once deployment working successfully
 #      - name: Checkout GitHub repository
 #        uses: actions/checkout@v4
 #        with:
 #          path: testCode
 #
-#      - name: Setup Java
-#        uses: actions/setup-java@v4
-#        with:
-#          distribution: 'corretto'
-#          java-version: '17'
-#
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'corretto'
+          java-version: '17'
+
 #      - name: Checkout source code repo
 #        uses: actions/checkout@v4
 #        with:
