@@ -17,7 +17,7 @@ public record HealthSteps(HttpProvider httpProvider, ScenarioContext scenarioCon
 
     @Then("the response should indicate a healthy state")
     public void theResponseShouldIndicateHealthyState() {
-        var responseBody = scenarioContext.getResponse().getBody();
+        var responseBody = scenarioContext.getResponseAs(String.class).getBody();
         assertTrue(responseBody != null && responseBody.contains("\"status\":\"UP\""), "Expected response to indicate a healthy state");
     }
 

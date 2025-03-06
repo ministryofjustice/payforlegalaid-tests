@@ -1,5 +1,6 @@
 package uk.gov.laa.pfla.configuration;
 
+import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,8 +17,10 @@ import uk.gov.laa.pfla.client.AuthenticationProvider;
 import uk.gov.laa.pfla.client.RestClient;
 import uk.gov.laa.pfla.client.interceptor.AuthenticationInterceptor;
 import uk.gov.laa.pfla.client.interceptor.HostInterceptor;
+import uk.gov.laa.pfla.comparator.WorkbookComparator;
 import uk.gov.laa.pfla.scenario.ScenarioContext;
 import uk.gov.laa.pfla.service.HttpProvider;
+import uk.gov.laa.pfla.util.WorkbookUtil;
 
 import java.util.function.Supplier;
 
@@ -123,4 +126,18 @@ public class TestConfig {
         return new InMemoryClientRegistrationRepository(of(localRegistration));
     }
 
+    @Bean
+    public WorkbookComparator workbookComparator() {
+        return new WorkbookComparator() {};
+    }
+
+    @Bean
+    public WorkbookUtil testingExcelService(ScenarioContext scenarioContext) {
+        return new WorkbookUtil() {
+            @Override
+            public Workbook getExcelWorkbook() {
+                return getExcelWorkbook(scenarioContext);
+            }
+        };
+    }
 }

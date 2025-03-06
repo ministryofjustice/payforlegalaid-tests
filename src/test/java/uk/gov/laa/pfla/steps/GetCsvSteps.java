@@ -21,7 +21,7 @@ public record GetCsvSteps(HttpProvider httpProvider, ScenarioContext scenarioCon
 
     @Then("the response should include the CSV file")
     public void verifyCsvResponse() {
-        var response = scenarioContext.getResponse();
+        var response = scenarioContext.getResponseAs(String.class);
         var headers = response.getHeaders();
 
         assertAll("Verify CSV response",

@@ -17,7 +17,7 @@ spring:
     allow-bean-definition-overriding: true
   liquibase:
     enabled: true
-    changelog: /db/changelog/db.changelog-master.yaml
+    changelog: /db/changelog/db.changelog-master.xml
   cloud:
     azure:
       active-directory:
