@@ -16,10 +16,10 @@ jobs:
       - name: Checkout Github Repository
         uses: actions/checkout@v4
 #      TODO - add back in once deployment working successfully
-#      - name: Checkout GitHub repository
-#        uses: actions/checkout@v4
-#        with:
-#          path: testCode
+      - name: Checkout GitHub repository
+        uses: actions/checkout@v4
+        with:
+          path: testCode
 #
       - name: Setup Java
         uses: actions/setup-java@v4
@@ -27,29 +27,29 @@ jobs:
           distribution: 'corretto'
           java-version: '17'
 
-#      - name: Checkout source code repo
-#        uses: actions/checkout@v4
-#        with:
-#          repository: ministryofjustice/payforlegalaid
-#          path: sourceCode
-#
-#      - name: Build source code
-#        run: |
-#          cd sourceCode
-#          mvn -B -DskipTests clean install -s .github/settings.xml
-#
-#      - name: Run tests
-#        run: |
-#          cd testCode
-#          mvn -B clean test -s .github/settings.xml
-#
-#        shell:
-#          bash
+      - name: Checkout source code repo
+        uses: actions/checkout@v4
+        with:
+          repository: ministryofjustice/payforlegalaid
+          path: sourceCode
+
+      - name: Build source code
+        run: |
+          cd sourceCode
+          mvn -B -DskipTests clean install -s .github/settings.xml
+
+      - name: Run tests
+        run: |
+          cd testCode
+          mvn -B clean test -s .github/settings.xml
+
+        shell:
+          bash
 
       - uses: './.github/login-to-aws'
         env:
-          ROLE: ${{ secrets.PROD_ECR_ROLE_TO_ASSUME }}
-          AWS_REGION: ${{ vars.PROD_ECR_REGION }}
+          ROLE: ${{ secrets.DEV_ECR_ROLE_TO_ASSUME }}
+          AWS_REGION: ${{ vars.DEV_ECR_REGION }}
 
       - name: Login to container repository
         uses: aws-actions/amazon-ecr-login@v2
