@@ -1,0 +1,81 @@
+name: Deploy to dev
+on:
+  push:
+    branches:
+      - main
+      - feature/lpf-535
+
+env:
+  USERNAME: ${{ secrets.OPENAPI_PACKAGE_USER }}
+  PASSWORD: ${{ secrets.OPENAPI_PACKAGE_PASSWORD }}
+
+jobs:
+  run_tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Github Repository
+        uses: actions/checkout@v4
+      - name: Checkout GitHub repository
+        uses: actions/checkout@v4
+        with:
+          path: testCode
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'corretto'
+          java-version: '17'
+
+      - name: Checkout source code repo
+        uses: actions/checkout@v4
+        with:
+          repository: ministryofjustice/payforlegalaid
+          path: sourceCode
+
+      - name: Build source code
+        run: |
+          cd sourceCode
+          mvn -B -DskipTests clean install -s .github/settings.xml
+      - name: Run tests
+        run: |
+          cd testCode
+          mvn -B clean test -s .github/settings.xml
+        shell:
+          bash
+
+      - uses: './.github/login-to-aws'
+        env:
+          ROLE: ${{ secrets.DEV_ECR_ROLE_TO_ASSUME }}
+          AWS_REGION: ${{ vars.DEV_ECR_REGION }}
+
+      - name: Login to container repository
+        uses: aws-actions/amazon-ecr-login@v2
+        id: login-ecr
+
+      - uses: './.github/build-push-docker-image'
+        env:
+          REPOSITORY: ${{ vars.PROD_ECR_REPOSITORY }}
+          IMAGE_TAG: ${{ github.sha }}
+          REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+
+      - name: Generate Kubernetes files from templates
+        env:
+          IMAGE_TAG: ${{ github.sha }} # Tags ECR image with commit sha
+          REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          REPOSITORY: ${{ vars.DEV_ECR_REPOSITORY }}
+          NAMESPACE: ${{ secrets.KUBE_NAMESPACE_DEV }}
+          ALERT_SEVERITY: laa-get-legal-aid-data-dev
+          ENV_NAME: dev
+        run: |
+          cat deployments/development/deployment.tpl | envsubst > deployments/development/deployment.yml
+      - name: Authenticate with Cloud Platform and Deploy
+        env:
+          KUBE_NAMESPACE: ${{ secrets.KUBE_NAMESPACE_DEV }}
+          KUBE_CLUSTER: ${{ secrets.KUBE_CLUSTER_DEV }}
+        run: |
+          echo "${{ secrets.KUBE_CERT_DEV }}" > ca.crt
+          kubectl config set-cluster ${KUBE_CLUSTER} --certificate-authority=./ca.crt --server=https://${KUBE_CLUSTER}
+          kubectl config set-credentials deploy-user --token=${{ secrets.KUBE_TOKEN_DEV }}
+          kubectl config set-context ${KUBE_CLUSTER} --cluster=${KUBE_CLUSTER} --user=deploy-user --namespace=${KUBE_NAMESPACE}
+          kubectl config use-context ${KUBE_CLUSTER}
+          kubectl -n ${KUBE_NAMESPACE} apply -f deployments/development/
