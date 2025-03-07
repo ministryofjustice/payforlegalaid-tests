@@ -3,7 +3,7 @@ on:
   push:
     branches:
       - main
-      - feature/lpf-535
+      - feature/lpf-535b
 
 env:
   USERNAME: ${{ secrets.OPENAPI_PACKAGE_USER }}
