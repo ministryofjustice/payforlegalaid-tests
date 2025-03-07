@@ -6,8 +6,10 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
+import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.server.ResponseStatusException;
 
 @Slf4j
 public class RestTemplateWithErrorHandling extends RestTemplate {
@@ -21,6 +23,8 @@ public class RestTemplateWithErrorHandling extends RestTemplate {
             log.info("HTTP Error: {} - {}", exception.getStatusCode(), exception.getStatusText());
             log.info("Response Body: {}", exception.getResponseBodyAsString());
             return ResponseEntity.status(exception.getStatusCode()).body((T) exception.getResponseBodyAsString());
+        } catch (ResourceAccessException | ResponseStatusException exception) {
+            return ResponseEntity.status(500).body((T) exception.getLocalizedMessage());
         } catch (RestClientException exception) {
             log.info("RestClientException: {}", exception.getMessage());
             throw exception;

@@ -17,7 +17,7 @@ public record GetReportsFeatureSteps(HttpProvider httpProvider, ScenarioContext 
 
     @Then("the response should include a list of all available reports")
     public void theResponseShouldIncludeAListOfAllAvailableReports() {
-        var responseBody = scenarioContext.getResponse().getBody();
+        var responseBody = scenarioContext.getResponseAs(String.class).getBody();
         assertTrue(responseBody != null && responseBody.contains("reportList"), "Expected response to include a list of reports");
     }
 
