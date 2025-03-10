@@ -48,7 +48,7 @@ jobs:
       - uses: './.github/login-to-aws'
         env:
           ROLE: ${{ secrets.ROLE_TO_ASSUME }}
-          AWS_REGION: ${{ vars.DEV_ECR_REGION }}
+          AWS_REGION: ${{ vars.REGION }}
 
       - name: Login to container repository
         uses: aws-actions/amazon-ecr-login@v2

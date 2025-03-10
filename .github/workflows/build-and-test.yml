@@ -3,8 +3,6 @@ on:
   workflow_dispatch:
   pull_request:
     types: [opened, reopened, synchronize]
-  repository_dispatch:
-    types: [ trigger-tests ]
 
 env:
   USERNAME: ${{ secrets.OPENAPI_PACKAGE_USER }}
