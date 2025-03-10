@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - main
+      - lpf-535b
   repository_dispatch:
     types: [ trigger-tests ]
 
