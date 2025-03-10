@@ -3,7 +3,8 @@ on:
   push:
     branches:
       - main
-      - feature/lpf-535b
+  repository_dispatch:
+    types: [ trigger-tests ]
 
 env:
   USERNAME: ${{ secrets.OPENAPI_PACKAGE_USER }}
