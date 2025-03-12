@@ -21,10 +21,4 @@ public record GetSingleReportSteps(HttpProvider httpProvider, ScenarioContext sc
         assertTrue(response != null && response.contains(reportId), "Expected response to include details for report with ID " + reportId);
     }
 
-    @Then("the response should include the error message {string}")
-    public void theResponseShouldIncludeTheErrorMessage(String errorMessage) {
-        var response = scenarioContext.getResponseAs(String.class);
-        var responseBody = response.getBody();
-        assertTrue(responseBody != null && responseBody.contains(errorMessage), "Expected response to include error message: " + errorMessage);
-    }
 }
