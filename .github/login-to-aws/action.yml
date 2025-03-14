@@ -6,6 +6,8 @@ runs:
   steps:
     - name: Checkout repository
       uses: actions/checkout@v4
+      with:
+        repository: ministryofjustice/payforlegalaid
 
     - name: Assume role in Cloud Platform
       uses: aws-actions/configure-aws-credentials@v4
