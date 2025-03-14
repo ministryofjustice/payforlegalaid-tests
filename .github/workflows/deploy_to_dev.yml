@@ -1,7 +1,10 @@
 name: Deploy to dev
 on:
   workflow_dispatch:
-    
+    inputs:
+      region:
+      role:
+
   repository_dispatch:
     types: [ trigger-tests ]
 
@@ -14,8 +17,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Github Repository
-        uses: actions/checkout@v4
-      - name: Checkout GitHub repository
         uses: actions/checkout@v4
         with:
           path: testCode
@@ -45,8 +46,8 @@ jobs:
 
       - uses: './.github/login-to-aws'
         env:
-          ROLE: ${{ github.event.client_payload.role }}
-          AWS_REGION: ${{ github.event.client_payload.region }}
+          ROLE: ${{ inputs.role }}
+          AWS_REGION: ${{ inputs.region }}
 
       - name: Login to container repository
         uses: aws-actions/amazon-ecr-login@v2
