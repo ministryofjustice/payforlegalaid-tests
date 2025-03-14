@@ -4,6 +4,8 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import uk.gov.laa.pfla.scenario.ScenarioContext;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public record CommonSteps(ScenarioContext scenarioContext) {
@@ -22,6 +24,16 @@ public record CommonSteps(ScenarioContext scenarioContext) {
     public void theServiceShouldRespondWithAStatusCodeOf(int expectedStatusCode) {
         var response = scenarioContext.getResponse();
         assertEquals(expectedStatusCode, response.getStatusCodeValue(), "Expected status code " + expectedStatusCode);
+    }
+
+    @Then("the response should include the error message {string}")
+    public void theResponseShouldIncludeTheErrorMessage(String errorMessage) {
+        var response = scenarioContext.getResponseAs(String.class).getBody();
+
+        assertAll("Verify response",
+                () -> assertThat(response).isNotEmpty(),
+                () -> assertThat(response).contains(errorMessage)
+        );
     }
 
 }
