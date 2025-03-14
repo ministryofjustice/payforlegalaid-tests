@@ -1,13 +1,7 @@
 name: Deploy to dev
 on:
   workflow_dispatch:
-    inputs:
-      target_service:
-        description: 'ministryofjustice/payforlegalaid-tests'
-        required: true
-      target_version:
-        description: '0.0.1-SNAPSHOT'
-        required: true
+    
   repository_dispatch:
     types: [ trigger-tests ]
 
