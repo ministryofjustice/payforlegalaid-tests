@@ -44,6 +44,9 @@ jobs:
         shell:
           bash
 
+      - name: Checkout Github Repository
+        uses: actions/checkout@v4
+
       - uses: './.github/login-to-aws'
         env:
           ROLE: ${{ inputs.role }}
