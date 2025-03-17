@@ -23,6 +23,14 @@ jobs:
           distribution: 'corretto'
           java-version: '17'
 
+      - name: Cache Maven repository
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
       - name: Checkout source code repo
         uses: actions/checkout@v4
         with:
@@ -37,6 +45,7 @@ jobs:
       - name: Run tests
         run: |
           cd testCode
+          pwd && ls -l 
           mvn -B clean test -s .github/settings.xml  \
               -DGPFD_DATASOURCE_READY-ONLY_URL= ${{ secrets.MOJFIN_URL }} \
               -DGPFD_DATASOURCE_READY-ONLY_USERNAME= ${{ secrets.MOJFIN_READ_USERNAME }} \
