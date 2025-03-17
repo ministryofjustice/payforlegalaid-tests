@@ -1,7 +1,10 @@
 name: Deploy to dev NEW
 on:
-  workflow_dispatch:
-  repository_dispatch:
+    push:
+        branches:
+        - feature/lpf-535b
+    workflow_dispatch:
+    repository_dispatch:
     types: [ trigger-tests ]
 
 env:
