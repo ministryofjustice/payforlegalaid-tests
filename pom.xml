@@ -95,7 +95,7 @@
         <dependency>
             <groupId>com.oracle.database.jdbc</groupId>
             <artifactId>ojdbc11</artifactId>
-            <version>21.3.0.0</version>
+            <version>21.15.0.0</version>
         </dependency>
 
     </dependencies>
@@ -117,13 +117,6 @@
         <repository>
             <id>payforlegalaid-openapi</id>
             <url>https://github.com/ministryofjustice/payforlegalaid-openapi/</url>
-        </repository>
-        <repository>
-            <id>oracle-maven</id>
-            <url>https://maven.oracle.com</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
         </repository>
     </repositories>
 </project>
