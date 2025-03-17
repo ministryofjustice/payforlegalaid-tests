@@ -38,11 +38,11 @@ jobs:
         run: |
           cd testCode
           mvn -B clean test -s .github/settings.xml  \
-              -DGPFD_DATASOURCE_READY-ONLY_URL= ${{ secrets.MOJFIN_URL }}
-              -DGPFD_DATASOURCE_READY-ONLY_USERNAME= ${{ secrets.MOJFIN_READ_USERNAME }}
-              -DGPFD_DATASOURCE_READY-ONLY_PASSWORD= ${{ secrets.MOJFIN_READ_PASSWORD }}
-              -DGPFD_DATASOURCE_WRITE_URL= ${{ secrets.MOJFIN_URL }}
-              -DGPFD_DATASOURCE_WRITE_USERNAME=${{ secrets.MOJFIN_WRITE_USERNAME }}
+              -DGPFD_DATASOURCE_READY-ONLY_URL= ${{ secrets.MOJFIN_URL }} \
+              -DGPFD_DATASOURCE_READY-ONLY_USERNAME= ${{ secrets.MOJFIN_READ_USERNAME }} \
+              -DGPFD_DATASOURCE_READY-ONLY_PASSWORD= ${{ secrets.MOJFIN_READ_PASSWORD }} \
+              -DGPFD_DATASOURCE_WRITE_URL= ${{ secrets.MOJFIN_URL }} \
+              -DGPFD_DATASOURCE_WRITE_USERNAME=${{ secrets.MOJFIN_WRITE_USERNAME }} \
               -DGPFD_DATASOURCE_WRITE_PASSWORD=${{ secrets.MOJFIN_WRITE_PASSWORD }}
 
         shell:
