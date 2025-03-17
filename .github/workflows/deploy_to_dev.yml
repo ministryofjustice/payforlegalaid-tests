@@ -7,7 +7,7 @@ on:
 env:
   USERNAME: ${{ secrets.OPENAPI_PACKAGE_USER }}
   PASSWORD: ${{ secrets.OPENAPI_PACKAGE_PASSWORD }}
-  
+
 jobs:
   run_tests:
     runs-on: ubuntu-latest
@@ -37,7 +37,7 @@ jobs:
       - name: Run tests
         run: |
           cd testCode
-          mvn -B clean test -P dev -s .github/settings.xml  \
+          mvn -B clean test -s .github/settings.xml  \
               -DGPFD_DATASOURCE_READY-ONLY_URL= ${{ secrets.MOJFIN_URL }}
               -DGPFD_DATASOURCE_READY-ONLY_USERNAME= ${{ secrets.MOJFIN_READ_USERNAME }}
               -DGPFD_DATASOURCE_READY-ONLY_PASSWORD= ${{ secrets.MOJFIN_READ_PASSWORD }}
