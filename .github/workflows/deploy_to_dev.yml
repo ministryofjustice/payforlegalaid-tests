@@ -47,8 +47,10 @@ jobs:
 
       - name: Run tests
         run: |
+          
           cd testCode
           pwd && ls -l 
+          mvn dependency:tree 
           mvn -B clean test -s .github/settings.xml  \
               -DGPFD_DATASOURCE_READY-ONLY_URL= ${{ secrets.MOJFIN_URL }} \
               -DGPFD_DATASOURCE_READY-ONLY_USERNAME= ${{ secrets.MOJFIN_READ_USERNAME }} \
