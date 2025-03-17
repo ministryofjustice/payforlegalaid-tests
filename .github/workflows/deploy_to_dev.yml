@@ -21,6 +21,9 @@ env:
 jobs:
   run_tests:
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+
     steps:
 #      - name: Checkout Github Repository
 #        uses: actions/checkout@v4
