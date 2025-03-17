@@ -97,6 +97,7 @@
             <artifactId>ojdbc11</artifactId>
             <version>23.7.0.25.01</version>
             <scope>runtime</scope>
+            <systemPath>${project.basedir}/src/test/resources/lib/ojdbc11.jar</systemPath>
         </dependency>
 
     </dependencies>
@@ -115,16 +116,9 @@
     </build>
 
     <repositories>
-
-        <repository>
-            <id>central</id>
-            <url>https://repo.maven.apache.org/maven2</url>
-        </repository>
-
         <repository>
             <id>payforlegalaid-openapi</id>
             <url>https://github.com/ministryofjustice/payforlegalaid-openapi/</url>
         </repository>
-
     </repositories>
 </project>
