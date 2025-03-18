@@ -39,6 +39,9 @@ jobs:
 
       - name: Manually Install Oracle JDBC
         run: |
+          pwd && ls -l
+          cd testCode
+          pwd && ls -l
           mvn install:install-file \
             -Dfile=lib/ojdbc11.jar \
             -DgroupId=com.oracle.database.jdbc \
