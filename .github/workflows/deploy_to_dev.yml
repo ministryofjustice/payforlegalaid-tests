@@ -37,6 +37,15 @@ jobs:
           cd sourceCode
           mvn -B -DskipTests clean install -s .github/settings.xml
 
+      - name: Manually Install Oracle JDBC
+        run: |
+          mvn install:install-file \
+            -Dfile=lib/ojdbc11.jar \
+            -DgroupId=com.oracle.database.jdbc \
+            -DartifactId=ojdbc11 \
+            -Dversion=23.7.0.25.01 \
+            -Dpackaging=jar
+
       - name: Run tests
         run: |
           cd testCode
