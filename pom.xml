@@ -106,8 +106,6 @@
             <groupId>com.oracle.database.jdbc</groupId>
             <artifactId>ojdbc11</artifactId>
             <version>23.7.0.25.01</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/lib/ojdbc11.jar</systemPath>
         </dependency>
 
 
