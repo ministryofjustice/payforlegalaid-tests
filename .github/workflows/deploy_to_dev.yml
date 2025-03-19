@@ -54,12 +54,11 @@ jobs:
           pwd && ls -l 
           mvn dependency:tree 
           mvn -B clean test -s .github/settings.xml  \
-              -DGPFD_DATASOURCE_READY-ONLY_URL= ${{ secrets.MOJFIN_URL }} \
-              -DGPFD_DATASOURCE_READY-ONLY_USERNAME= ${{ secrets.MOJFIN_READ_USERNAME }} \
-              -DGPFD_DATASOURCE_READY-ONLY_PASSWORD= ${{ secrets.MOJFIN_READ_PASSWORD }} \
-              -DGPFD_DATASOURCE_WRITE_URL= ${{ secrets.MOJFIN_URL }} \
-              -DGPFD_DATASOURCE_WRITE_USERNAME=${{ secrets.MOJFIN_WRITE_USERNAME }} \
-              -DGPFD_DATASOURCE_WRITE_PASSWORD=${{ secrets.MOJFIN_WRITE_PASSWORD }}
+              -DMOJFIN_DB_URL= ${{ secrets.MOJFIN_URL }} \
+              -DMOJFIN_DEV_READ_USERNAME= ${{ secrets.MOJFIN_READ_USERNAME }} \
+              -DMOJFIN_DEV_READ_PASSWORD= ${{ secrets.MOJFIN_READ_PASSWORD }} \
+              -DMOJFIN_DEV_WRITE_USERNAME=${{ secrets.MOJFIN_WRITE_USERNAME }} \
+              -DMOJFIN_DEV_WRITE_USERNAME=${{ secrets.MOJFIN_WRITE_PASSWORD }}
 
         shell:
           bash
