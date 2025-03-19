@@ -32,22 +32,18 @@ jobs:
           repository: ministryofjustice/payforlegalaid
           path: sourceCode
 
+      - name: variable test
+        run: |
+          echo "This is the value of the secret - testing"
+          echo ${{ secrets.MOJFIN_DEV_READ_USERNAME }}
+          
+      
+
       - name: Build source code
         run: |
           cd sourceCode
+          
           mvn -B -DskipTests clean install -s .github/settings.xml
-
-      - name: Manually Install Oracle JDBC
-        run: |
-          pwd && ls -l
-          cd testCode
-          pwd && ls -l
-          mvn install:install-file \
-            -Dfile=lib/ojdbc11.jar \
-            -DgroupId=com.oracle.database.jdbc \
-            -DartifactId=ojdbc11 \
-            -Dversion=23.7.0.25.01 \
-            -Dpackaging=jar
 
       - name: Run tests
         run: |
