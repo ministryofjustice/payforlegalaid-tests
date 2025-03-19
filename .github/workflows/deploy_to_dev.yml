@@ -35,7 +35,9 @@ jobs:
       - name: variable test
         run: |
           echo "This is the value of the secret - testing"
+          echo ${{ secrets.MY_TE_VARBE }}
           echo ${{ secrets.DM_TEST_VALUE }}
+          echo ${{ secrets.MY_TE_VARBE }}
           echo ${{ secrets.MOJFIN_DEV_READ_USERNAME }}
           
       
