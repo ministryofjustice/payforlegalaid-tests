@@ -58,9 +58,9 @@ jobs:
       - name: Build the Docker image
         uses: './.github/build-push-docker-image'
 
-      - name: Save Docker image as tar file
-        run: |
-          docker payforlegalaid-tests:latest -o payforlegalaid-tests-latest.tar
+#      - name: Save Docker image as tar file
+#        run: |
+#          docker  -o payforlegalaid-tests:latest payforlegalaid-tests-latest.tar
 
       - name: Upload Docker image tar file as artifact
         uses: actions/upload-artifact@v4

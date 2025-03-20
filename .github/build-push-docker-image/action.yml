@@ -19,7 +19,7 @@ runs:
       shell:
         bash
 
-#    - name: Build image as TAR file
-#      run: docker save -o payforlegalaid-tests.tar ministryofjustice/payforlegalaid-tests:latest
-#      shell:
-#        bash
+    - name: Build image as TAR file
+      run: docker save -o payforlegalaid-tests.tar ministryofjustice/payforlegalaid-tests:latest
+      shell:
+        bash
