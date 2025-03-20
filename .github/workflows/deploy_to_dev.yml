@@ -56,8 +56,7 @@ jobs:
 #        id: login-ecr
 
       - name: Build the Docker image
-        run: |
-            docker build -t ministryofjustice/payforlegalaid-tests:latest .
+        uses: './.github/build-push-docker-image'
 
       - name: Save Docker image as tar file
         run: |
