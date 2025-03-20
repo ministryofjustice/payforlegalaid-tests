@@ -43,37 +43,49 @@ jobs:
       - name: Checkout Github Repository
         uses: actions/checkout@v4
 
-      - name: Build and save Docker Buildx
-        uses: './.github/build-push-docker-image'
+      - name: Set Spring profile
+        run: echo "SPRING_PROFILES_ACTIVE=dev" >> $GITHUB_ENV
 
-#      - name: Configure Kubeconfig
-#        run: |
-#          echo "$KUBECONFIG_DATA" | base64 --decode > kubeconfig.yaml
-#          export KUBECONFIG=kubeconfig.yaml
+#      - uses: './.github/login-to-aws'
+#        env:
+#          ROLE: ${{ secrets.DEV_ECR_ROLE_TO_ASSUME }}
+#          AWS_REGION: ${{ vars.DEV_ECR_REGION }}
 
-      - name: Load Docker Image into Kubernetes Nodes
+#      - name: Login to container repository
+#        uses: aws-actions/amazon-ecr-login@v2
+#        id: login-ecr
+
+      - name: Build the Docker image
         run: |
-          kubectl get nodes -o name | cut -d'/' -f2 | while read node; do
-            echo "Loading image into $node"
-            kubectl cp payforlegalaid-tests.tar $node:/payforlegalaid-tests.tar
-            kubectl exec -it $node -- docker load -i /payforlegalaid-tests.tar
-          done
+            docker build -t :${{ github.sha }} .
 
-      - name: Set Default Namespace
-        run: kubectl config set-context --current --namespace=laa-get-payments-finance-data-dev
+      - name: Save Docker image as tar file
+        run: |
+          docker payforlegalaid-tests:${{ github.sha }} -o payforlegalaid-tests-${{ github.sha }}.tar
 
-      - name: Deploy to Kubernetes
-        run: kubectl apply -f deployments/development/deployment.tpl
+      - name: Upload Docker image tar file as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: payforlegalaid-tests-docker-image
+          path: payforlegalaid-tests-${{ github.sha }}.tar
 
       - name: Generate Kubernetes files from templates
         env:
           IMAGE_TAG: ${{ github.sha }} # Tags ECR image with commit sha
+          REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          REPOSITORY: ${{ vars.DEV_ECR_REPOSITORY }}
           NAMESPACE: ${{ secrets.KUBE_NAMESPACE_DEV }}
           ALERT_SEVERITY: laa-get-legal-aid-data-dev
           ENV_NAME: dev
-#          GPFD_URL: https://dev.get-legal-aid-data.service.justice.gov.uk
+          GPFD_URL: https://dev.get-legal-aid-data.service.justice.gov.uk
         run: |
           cat deployments/development/deployment.tpl | envsubst > deployments/development/deployment.yml
+          cat deployments/development/ingress.tpl | envsubst > deployments/development/ingress.yml
+          cat deployments/development/service.tpl | envsubst > deployments/development/service.yml
+          cat deployments/development/service-monitor.tpl | envsubst > deployments/development/service-monitor.yml
+          cat deployments/development/network-policy.tpl | envsubst > deployments/development/network-policy.yml
+          cat deployments/development/prometheus-rules.tpl | envsubst > deployments/development/prometheus-rules.yml
+          cat deployments/development/grafana-dashboard.tpl | envsubst '$ENV_NAME,$NAMESPACE' > deployments/development/grafana-dashboard.yml
 
       - name: Authenticate with Cloud Platform and Deploy
         env:
