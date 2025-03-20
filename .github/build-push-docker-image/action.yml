@@ -10,7 +10,7 @@ runs:
         path: testCode
 
     - name: Build with Maven
-      run: mvn -B -DskipTests clean install -s .github/settings.xml
+      run: mvn -B -DskipTests clean package -s .github/settings.xml
       shell:
         bash
 
