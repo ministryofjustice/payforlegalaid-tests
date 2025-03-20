@@ -39,9 +39,9 @@ jobs:
         run: |
           cd sourceCode
           mvn -B -DskipTests clean install -s .github/settings.xml
-#
-#      - name: Checkout Github Repository
-#        uses: actions/checkout@v4
+
+      - name: Checkout Github Repository
+        uses: actions/checkout@v4
 
       - name: Build and save Docker Buildx
         uses: './.github/build-push-docker-image'
