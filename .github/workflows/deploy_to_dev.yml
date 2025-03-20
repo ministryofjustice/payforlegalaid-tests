@@ -60,7 +60,7 @@ jobs:
 
       - name: Save Docker image as tar file
         run: |
-          docker payforlegalaid-tests:${{ github.sha }} -o payforlegalaid-tests-${{ github.sha }}.tar
+          docker payforlegalaid-tests:latest -o payforlegalaid-tests-latest.tar
 
       - name: Upload Docker image tar file as artifact
         uses: actions/upload-artifact@v4
