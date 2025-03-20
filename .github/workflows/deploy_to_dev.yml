@@ -1,16 +1,6 @@
 name: Deploy to dev
 on:
   workflow_dispatch:
-    inputs:
-      region:
-        description: 'aws-region'
-        required: true
-        default: 'test'
-      role:
-        description: 'aws-role'
-        required: true
-        default: 'test-role'
-
   repository_dispatch:
     types: [ trigger-tests ]
 
