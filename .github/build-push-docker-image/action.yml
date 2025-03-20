@@ -1,4 +1,4 @@
-name: Build and push docker image
+name: Build docker image
 
 runs:
   using: 'composite'
@@ -12,12 +12,12 @@ runs:
       shell:
         bash
 
-    - name: Build and push Docker image to container repository
-      run: |
-        docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
-        docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
-      env:
-        REGISTRY: ${{ env.REGISTRY }}
-        REPOSITORY: ${{ env.REPOSITORY }}
-        IMAGE_TAG: ${{ env.IMAGE_TAG }}
-      shell: bash
+    - name: Build Docker Image
+      run: docker build -t ministryofjustice/payforlegalaid-tests:latest .
+      shell:
+        bash
+
+    - name: Build image as TAR file
+      run: docker save -o payforlegalaid-tests.tar ministryofjustice/payforlegalaid-tests:latest
+      shell:
+        bash
