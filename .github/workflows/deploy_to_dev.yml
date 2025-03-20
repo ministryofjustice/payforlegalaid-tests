@@ -25,7 +25,7 @@ jobs:
       id-token: write
 
     steps:
-      - name: Checkout Github Repository
+#      - name: Checkout Github Repository
 #        uses: actions/checkout@v4
 #        with:
 #          path: testCode
