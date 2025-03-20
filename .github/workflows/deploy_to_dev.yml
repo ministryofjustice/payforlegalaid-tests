@@ -56,30 +56,62 @@ jobs:
       - name: Checkout Github Repository
         uses: actions/checkout@v4
 
-      - uses: './.github/build-push-docker-image'
-        env:
-          REPOSITORY: ${{ vars.DEV_ECR_REPOSITORY }}
-          IMAGE_TAG: ${{ github.sha }}
-          REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
 
-      - name: Generate Kubernetes files from templates
-        env:
-          IMAGE_TAG: ${{ github.sha }} # Tags ECR image with commit sha
-          REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          REPOSITORY: ${{ vars.DEV_ECR_REPOSITORY }}
-          NAMESPACE: ${{ secrets.KUBE_NAMESPACE_DEV }}
-          ALERT_SEVERITY: laa-get-legal-aid-data-dev
-          ENV_NAME: dev
+      - name: Build Docker Image
         run: |
-          cat deployments/development/deployment.tpl | envsubst > deployments/development/deployment.yml
-      - name: Authenticate with Cloud Platform and Deploy
-        env:
-          KUBE_NAMESPACE: ${{ secrets.KUBE_NAMESPACE_DEV }}
-          KUBE_CLUSTER: ${{ secrets.KUBE_CLUSTER_DEV }}
+          docker build -t payforlegalaid-tests:latest .
+
+      - name: Save Docker Image as a TAR file
         run: |
-          echo "${{ secrets.KUBE_CERT_DEV }}" > ca.crt
-          kubectl config set-cluster ${KUBE_CLUSTER} --certificate-authority=./ca.crt --server=https://${KUBE_CLUSTER}
-          kubectl config set-credentials deploy-user --token=${{ secrets.KUBE_TOKEN_DEV }}
-          kubectl config set-context ${KUBE_CLUSTER} --cluster=${KUBE_CLUSTER} --user=deploy-user --namespace=${KUBE_NAMESPACE}
-          kubectl config use-context ${KUBE_CLUSTER}
-          kubectl -n ${KUBE_NAMESPACE} apply -f deployments/development/
+          docker save payforlegalaid-tests:latest -o payforlegalaid-tests.tar
+
+      - name: Configure Kubeconfig
+        run: |
+          echo "$KUBECONFIG_DATA" | base64 --decode > kubeconfig.yaml
+          export KUBECONFIG=kubeconfig.yaml
+
+      - name: Load Docker Image into Kubernetes Nodes
+        run: |
+          kubectl get nodes -o name | cut -d'/' -f2 | while read node; do
+            echo "Loading image into $node"
+            kubectl cp payforlegalaid-tests.tar $node:/payforlegalaid-tests.tar
+            kubectl exec -it $node -- docker load -i /payforlegalaid-tests.tar
+          done
+
+      - name: Set Default Namespace
+        run: kubectl config set-context --current --namespace=laa-get-payments-finance-data-dev
+
+      - name: Deploy to Kubernetes
+        run: kubectl apply -f k8s/deployment.yaml
+      
+#
+#      - uses: './.github/build-push-docker-image'
+##        todo update this so it builds only and does not push
+#        env:
+#          REPOSITORY: ${{ vars.DEV_ECR_REPOSITORY }}
+#          IMAGE_TAG: ${{ github.sha }}
+#          REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+#
+#      - name: Generate Kubernetes files from templates
+#        env:
+#          IMAGE_TAG: ${{ github.sha }} # Tags ECR image with commit sha
+#          REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+#          REPOSITORY: ${{ vars.DEV_ECR_REPOSITORY }}
+#          NAMESPACE: ${{ secrets.KUBE_NAMESPACE_DEV }}
+#          ALERT_SEVERITY: laa-get-legal-aid-data-dev
+#          ENV_NAME: dev
+#        run: |
+#          cat deployments/development/deployment.tpl | envsubst > deployments/development/deployment.yml
+#      - name: Authenticate with Cloud Platform and Deploy
+#        env:
+#          KUBE_NAMESPACE: ${{ secrets.KUBE_NAMESPACE_DEV }}
+#          KUBE_CLUSTER: ${{ secrets.KUBE_CLUSTER_DEV }}
+#        run: |
+#          echo "${{ secrets.KUBE_CERT_DEV }}" > ca.crt
+#          kubectl config set-cluster ${KUBE_CLUSTER} --certificate-authority=./ca.crt --server=https://${KUBE_CLUSTER}
+#          kubectl config set-credentials deploy-user --token=${{ secrets.KUBE_TOKEN_DEV }}
+#          kubectl config set-context ${KUBE_CLUSTER} --cluster=${KUBE_CLUSTER} --user=deploy-user --namespace=${KUBE_NAMESPACE}
+#          kubectl config use-context ${KUBE_CLUSTER}
+#          kubectl -n ${KUBE_NAMESPACE} apply -f deployments/development/
