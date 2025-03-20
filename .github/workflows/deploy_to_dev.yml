@@ -64,7 +64,7 @@ jobs:
           docker payforlegalaid-tests:${{ github.sha }} -o payforlegalaid-tests-${{ github.sha }}.tar
 
       - name: Upload Docker image tar file as artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: payforlegalaid-tests-docker-image
           path: payforlegalaid-tests-${{ github.sha }}.tar
