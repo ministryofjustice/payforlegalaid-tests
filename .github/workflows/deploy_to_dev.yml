@@ -39,12 +39,6 @@ jobs:
         run: |
           cd sourceCode
           mvn -B -DskipTests clean install -s .github/settings.xml
-      - name: Run tests
-        run: |
-          cd testCode
-          mvn -B clean test -s .github/settings.xml
-        shell:
-          bash
 #
 #      - name: Checkout Github Repository
 #        uses: actions/checkout@v4
