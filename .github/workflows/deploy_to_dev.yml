@@ -46,10 +46,10 @@ jobs:
       - name: Build and save Docker Buildx
         uses: './.github/build-push-docker-image'
 
-      - name: Configure Kubeconfig
-        run: |
-          echo "$KUBECONFIG_DATA" | base64 --decode > kubeconfig.yaml
-          export KUBECONFIG=kubeconfig.yaml
+#      - name: Configure Kubeconfig
+#        run: |
+#          echo "$KUBECONFIG_DATA" | base64 --decode > kubeconfig.yaml
+#          export KUBECONFIG=kubeconfig.yaml
 
       - name: Load Docker Image into Kubernetes Nodes
         run: |
