@@ -63,7 +63,7 @@ jobs:
         run: kubectl config set-context --current --namespace=laa-get-payments-finance-data-dev
 
       - name: Deploy to Kubernetes
-        run: kubectl apply -f k8s/deployment.yaml
+        run: kubectl apply -f deployments/development/deployment.tpl
       
 #
 #      - uses: './.github/build-push-docker-image'
