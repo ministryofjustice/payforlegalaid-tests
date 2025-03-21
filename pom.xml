@@ -91,6 +91,8 @@
             <groupId>org.junit.platform</groupId>
             <artifactId>junit-platform-suite</artifactId>
         </dependency>
+
+
     </dependencies>
 
     <build>

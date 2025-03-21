@@ -1,0 +1,112 @@
+name: Deploy to dev
+on:
+  push:
+    branches:
+      - feature/lpf-535b
+  workflow_dispatch:
+    inputs:
+      namespace:
+        description: 'dev namespace'
+        required: true
+        default: ''
+      cluster:
+        description: 'k8s cluster'
+        required: true
+        default: ''
+      cert:
+        description: 'k8s dev cert'
+        required: true
+        default: ''
+      token:
+        description: 'k8s dev token'
+        required: true
+        default: ''
+  repository_dispatch:
+    types: [ trigger-tests ]
+
+env:
+  USERNAME: ${{ secrets.OPENAPI_PACKAGE_USER }}
+  PASSWORD: ${{ secrets.OPENAPI_PACKAGE_PASSWORD }}
+
+jobs:
+  run_tests:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+
+    steps:
+      - name: Checkout Github Repository
+        uses: actions/checkout@v4
+        with:
+          path: testCode
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'corretto'
+          java-version: '17'
+
+      - name: Checkout source code repo
+        uses: actions/checkout@v4
+        with:
+          repository: ministryofjustice/payforlegalaid
+          path: sourceCode
+
+      - name: Build source code
+        run: |
+          cd sourceCode
+          mvn -B -DskipTests clean install -s .github/settings.xml
+
+      - name: Checkout Github Repository
+        uses: actions/checkout@v4
+
+      - name: Set Spring profile
+        run: echo "SPRING_PROFILES_ACTIVE=dev" >> $GITHUB_ENV
+
+#      - uses: './.github/login-to-aws'
+#        env:
+#          ROLE: ${{ secrets.DEV_ECR_ROLE_TO_ASSUME }}
+#          AWS_REGION: ${{ vars.DEV_ECR_REGION }}
+
+#      - name: Login to container repository
+#        uses: aws-actions/amazon-ecr-login@v2
+#        id: login-ecr
+
+      - name: Build the Docker image
+        uses: './.github/build-push-docker-image'
+
+#      - name: Save Docker image as tar file
+#        run: |
+#          docker  -o payforlegalaid-tests:latest payforlegalaid-tests-latest.tar
+
+      - name: Upload Docker image tar file as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: payforlegalaid-tests-docker-image
+          path: payforlegalaid-tests-${{ github.sha }}.tar
+
+      - name: Generate Kubernetes files from templates
+        env:
+          IMAGE_TAG: ${{ github.sha }} # Tags ECR image with commit sha
+          REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          REPOSITORY: ${{ vars.DEV_ECR_REPOSITORY }}
+          NAMESPACE: ${{ secrets.KUBE_NAMESPACE_DEV }}
+          ALERT_SEVERITY: laa-get-legal-aid-data-dev
+          ENV_NAME: dev
+          GPFD_URL: https://dev.get-legal-aid-data.service.justice.gov.uk
+        run: |
+          cat deployments/development/deployment.tpl | envsubst > deployments/development/deployment.yml
+
+      - name: Authenticate with Cloud Platform and Deploy
+        env:
+          KUBE_NAMESPACE: ${{ inputs.namespace }}
+          KUBE_CLUSTER: ${{ inputs.cluster }}
+          KUBE_CERT: ${{ inputs.cert }}
+          KUBE_TOKEN: ${{ inputs.region }}
+        run: |
+          echo "${KUBE_CERT}" > ca.crt
+          kubectl config set-cluster ${KUBE_CLUSTER} --certificate-authority=./ca.crt --server=https://${KUBE_CLUSTER}
+          kubectl config set-credentials deploy-user --token=${KUBE_TOKEN}
+          kubectl config set-context ${KUBE_CLUSTER} --cluster=${KUBE_CLUSTER} --user=deploy-user --namespace=${KUBE_NAMESPACE}
+          kubectl config use-context ${KUBE_CLUSTER}
+          kubectl -n ${KUBE_NAMESPACE} apply -f deployments/development/

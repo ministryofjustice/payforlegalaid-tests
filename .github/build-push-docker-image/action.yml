@@ -1,0 +1,25 @@
+name: Build docker image
+
+runs:
+  using: 'composite'
+
+  steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        path: testCode
+
+    - name: Build with Maven
+      run: mvn -B -DskipTests clean package -s .github/settings.xml
+      shell:
+        bash
+
+    - name: Build Docker Image
+      run: docker build -t ministryofjustice/payforlegalaid-tests:latest .
+      shell:
+        bash
+
+    - name: Build image as TAR file
+      run: docker save -o payforlegalaid-tests.tar ministryofjustice/payforlegalaid-tests:latest
+      shell:
+        bash
