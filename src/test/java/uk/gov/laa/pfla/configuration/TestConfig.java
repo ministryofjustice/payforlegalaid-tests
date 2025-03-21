@@ -9,6 +9,10 @@ import org.springframework.security.oauth2.client.registration.ClientRegistratio
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.security.oauth2.client.registration.InMemoryClientRegistrationRepository;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
+import org.springframework.security.oauth2.jwt.Jwt;
+import org.springframework.security.oauth2.jwt.JwtDecoder;
+import org.springframework.security.oauth2.jwt.JwtDecoders;
+import org.springframework.security.oauth2.jwt.JwtException;
 import org.springframework.web.client.RestTemplate;
 import uk.gov.laa.gpfd.graph.GraphClient;
 import uk.gov.laa.gpfd.graph.StubbedGraphClient;
@@ -138,6 +142,15 @@ public class TestConfig {
             public Workbook getExcelWorkbook() {
                 return getExcelWorkbook(scenarioContext);
             }
+        };
+    }
+
+    @Bean
+    public JwtDecoder jwtDecoder() {
+        return token -> {
+                // Simply parse the JWT without verification
+                return Jwt.withTokenValue(token)
+                        .build();
         };
     }
 }

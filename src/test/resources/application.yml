@@ -24,10 +24,10 @@ spring:
       active-directory:
         enabled: true
         profile:
-          tenant-id: ${AZURE_TENANT_ID}
+          tenant-id: TestTenantId
         credential:
-          client-id: ${AZURE_CLIENT_ID}
-          client-secret: ${AZURE_CLIENT_SECRET}
+          client-id: TestClientId
+          client-secret: TestClientSecret
         redirect-uri-template: ${gpfd.redirect-uri-template}
         authorization-clients:
           graph:
