@@ -11,6 +11,7 @@ gpfd:
       username: sa
       password:
       driver-class-name: org.h2.Driver
+  jwks-uri: https://sts.windows.net/${spring.cloud.azure.active-directory.profile.tenant-id}/
 
 spring:
   main:
@@ -22,6 +23,12 @@ spring:
     azure:
       active-directory:
         enabled: true
+        profile:
+          tenant-id: ${AZURE_TENANT_ID}
+        credential:
+          client-id: ${AZURE_CLIENT_ID}
+          client-secret: ${AZURE_CLIENT_SECRET}
+        redirect-uri-template: ${gpfd.redirect-uri-template}
         authorization-clients:
           graph:
             scopes:
