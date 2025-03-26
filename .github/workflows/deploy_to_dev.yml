@@ -8,19 +8,19 @@ on:
       namespace:
         description: 'dev namespace'
         required: true
-        default: ''
+        default: 'dev_namespace_var_from_pfla'
       cluster:
         description: 'k8s cluster'
         required: true
-        default: ''
+        default: 'k8s_cluster_var_from_pfla'
       cert:
         description: 'k8s dev cert'
         required: true
-        default: ''
+        default: 'k8s_dev_cert_var_from_pfla'
       token:
         description: 'k8s dev token'
         required: true
-        default: ''
+        default: 'k8s_dev_token_var_from_pfla'
   repository_dispatch:
     types: [ trigger-tests ]
 
