@@ -1,6 +1,5 @@
 package uk.gov.laa.pfla;
 
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
@@ -9,7 +8,17 @@ import org.springframework.context.annotation.ComponentScan;
 public class Main {
 
     public static void main(String[] args) {
-        SpringApplication.run(Main.class, args);
+        String[] cucumberArgs = {
+                "--glue", "uk.gov.laa.pfla",
+                "--plugin", "pretty",
+                "classpath:features"
+        };
+        byte exitStatus = io.cucumber.core.cli.Main.run(cucumberArgs, Thread.currentThread().getContextClassLoader());
+        if (exitStatus == 0) {
+            System.exit(exitStatus);
+        } else {
+            System.exit(-1);
+        }
     }
-
 }
+
