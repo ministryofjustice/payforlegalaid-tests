@@ -70,7 +70,7 @@ RUN if [ -d "src/test/java" ]; then \
 
 RUN mkdir -p /build-artifacts/target
 
-RUN mvn -B -o -s settings.xml \
+RUN mvn -B -s settings.xml \
     -Pdev \
     -Dmaven.test.skip=true \
     -Dmaven.compile.fork=true \
