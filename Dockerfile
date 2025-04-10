@@ -51,7 +51,7 @@ RUN --mount=type=secret,id=maven_username \
 FROM maven:3.9.9-amazoncorretto-17-alpine AS builder
 
 WORKDIR /build
-COPY --from=dependency-builder /home/builder/.m2 /root/.m2
+COPY --from=dependency-builder --chown=root:root /home/builder/.m2 /root/.m2
 RUN addgroup -g 1002 builder && \
     adduser -D -u 1002 -G builder builder && \
     apk add --no-cache --virtual .build-deps \
@@ -91,6 +91,7 @@ RUN --mount=type=secret,id=maven_username \
     -Pdev \
     -Dmaven.test.skip=true \
     -Dmaven.compile.fork=true \
+    -Dmaven.repo.local=/root/.m2/repository \
     -Dmaven.javadoc.skip \
     -Dmaven.artifact.threads=5 \
     -Djdk.tls.client.protocols=TLSv1.2 \
