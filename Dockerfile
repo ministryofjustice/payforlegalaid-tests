@@ -51,7 +51,10 @@ RUN --mount=type=secret,id=maven_username \
 FROM maven:3.9.9-amazoncorretto-17-alpine AS builder
 
 WORKDIR /build
-COPY --from=dependency-builder --chown=root:root /home/builder/.m2 /root/.m2
+COPY --from=dependency-builder --chown=root:root /home/builder/.m2/repository /root/.m2/repository
+RUN echo "FOOO_BAR"
+RUN ls -alp
+
 RUN addgroup -g 1002 builder && \
     adduser -D -u 1002 -G builder builder && \
     apk add --no-cache --virtual .build-deps \
