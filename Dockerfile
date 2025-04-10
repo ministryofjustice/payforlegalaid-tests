@@ -86,7 +86,7 @@ RUN --mount=type=secret,id=maven_username \
     export USERNAME=$(cat /run/secrets/maven_username) && \
     export PASSWORD=$(cat /run/secrets/maven_password) && \
     envsubst < settings.xml > settings-fixed.xml && \
-    mvn -B -s ettings-fixed.xml \
+    mvn -B -s settings-fixed.xml \
     -Pdev \
     -Dmaven.test.skip=true \
     -Dmaven.compile.fork=true \
