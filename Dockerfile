@@ -1,24 +1,18 @@
 FROM maven:3.9.9-amazoncorretto-17-alpine AS dependency-builder
 
-RUN addgroup -g 1001 builder && \
-    adduser -D -u 1001 -G builder builder && \
-    apk add --no-cache --virtual .build-deps \
+ARG REPO_REF=main
+
+RUN apk add --no-cache --virtual .build-deps \
         git \
         gettext && \
     mkdir -p /build-deps && \
     chown -R builder:builder /build-deps && \
-    chmod 700 /build-deps
-
-WORKDIR /build-deps
-USER builder
-
-RUN mkdir -p /home/builder/.m2 && \
-    chmod -R 755 /home/builder && \
     git config --global advice.detachedHead false && \
     git config --global http.sslVerify true && \
     git config --global gc.auto 0
 
-ARG REPO_REF=main
+WORKDIR /build-deps
+
 RUN git clone \
     --depth 1 \
     --branch "${REPO_REF}" \
@@ -30,16 +24,15 @@ RUN git clone \
 
 WORKDIR /build-deps/payforlegalaid
 COPY .github/settings.xml .
-ARG USERNAME
-ARG PASSWORD
-ENV USERNAME=$USERNAME \
-    PASSWORD=$PASSWORD
 
-RUN envsubst < settings.xml > settings-fixed.xml && \
+RUN --mount=type=secret,id=maven_username \
+    --mount=type=secret,id=maven_password \
+    export USERNAME=$(cat /run/secrets/maven_username) && \
+    export PASSWORD=$(cat /run/secrets/maven_password) && \
+    mkdir -p /home/builder/.m2 && \
     mkdir -p /home/builder/.m2/repository && \
-    chmod -R 775 /home/builder/.m2
-
-RUN mvn -B clean install \
+    envsubst < settings.xml > settings-fixed.xml && \
+    mvn -B clean install \
     -s settings-fixed.xml \
     -DskipTests \
     -Dmaven.wagon.http.retryHandler.count=1 \
@@ -89,6 +82,8 @@ USER mavenuser
 RUN mvn -B -s settings.xml -Duser.home=/home/mavenuser \
     -Pdev \
     -Dmaven.test.skip=true \
+    -Dmaven.compile.fork=true \
+    -Dmaven.javadoc.skip \
     -Dmaven.artifact.threads=5 \
     -Djdk.tls.client.protocols=TLSv1.2 \
     clean package
