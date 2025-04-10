@@ -43,43 +43,27 @@ RUN --mount=type=secret,id=maven_username \
 
 FROM maven:3.9.9-amazoncorretto-17-alpine AS builder
 
-USER root
-RUN adduser -D -u 1000 mavenuser && \
-    mkdir -p /home/mavenuser/.m2 && \
-    chown -R mavenuser:mavenuser /home/mavenuser && \
-    chmod -R 755 /home/mavenuser
-
 WORKDIR /build
-COPY --from=dependency-builder --chown=mavenuser:mavenuser /home/builder/.m2/repository /home/mavenuser/.m2/repository
-RUN chown -R mavenuser:mavenuser /home/mavenuser/.m2 && \
-    chmod -R 775 /home/mavenuser/.m2
+COPY --from=dependency-builder /home/builder/.m2/repository /root/.m2/repository
 
-COPY --chown=mavenuser:mavenuser .github/settings.xml .
-
-COPY --chown=mavenuser:mavenuser pom.xml .
-COPY --chown=mavenuser:mavenuser src ./src
+COPY .github/settings.xml .
+COPY pom.xml .
+COPY src ./src
 
 RUN if [ -d "src/test/java" ]; then \
       mkdir -p src/main/java && \
       mv src/test/java/* src/main/java/ && \
-      rm -rf src/test/java && \
-      chmod -R 750 src/main/java; \
+      rm -rf src/test/java; \
     fi \
     && if [ -d "src/test/resources" ]; then \
       mkdir -p src/main/resources && \
       mv src/test/resources/* src/main/resources/ && \
-      rm -rf src/test/resources && \
-      chmod -R 640 src/main/resources; \
+      rm -rf src/test/resources; \
     fi
 
-RUN chown -R mavenuser:mavenuser /build && \
-    chmod -R 775 /build && \
-    mkdir -p /build-artifacts/target && \
-    chown -R 65532:65532 /build-artifacts && \
-    chmod -R 775 /build-artifacts/target
+RUN mkdir -p /build-artifacts/target
 
-USER mavenuser
-RUN mvn -B -s settings.xml -Duser.home=/home/mavenuser \
+RUN mvn -B -s settings.xml \
     -Pdev \
     -Dmaven.test.skip=true \
     -Dmaven.compile.fork=true \
