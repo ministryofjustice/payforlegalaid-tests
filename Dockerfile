@@ -53,6 +53,7 @@ FROM maven:3.9.9-amazoncorretto-17-alpine AS builder
 WORKDIR /build
 COPY --from=dependency-builder /home/builder/.m2 /root/.m2
 
+COPY .github/settings.xml .
 COPY pom.xml .
 COPY src ./src
 
