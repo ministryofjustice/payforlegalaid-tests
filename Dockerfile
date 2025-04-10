@@ -53,6 +53,15 @@ FROM maven:3.9.9-amazoncorretto-17-alpine AS builder
 WORKDIR /build
 COPY --from=dependency-builder /home/builder/.m2/repository /root/.m2/repository
 
+RUN addgroup -g 1001 builder && \
+    adduser -D -u 1001 -G builder builder && \
+    apk add --no-cache --virtual .build-deps \
+        git \
+        gettext && \
+    mkdir -p /build-deps && \
+    chown -R builder:builder /build-deps && \
+    chmod 700 /build-deps
+
 COPY .github/settings.xml .
 COPY pom.xml .
 COPY src ./src
