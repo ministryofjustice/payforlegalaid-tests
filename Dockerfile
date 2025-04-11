@@ -52,18 +52,8 @@ FROM maven:3.9.9-amazoncorretto-17-alpine AS builder
 
 WORKDIR /build
 COPY --from=dependency-builder --chown=root:root /root/.m2/repository /root/.m2/repository
-RUN echo "FOOO_BAR"
-RUN ls -alp
 
-RUN addgroup -g 1002 builder && \
-    adduser -D -u 1002 -G builder builder && \
-    apk add --no-cache --virtual .build-deps \
-        git \
-        gettext && \
-    mkdir -p /build-deps && \
-    chown -R builder:builder /build-deps && \
-    chmod 700 /build-deps
-
+RUN apk add --no-cache --virtual .build-deps gettext
 
 COPY .github/settings.xml .
 COPY pom.xml .
@@ -88,7 +78,6 @@ RUN --mount=type=secret,id=maven_username \
     cat /run/secrets/maven_password > /tmp/maven_password && \
     export USERNAME=$(cat /run/secrets/maven_username) && \
     export PASSWORD=$(cat /run/secrets/maven_password) && \
-    echo $USERNAME && \
     envsubst < settings.xml > settings-fixed.xml && \
     mvn -B -s settings-fixed.xml \
     -Pdev \
