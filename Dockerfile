@@ -46,19 +46,21 @@ COPY .github/settings.xml pom.xml src/ ./
 RUN --mount=type=secret,id=maven_username \
     --mount=type=secret,id=maven_password \
     apk add --no-cache --virtual .build-deps gettext && \
-    for dir in java resources; do \
-      if [ -d "src/test/${dir}" ]; then \
-        mkdir -p "src/main/${dir}" && \
-        mv "src/test/${dir}"/* "src/main/${dir}/" && \
-        rm -rf "src/test/${dir}"; \
-      fi; \
-    done && \
+     if [ -d "src/test/java" ]; then \
+          mkdir -p src/main/java && \
+          mv src/test/java/* src/main/java/ && \
+          rm -rf src/test/java; \
+        fi \
+        && if [ -d "src/test/resources" ]; then \
+          mkdir -p src/main/resources && \
+          mv src/test/resources/* src/main/resources/ && \
+          rm -rf src/test/resources; \
+        fi  && \
     mkdir -p /build-artifacts/target && \
     export USERNAME=$(cat /run/secrets/maven_username) && \
     export PASSWORD=$(cat /run/secrets/maven_password) && \
     envsubst < settings.xml > settings-fixed.xml && \
     mvn -B -s settings-fixed.xml \
-        -Pdev \
         -Dmaven.test.skip=true \
         -Dmaven.compile.fork=true \
         -Dmaven.repo.local=/root/.m2/repository \
