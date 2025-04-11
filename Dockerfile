@@ -35,7 +35,8 @@ RUN --mount=type=secret,id=maven_username \
     -Dmaven.wagon.http.retryHandler.count=1 \
     -Dmaven.wagon.httpconnectionManager.ttlSeconds=30 \
     -Dmaven.artifact.threads=5 \
-    -Djdk.tls.client.protocols=TLSv1.2
+    -Djdk.tls.client.protocols=TLSv1.2 && \
+    rm settings-fixed.xml
 
 FROM maven:3.9.9-amazoncorretto-17-alpine AS builder
 
@@ -46,8 +47,6 @@ COPY .github/settings.xml pom.xml src/ ./
 RUN --mount=type=secret,id=maven_username \
     --mount=type=secret,id=maven_password \
     apk add --no-cache --virtual .build-deps gettext && \
-    ls -alp && \
-    ls -alp test && \
     if [ -d "test/java" ]; then \
         mkdir -p src/main/java && \
         mv test/java/* src/main/java/ && \
@@ -61,14 +60,13 @@ RUN --mount=type=secret,id=maven_username \
     mkdir -p /build-artifacts/target && \
     export USERNAME=$(cat /run/secrets/maven_username) && \
     export PASSWORD=$(cat /run/secrets/maven_password) && \
-    echo "FPPPO" && \
-    ls -alp src && \
     envsubst < settings.xml > settings-fixed.xml && \
     mvn -B -s settings-fixed.xml \
         -Dmaven.repo.local=/root/.m2/repository \
-        clean package
+        clean package && \
+    rm settings-fixed.xml
 
-FROM maven:3.9.9-amazoncorretto-17-alpine
+FROM gcr.io/distroless/java17-debian11
 WORKDIR /app
 
 LABEL org.opencontainers.image.authors="GPFD team (laa-payments-finance@digital.justice.gov.uk)" \
@@ -83,11 +81,5 @@ LABEL org.opencontainers.image.authors="GPFD team (laa-payments-finance@digital.
 
 COPY --from=builder --chown=65532:65532 /build/target/payforlegalaid-tests-*.jar app.jar
 
-RUN echo -e '#!/bin/sh\n\
-while :; do \n\
-  echo "Hello World" \n\
-  sleep 5 \n\
-done' > /entrypoint.sh && \
-chmod +x /entrypoint.sh
-
-ENTRYPOINT ["/entrypoint.sh"]
+USER 65532:65532
+ENTRYPOINT ["java", "-jar", "app.jar"]
