@@ -46,27 +46,25 @@ COPY .github/settings.xml pom.xml src/ ./
 RUN --mount=type=secret,id=maven_username \
     --mount=type=secret,id=maven_password \
     apk add --no-cache --virtual .build-deps gettext && \
-     if [ -d "src/test/java" ]; then \
-          mkdir -p src/main/java && \
-          mv src/test/java/* src/main/java/ && \
-          rm -rf src/test/java; \
-        fi \
-        && if [ -d "src/test/resources" ]; then \
-          mkdir -p src/main/resources && \
-          mv src/test/resources/* src/main/resources/ && \
-          rm -rf src/test/resources; \
-        fi  && \
+    if [ -d "src/test/java" ]; then \
+        mkdir -p src/main/java && \
+        mv src/test/java/* src/main/java/ && \
+        rm -rf src/test/java; \
+    fi && \
+    if [ -d "src/test/resources" ]; then \
+        mkdir -p src/main/resources && \
+        mv src/test/resources/* src/main/resources/ && \
+        rm -rf src/test/resources; \
+    fi && \
     mkdir -p /build-artifacts/target && \
     export USERNAME=$(cat /run/secrets/maven_username) && \
     export PASSWORD=$(cat /run/secrets/maven_password) && \
+    ls -alp && \
+    echo "FPPPO" && \
+    ls -alp src && \
     envsubst < settings.xml > settings-fixed.xml && \
     mvn -B -s settings-fixed.xml \
-        -Dmaven.test.skip=true \
-        -Dmaven.compile.fork=true \
         -Dmaven.repo.local=/root/.m2/repository \
-        -Dmaven.javadoc.skip \
-        -Dmaven.artifact.threads=5 \
-        -Djdk.tls.client.protocols=TLSv1.2 \
         clean package
 
 FROM maven:3.9.9-amazoncorretto-17-alpine
