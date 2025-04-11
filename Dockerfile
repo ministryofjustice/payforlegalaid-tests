@@ -82,7 +82,5 @@ LABEL org.opencontainers.image.authors="GPFD team (laa-payments-finance@digital.
 
 COPY --from=builder --chown=65532:65532 /build/target/payforlegalaid-tests-*.jar app.jar
 
-ENV JAVA_TOOL_OPTIONS="-XX:MaxRAMPercentage=75 -XX:+UseContainerSupport"
-
 USER 65532:65532
 ENTRYPOINT ["java", "-jar", "app.jar"]
