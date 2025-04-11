@@ -107,9 +107,6 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <systemPropertyVariables>
-                        <spring.profiles.active>${spring.profiles.active}</spring.profiles.active>
-                    </systemPropertyVariables>
                     <mainClass>uk.gov.laa.pfla.Main</mainClass>
                 </configuration>
                 <executions>
@@ -120,17 +117,7 @@
                     </execution>
                 </executions>
             </plugin>
-
         </plugins>
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <includes>
-                    <include>**/${properties.file}</include>
-                </includes>
-                <filtering>true</filtering>
-            </resource>
-        </resources>
     </build>
 
     <repositories>
@@ -139,16 +126,4 @@
             <url>https://github.com/ministryofjustice/payforlegalaid-openapi/</url>
         </repository>
     </repositories>
-
-    <profiles>
-        <profile>
-            <id>dev</id>
-            <properties>
-                <spring.profiles.active>dev</spring.profiles.active>
-            </properties>
-        </profile>
-    </profiles>
-
-
-
 </project>

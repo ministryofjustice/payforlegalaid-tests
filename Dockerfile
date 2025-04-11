@@ -67,7 +67,7 @@ RUN --mount=type=secret,id=maven_username \
         -Djdk.tls.client.protocols=TLSv1.2 \
         clean package
 
-FROM gcr.io/distroless/java17-debian11
+FROM maven:3.9.9-amazoncorretto-17-alpine
 WORKDIR /app
 
 LABEL org.opencontainers.image.authors="GPFD team (laa-payments-finance@digital.justice.gov.uk)" \
