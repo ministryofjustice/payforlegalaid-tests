@@ -9,9 +9,8 @@ RUN apk add --no-cache --virtual .build-deps \
     mkdir -p /build-deps  && \
     git config --global advice.detachedHead false && \
     git config --global http.sslVerify true && \
-    git config --global gc.auto 0
-
-RUN git clone \
+    git config --global gc.auto 0 && \
+    git clone \
     --depth 1 \
     --branch "${REPO_REF}" \
     --single-branch \
@@ -21,7 +20,6 @@ RUN git clone \
     find /build-deps/payforlegalaid -type f -exec chmod 644 {} \;
 
 WORKDIR /build-deps/payforlegalaid
-COPY .github/settings.xml .
 
 RUN --mount=type=secret,id=maven_username \
     --mount=type=secret,id=maven_password \
@@ -30,7 +28,7 @@ RUN --mount=type=secret,id=maven_username \
     mkdir -p /home/builder/.m2 && \
     mkdir -p /home/builder/.m2/repository && \
     chmod -R 775 /home/builder/.m2 && \
-    envsubst < settings.xml > settings-fixed.xml && \
+    envsubst < .github/settings.xml > settings-fixed.xml && \
     mvn -B clean install \
     -s settings-fixed.xml \
     -DskipTests \
