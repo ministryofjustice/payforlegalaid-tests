@@ -30,8 +30,6 @@ COPY .github/settings.xml .
 
 RUN --mount=type=secret,id=maven_username \
     --mount=type=secret,id=maven_password \
-    cat /run/secrets/maven_username > /tmp/maven_username && \
-    cat /run/secrets/maven_password > /tmp/maven_password && \
     export USERNAME=$(cat /run/secrets/maven_username) && \
     export PASSWORD=$(cat /run/secrets/maven_password) && \
     mkdir -p /home/builder/.m2 && \
@@ -45,22 +43,18 @@ RUN --mount=type=secret,id=maven_username \
     -Dmaven.wagon.httpconnectionManager.ttlSeconds=30 \
     -Dmaven.artifact.threads=1 \
     -T 1C \
-    -Djdk.tls.client.protocols=TLSv1.2 && \
-    rm -f /tmp/maven_username /tmp/maven_password
+    -Djdk.tls.client.protocols=TLSv1.2
 
 FROM maven:3.9.9-amazoncorretto-17-alpine AS builder
 
 WORKDIR /build
 COPY --from=dependency-builder --chown=root:root /root/.m2/repository /root/.m2/repository
 
-RUN apk add --no-cache --virtual .build-deps gettext
-
-COPY .github/settings.xml .
-COPY pom.xml .
-COPY src ./src
+COPY .github/settings.xml pom.xml src/ ./
 
 RUN --mount=type=secret,id=maven_username \
     --mount=type=secret,id=maven_password \
+    apk add --no-cache --virtual .build-deps gettext && \
     for dir in java resources; do \
       if [ -d "src/test/${dir}" ]; then \
         mkdir -p "src/main/${dir}" && \
