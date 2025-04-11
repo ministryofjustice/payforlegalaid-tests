@@ -2,16 +2,12 @@ FROM maven:3.9.9-amazoncorretto-17-alpine AS dependency-builder
 
 ARG REPO_REF=main
 
-RUN addgroup -g 1001 builder && \
-    adduser -D -u 1001 -G builder builder && \
-    apk add --no-cache --virtual .build-deps \
+WORKDIR /build-deps
+RUN apk add --no-cache --virtual .build-deps \
         git \
         gettext && \
-    mkdir -p /build-deps && \
-    chown -R builder:builder /build-deps && \
-    chmod 700 /build-deps
+    mkdir -p /build-deps
 
-WORKDIR /build-deps
 RUN git config --global advice.detachedHead false && \
     git config --global http.sslVerify true && \
     git config --global gc.auto 0
@@ -87,8 +83,6 @@ LABEL org.opencontainers.image.authors="GPFD team (laa-payments-finance@digital.
       org.opencontainers.image.licenses="MIT" \
       org.opencontainers.image.base.name="gcr.io/distroless/java17-debian11"
 
-COPY --from=builder --chown=65532:65532 /build-artifacts/target /app/reports
-COPY --from=builder --chown=65532:65532 /build-artifacts/target /app/target
 COPY --from=builder --chown=65532:65532 /build/target/payforlegalaid-tests-*.jar app.jar
 
 ENV JAVA_TOOL_OPTIONS="-XX:MaxRAMPercentage=75 -XX:+UseContainerSupport"
