@@ -6,9 +6,8 @@ WORKDIR /build-deps
 RUN apk add --no-cache --virtual .build-deps \
         git \
         gettext && \
-    mkdir -p /build-deps
-
-RUN git config --global advice.detachedHead false && \
+    mkdir -p /build-deps  && \
+    git config --global advice.detachedHead false && \
     git config --global http.sslVerify true && \
     git config --global gc.auto 0
 
