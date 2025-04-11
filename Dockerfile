@@ -46,20 +46,21 @@ COPY .github/settings.xml pom.xml src/ ./
 RUN --mount=type=secret,id=maven_username \
     --mount=type=secret,id=maven_password \
     apk add --no-cache --virtual .build-deps gettext && \
-    if [ -d "src/test/java" ]; then \
+    ls -alp && \
+    ls -alp test && \
+    if [ -d "test/java" ]; then \
         mkdir -p src/main/java && \
-        mv src/test/java/* src/main/java/ && \
-        rm -rf src/test/java; \
+        mv test/java/* src/main/java/ && \
+        rmdir test/java; \
     fi && \
-    if [ -d "src/test/resources" ]; then \
+    if [ -d "test/resources" ]; then \
         mkdir -p src/main/resources && \
-        mv src/test/resources/* src/main/resources/ && \
-        rm -rf src/test/resources; \
+        mv test/resources/* src/main/resources/ && \
+        rmdir test/resources; \
     fi && \
     mkdir -p /build-artifacts/target && \
     export USERNAME=$(cat /run/secrets/maven_username) && \
     export PASSWORD=$(cat /run/secrets/maven_password) && \
-    ls -alp && \
     echo "FPPPO" && \
     ls -alp src && \
     envsubst < settings.xml > settings-fixed.xml && \
