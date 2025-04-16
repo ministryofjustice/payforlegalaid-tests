@@ -66,7 +66,7 @@ RUN --mount=type=secret,id=maven_username \
         clean package && \
     rm settings-fixed.xml
 
-FROM gcr.io/distroless/java17-debian11
+FROM gcr.io/distroless/java17-debian12
 WORKDIR /app
 
 LABEL org.opencontainers.image.authors="GPFD team (laa-payments-finance@digital.justice.gov.uk)" \
