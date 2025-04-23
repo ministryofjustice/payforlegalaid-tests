@@ -83,4 +83,4 @@ LABEL org.opencontainers.image.authors="GPFD team (laa-payments-finance@digital.
 COPY --from=builder --chown=65532:65532 /build/target/payforlegalaid-tests-*.jar app.jar
 
 USER 65532:65532
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-Dspring.profiles.active=dev", "-jar", "app.jar"]
