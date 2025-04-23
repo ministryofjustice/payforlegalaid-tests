@@ -6,7 +6,8 @@ Feature: Generate and Retrieve CSV Report
 
   Scenario: Successfully generate and retrieve a CSV report with valid authentication
     Given I am authenticated with a valid session
-    When a request is made to the CSV endpoint with the report ID "0fbec75b-2d72-44f5-a0e3-2dcb29d92f79"
+    And a request is made to the reports endpoint
+    When a user request csv for a randomly selected report
     Then the service should respond with a status code of 200
     And the response should include the CSV file
 
