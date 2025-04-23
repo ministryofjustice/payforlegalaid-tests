@@ -2,22 +2,22 @@ gpfd:
   url: https://localhost:8080
   datasource:
     read-only:
-      url: ${MOJFIN_DB_URL}
-      username: ${MOJFIN_DEV_READ_USERNAME}
-      password: ${MOJFIN_DEV_READ_PASSWORD}
-      driver-class-name: oracle.jdbc.OracleDriver
+      url: jdbc:h2:file:~/localGpfdDb;MODE=Oracle
+      username: sa
+      password:
+      driver-class-name: org.h2.Driver
     write:
-      url: ${MOJFIN_DB_URL}
-      username: ${MOJFIN_DEV_WRITE_USERNAME}
-      password: ${MOJFIN_DEV_WRITE_PASSWORD}
-      driver-class-name: oracle.jdbc.OracleDriver
+      url: jdbc:h2:file:~/localGpfdDb;MODE=Oracle
+      username: sa
+      password:
+      driver-class-name: org.h2.Driver
   jwks-uri: https://sts.windows.net/${spring.cloud.azure.active-directory.profile.tenant-id}/
 
 spring:
   main:
     allow-bean-definition-overriding: true
   liquibase:
-    enabled: false
+    enabled: true
     changelog: /db/changelog/db.changelog-master.xml
   cloud:
     azure:

@@ -63,6 +63,7 @@ RUN --mount=type=secret,id=maven_username \
     envsubst < settings.xml > settings-fixed.xml && \
     mvn -B -s settings-fixed.xml \
         -Dmaven.repo.local=/root/.m2/repository \
+        -Pdev \
         clean package && \
     rm settings-fixed.xml
 
