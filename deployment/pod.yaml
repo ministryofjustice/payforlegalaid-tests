@@ -19,3 +19,44 @@ spec:
         runAsNonRoot: true
         capabilities:
           drop: [ "ALL" ]
+      env:
+        - name: AZURE_CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: gpfd-test-secret-01
+              key: client-secret-dev
+        - name: AZURE_CLIENT_ID
+          valueFrom:
+            secretKeyRef:
+              name: gpfd-test-secret-01
+              key: client-id-dev
+        - name: AZURE_TENANT_ID
+          valueFrom:
+            secretKeyRef:
+              name: gpfd-test-secret-01
+              key: tenant-id-dev
+        - name: MOJFIN_DEV_READ_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: gpfd-test-secret-01
+              key: mojfin-dev-read-username
+        - name: MOJFIN_DEV_READ_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: gpfd-test-secret-01
+              key: mojfin-dev-read-password
+        - name: MOJFIN_DEV_WRITE_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: gpfd-test-secret-01
+              key: mojfin-dev-write-username
+        - name: MOJFIN_DEV_WRITE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: gpfd-test-secret-01
+              key: mojfin-dev-write-password
+        - name: MOJFIN_DB_URL
+          valueFrom:
+            secretKeyRef:
+              name: gpfd-test-secret-01
+              key: mojfin-db-url

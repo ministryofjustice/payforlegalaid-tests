@@ -120,6 +120,19 @@
         </plugins>
     </build>
 
+
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <environment>dev</environment>
+            </properties>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+        </profile>
+    </profiles>
+
     <repositories>
         <repository>
             <id>payforlegalaid-openapi</id>
