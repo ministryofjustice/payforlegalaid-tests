@@ -1,5 +1,6 @@
 package uk.gov.laa.pfla.configuration;
 
+import com.fasterxml.jackson.databind.MappingJsonFactory;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -11,8 +12,6 @@ import org.springframework.security.oauth2.client.registration.InMemoryClientReg
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
-import org.springframework.security.oauth2.jwt.JwtDecoders;
-import org.springframework.security.oauth2.jwt.JwtException;
 import org.springframework.web.client.RestTemplate;
 import uk.gov.laa.gpfd.graph.GraphClient;
 import uk.gov.laa.gpfd.graph.StubbedGraphClient;
@@ -24,6 +23,7 @@ import uk.gov.laa.pfla.client.interceptor.HostInterceptor;
 import uk.gov.laa.pfla.comparator.WorkbookComparator;
 import uk.gov.laa.pfla.scenario.ScenarioContext;
 import uk.gov.laa.pfla.service.HttpProvider;
+import uk.gov.laa.pfla.util.JsonDeserializer;
 import uk.gov.laa.pfla.util.WorkbookUtil;
 
 import java.util.function.Supplier;
@@ -153,4 +153,10 @@ public class TestConfig {
                         .build();
         };
     }
+
+    @Bean
+    public JsonDeserializer jsonDeserializer() {
+        return MappingJsonFactory::new;
+    }
+
 }

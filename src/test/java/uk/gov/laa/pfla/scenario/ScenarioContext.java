@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.Setter;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import uk.gov.laa.pfla.util.JsonDeserializer;
 
 import static java.util.Optional.ofNullable;
 import static uk.gov.laa.pfla.scenario.AuthenticationState.AUTHENTICATED;
@@ -19,6 +20,11 @@ public class ScenarioContext {
     @Setter(AccessLevel.NONE)
     private AuthenticationState authenticationState;
     private ResponseEntity<?> response;
+    private final JsonDeserializer jsonDeserializer;
+
+    public <T> T deserialize(Class<T> valueType) {
+        return jsonDeserializer.deserializeFromResponse(getResponseAs(String.class), valueType);
+    }
 
     public <T> ResponseEntity<T> getResponseAs(Class<T> responseType) {
         return ofNullable(response)
