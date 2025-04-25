@@ -6,9 +6,10 @@ Feature: Retrieve a Single Report
 
   Scenario: Successfully retrieve details of an existing report with valid authentication
     Given I am authenticated with a valid session
-    When a request is made to the reports endpoint with the report ID "0fbec75b-2d72-44f5-a0e3-2dcb29d92f79"
+    And a request is made to the reports endpoint
+    When a request is made to the reports endpoint with a random report
     Then the service should respond with a status code of 200
-    And the response should include details for the report with ID "0fbec75b-2d72-44f5-a0e3-2dcb29d92f79"
+    And the response should include valid details for the resource
 
   Scenario: Redirect to login when attempting to retrieve reports with invalid authentication
     Given I am authenticated with an invalid session
