@@ -25,6 +25,7 @@ import uk.gov.laa.pfla.scenario.ScenarioContext;
 import uk.gov.laa.pfla.service.HttpProvider;
 import uk.gov.laa.pfla.util.JsonDeserializer;
 import uk.gov.laa.pfla.util.WorkbookUtil;
+import uk.gov.laa.pfla.util.workbook.WorkbookCreator;
 
 import java.util.function.Supplier;
 
@@ -136,13 +137,23 @@ public class TestConfig {
     }
 
     @Bean
-    public WorkbookUtil testingExcelService(ScenarioContext scenarioContext) {
+    public WorkbookUtil testingExcelService(ScenarioContext scenarioContext, WorkbookCreator workbookCreator) {
         return new WorkbookUtil() {
             @Override
             public Workbook getExcelWorkbook() {
                 return getExcelWorkbook(scenarioContext);
             }
+
+            @Override
+            public WorkbookCreator workbookCreator() {
+                return workbookCreator;
+            }
         };
+    }
+
+    @Bean
+    public WorkbookCreator workbookCreator() {
+        return new WorkbookCreator() {};
     }
 
     @Bean

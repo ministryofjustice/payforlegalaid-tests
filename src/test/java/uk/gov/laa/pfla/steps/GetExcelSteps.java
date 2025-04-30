@@ -30,8 +30,9 @@ public record GetExcelSteps(HttpProvider httpProvider, ScenarioContext scenarioC
         assertAll("Verify Excel response",
                 () -> assertThat(headers.getContentType()).isEqualTo(parseMediaType(APPLICATION_EXCEL)),
                 () -> assertThat(headers.getContentDisposition()).isEqualTo(attachment().filename(file + ".xlsx").build()),
-                () -> WorkbookAssert.assertThat(currentResult).isEqualTo(expectedResult)
+                () -> WorkbookAssert.assertThat(currentResult).isEqualTo(expectedResult),
+                () -> WorkbookAssert.assertThat(currentResult).hasAllFormulasEvaluated(),
+                () -> WorkbookAssert.assertThat(currentResult).hasValidPivotTables()
         );
     }
-
 }
