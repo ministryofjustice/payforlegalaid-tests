@@ -63,6 +63,11 @@
         </dependency>
 
         <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>uk.gov.laa</groupId>
             <artifactId>payforlegalaid-openapi</artifactId>
             <version>${payforlegalaid-openapi.version}</version>

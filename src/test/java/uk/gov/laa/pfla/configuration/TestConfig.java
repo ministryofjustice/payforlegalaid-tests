@@ -1,8 +1,11 @@
 package uk.gov.laa.pfla.configuration;
 
 import com.fasterxml.jackson.databind.MappingJsonFactory;
+import liquibase.integration.spring.SpringLiquibase;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -27,6 +30,7 @@ import uk.gov.laa.pfla.util.JsonDeserializer;
 import uk.gov.laa.pfla.util.WorkbookUtil;
 import uk.gov.laa.pfla.util.workbook.WorkbookCreator;
 
+import javax.sql.DataSource;
 import java.util.function.Supplier;
 
 import static java.util.List.of;
@@ -36,6 +40,9 @@ import static uk.gov.laa.pfla.client.interceptor.HostInterceptor.withHost;
 
 @Configuration
 public class TestConfig {
+
+    @Value("${spring.liquibase.changelog}")
+    private String liquibaseChangeLog;
 
     @Bean
     @Primary
@@ -170,4 +177,28 @@ public class TestConfig {
         return MappingJsonFactory::new;
     }
 
+    /**
+     * Creates and configures a {@link SpringLiquibase} bean to be used for database,
+     * if the property `spring.liquibase.enabled` is set to `true` in the application properties.
+     *
+     * This method will set the data source to the specified {@link DataSource} bean, configure the
+     * change log file to be used by Liquibase, and ensure that the migrations are executed by
+     * setting {@code setShouldRun(true)}.
+     *
+     * @param dataSource The {@link DataSource} bean to be used by Liquibase for database connectivity.
+     * @return A configured {@link SpringLiquibase} instance ready for migration.
+     *
+     * @see SpringLiquibase
+     * @see DataSource
+     */
+    @Bean
+    @Primary
+    @ConditionalOnProperty(name = "spring.liquibase.enabled", havingValue = "true")
+    public SpringLiquibase liquibase(@Qualifier("writeDataSource") DataSource dataSource) {
+        SpringLiquibase liquibase = new SpringLiquibase();
+        liquibase.setDataSource(dataSource);
+        liquibase.setChangeLog(liquibaseChangeLog);
+        liquibase.setShouldRun(true);
+        return liquibase;
+    }
 }
