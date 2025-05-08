@@ -31,7 +31,7 @@ public abstract class WorkbookAssert extends AbstractAssert<WorkbookAssert, Work
         isNotNull();
 
         if (!workbookComparator.areWorkbooksEqual(actual, expected)) {
-            failWithMessage("Response body should not be empty");
+            failWithMessage("Workbook does not match the expected result");
         }
     }
 
