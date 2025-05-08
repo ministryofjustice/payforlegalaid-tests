@@ -1,5 +1,6 @@
 package uk.gov.laa.pfla.util;
 
+import java.io.FileNotFoundException;
 import lombok.SneakyThrows;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +30,7 @@ public interface WorkbookUtil {
     default Workbook loadExcelFromResources(String pattern, Object ... arguments) {
         return ofNullable(loadResourceAsBytes(format(pattern, arguments)))
                 .map(workbookCreator()::construct)
-                .orElseThrow(() -> new RuntimeException("Failed to load the file."));
+                .orElseThrow(() -> new FileNotFoundException("Failed to load the file " + format(pattern, arguments)));
     }
 
     private byte[] loadResourceAsBytes(String fileName) {
