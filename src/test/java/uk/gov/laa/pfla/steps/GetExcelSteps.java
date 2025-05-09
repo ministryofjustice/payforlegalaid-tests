@@ -24,12 +24,13 @@ public record GetExcelSteps(HttpProvider httpProvider, ScenarioContext scenarioC
     @Then("the response should include the Excel file with {string} report")
     public void verifyExcelResponse(String file) {
         var currentResult = excelService.getExcelWorkbook();
-        var expectedResult = excelService.loadExcelFromResources("results/{0}.xlsx", file);
+        var expectedResult = excelService.loadExcelFromResources("expected_results/{0}.xlsx", file);
         var headers = scenarioContext.getResponseAs(Object.class).getHeaders();
 
         assertAll("Verify Excel response",
                 () -> assertThat(headers.getContentType()).isEqualTo(parseMediaType(APPLICATION_EXCEL)),
-                () -> assertThat(headers.getContentDisposition()).isEqualTo(attachment().filename(file + ".xlsx").build()),
+                () -> assertThat(headers.getContentDisposition()).isEqualTo(
+                    attachment().filename(file + ".xlsx").build()),
                 () -> WorkbookAssert.assertThat(currentResult).isEqualTo(expectedResult),
                 () -> WorkbookAssert.assertThat(currentResult).hasAllFormulasEvaluated(),
                 () -> WorkbookAssert.assertThat(currentResult).hasValidPivotTables()

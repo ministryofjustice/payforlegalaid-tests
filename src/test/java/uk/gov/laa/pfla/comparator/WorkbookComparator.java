@@ -37,26 +37,24 @@ public interface WorkbookComparator {
     }
 
     private boolean areSheetsEqual(Sheet sheet1, Sheet sheet2) {
-        if (sheet1.getPhysicalNumberOfRows() != sheet2.getPhysicalNumberOfRows()) return false;
 
-        for (var rowIndex = 0; rowIndex <= sheet1.getLastRowNum(); rowIndex++) {
-            var row1 = sheet1.getRow(rowIndex);
-            var row2 = sheet2.getRow(rowIndex);
+        var row1 = sheet1.getRow(0);
+        var row2 = sheet2.getRow(0);
 
-            if ((row1 == null) != (row2 == null)) return false;
-            if (row1 == null) continue;
-            if (row1.getPhysicalNumberOfCells() != row2.getPhysicalNumberOfCells()) return false;
+        if ((row1 == null) != (row2 == null)) return false;
+        if (Objects.requireNonNull(row1).getPhysicalNumberOfCells() != Objects.requireNonNull(row2).getPhysicalNumberOfCells()) return false;
 
-            for (var cellIndex = 0; cellIndex <= row1.getLastCellNum(); cellIndex++) {
-                var cell1 = row1.getCell(cellIndex);
-                var cell2 = row2.getCell(cellIndex);
+        for (var cellIndex = 0; cellIndex <= row1.getLastCellNum(); cellIndex++) {
+            var cell1 = row1.getCell(cellIndex);
+            var cell2 = row2.getCell(cellIndex);
 
-                if ((cell1 == null) != (cell2 == null)) return false;
-                if (cell1 == null) continue;
+            if ((cell1 == null) != (cell2 == null)) return false;
+            if (cell1 == null) continue;
 
-                if (!areCellsEqual(cell1, cell2)) return false;
-            }
+            if (!areCellsEqual(cell1, cell2)) return false;
         }
+
+        if (sheet1.getPhysicalNumberOfRows() != sheet2.getPhysicalNumberOfRows()) return false;
 
         return true;
     }
