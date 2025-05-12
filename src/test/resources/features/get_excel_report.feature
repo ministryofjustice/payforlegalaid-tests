@@ -1,15 +1,18 @@
-@NotReady
 Feature: Generate and Retrieve Excel Financial Report
 
   As a user of the system
   I want to generate and retrieve an Excel report
   So that I can analyze and work with financial data in a structured and familiar format
 
-  Scenario: Successfully generate and retrieve an Excel report with valid authentication
+  Scenario Outline: Successfully generate and retrieve an Excel report with valid authentication
     Given I am authenticated with a valid session
-    When a request is made to the Excel endpoint with the report ID "b36f9bbb-1178-432c-8f99-8090e285f2d3"
+    When a request is made to the Excel endpoint with the report ID "<id>"
     Then the service should respond with a status code of 200
-    And the response should include the Excel file with "CCMS Invoice Analysis (CIS to CCMS)" report
+    And the response should include the Excel file with "<template>" report
+    Examples:
+      | id                                   | template                            |
+      | b36f9bbb-1178-432c-8f99-8090e285f2d3 | CCMS Invoice Analysis (CIS to CCMS) |
+      | f46b4d3d-c100-429a-bf9a-223305dbdbfb | CCMS Invoice Analysis (CIS to CCMS) |
 
   Scenario: Return an error when attempting to retrieve a report with an unrecognized ID
     Given I am authenticated with a valid session
