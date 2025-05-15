@@ -42,6 +42,7 @@ public interface WorkbookComparator {
         var row2 = sheet2.getRow(0);
 
         if ((row1 == null) != (row2 == null)) return false;
+        if ((row2 == null) && (row1 == null)) return true;
         if (Objects.requireNonNull(row1).getPhysicalNumberOfCells() != Objects.requireNonNull(row2).getPhysicalNumberOfCells()) return false;
 
         for (var cellIndex = 0; cellIndex <= row1.getLastCellNum(); cellIndex++) {
