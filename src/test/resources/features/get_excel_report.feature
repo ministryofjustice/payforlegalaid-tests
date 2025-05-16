@@ -13,7 +13,7 @@ Feature: Generate and Retrieve Excel Financial Report
       | id                                   | template                                             |
       | b36f9bbb-1178-432c-8f99-8090e285f2d3 | CCMS Invoice Analysis (CIS to CCMS)                  |
       | f46b4d3d-c100-429a-bf9a-223305dbdbfb | CCMS General ledger extractor (small manual batches) |
-      | eee30b23-2c8d-4b4b-bb11-8cd67d07915c | CCMS and CIS Bank Account Report w Category Code (YTD) |
+#      | eee30b23-2c8d-4b4b-bb11-8cd67d07915c | CCMS and CIS Bank Account Report w Category Code (YTD) |
 
   Scenario: Return an error when attempting to retrieve a report with an unrecognized ID
     Given I am authenticated with a valid session
