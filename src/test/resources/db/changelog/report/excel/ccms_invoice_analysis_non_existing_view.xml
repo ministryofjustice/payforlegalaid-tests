@@ -18,8 +18,8 @@
             <column name="ACTIVE" value="Y"/>
             <column name="REPORT_OUTPUT_TYPE" value="6ebd27ac-4d83-485d-a4fd-3e45f9a53484"/>
             <column name="REPORT_OWNER_ID" value="00000000-0000-0000-0000-000000000003"/>
-            <column name="REPORT_OWNER_NAME" value="William Moran"/>
-            <column name="REPORT_OWNER_EMAIL" value="William.Moran@Justice.gov.uk"/>
+            <column name="REPORT_OWNER_NAME" value="Teresa Green"/>
+            <column name="REPORT_OWNER_EMAIL" value="teresagreen@Justice.gov.uk"/>
         </insert>
         <insert tableName="REPORT_QUERIES" schemaName="GPFD">
             <column name="ID" value="1dc32729-f50d-418e-a2af-ad83d9248cc1"/>

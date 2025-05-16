@@ -35,8 +35,8 @@
             <column name="ACTIVE" value="Y"/>
             <column name="REPORT_OUTPUT_TYPE" value="6ebd27ac-4d83-485d-a4fd-3e45f9a53484"/>
             <column name="REPORT_OWNER_ID" value="00000000-0000-0000-0000-000000000003"/>
-            <column name="REPORT_OWNER_NAME" value="William Moran"/>
-            <column name="REPORT_OWNER_EMAIL" value="William.Moran@Justice.gov.uk"/>
+            <column name="REPORT_OWNER_NAME" value="Teresa Green"/>
+            <column name="REPORT_OWNER_EMAIL" value="teresagreen@Justice.gov.uk"/>
         </insert>
 
         <insert tableName="REPORTS" schemaName="GPFD">
@@ -50,8 +50,8 @@
             <column name="ACTIVE" value="Y"/>
             <column name="REPORT_OUTPUT_TYPE" value="6ebd27ac-4d83-485d-a4fd-3e45f9a53484"/>
             <column name="REPORT_OWNER_ID" value="00000000-0000-0000-0000-000000000003"/>
-            <column name="REPORT_OWNER_NAME" value="William Moran"/>
-            <column name="REPORT_OWNER_EMAIL" value="William.Moran@Justice.gov.uk"/>
+            <column name="REPORT_OWNER_NAME" value="Teresa Green"/>
+            <column name="REPORT_OWNER_EMAIL" value="teresagreen@Justice.gov.uk"/>
         </insert>
         <insert tableName="REPORTS" schemaName="GPFD">
             <column name="ID" value="f46b4d3d-c100-429a-bf9a-6c3305dbdbf4"/>
@@ -64,8 +64,8 @@
             <column name="ACTIVE" value="Y"/>
             <column name="REPORT_OUTPUT_TYPE" value="6ebd27ac-4d83-485d-a4fd-3e45f9a53484"/>
             <column name="REPORT_OWNER_ID" value="00000000-0000-0000-0000-000000000003"/>
-            <column name="REPORT_OWNER_NAME" value="William Moran"/>
-            <column name="REPORT_OWNER_EMAIL" value="William.Moran@Justice.gov.uk"/>
+            <column name="REPORT_OWNER_NAME" value="Teresa Green"/>
+            <column name="REPORT_OWNER_EMAIL" value="teresagreen@Justice.gov.uk"/>
         </insert>
         <insert tableName="REPORTS" schemaName="GPFD">
             <column name="ID" value="f46b4d3d-c100-429a-bf9a-6c3305dbdbf5"/>
@@ -78,8 +78,8 @@
             <column name="ACTIVE" value="Y"/>
             <column name="REPORT_OUTPUT_TYPE" value="6ebd27ac-4d83-485d-a4fd-3e45f9a53484"/>
             <column name="REPORT_OWNER_ID" value="00000000-0000-0000-0000-000000000003"/>
-            <column name="REPORT_OWNER_NAME" value="William Moran"/>
-            <column name="REPORT_OWNER_EMAIL" value="William.Moran@Justice.gov.uk"/>
+            <column name="REPORT_OWNER_NAME" value="Teresa Green"/>
+            <column name="REPORT_OWNER_EMAIL" value="teresagreen@Justice.gov.uk"/>
         </insert>
         <insert tableName="REPORTS" schemaName="GPFD">
             <column name="ID" value="f46b4d3d-c100-429a-bf9a-6c3305dbdbf6"/>
@@ -92,8 +92,8 @@
             <column name="ACTIVE" value="Y"/>
             <column name="REPORT_OUTPUT_TYPE" value="6ebd27ac-4d83-485d-a4fd-3e45f9a53484"/>
             <column name="REPORT_OWNER_ID" value="00000000-0000-0000-0000-000000000003"/>
-            <column name="REPORT_OWNER_NAME" value="William Moran"/>
-            <column name="REPORT_OWNER_EMAIL" value="William.Moran@Justice.gov.uk"/>
+            <column name="REPORT_OWNER_NAME" value="Teresa Green"/>
+            <column name="REPORT_OWNER_EMAIL" value="teresagreen@Justice.gov.uk"/>
         </insert>
         <insert tableName="REPORTS" schemaName="GPFD">
             <column name="ID" value="f46b4d3d-c100-429a-bf9a-6c3305dbdbf7"/>
@@ -106,8 +106,8 @@
             <column name="ACTIVE" value="Y"/>
             <column name="REPORT_OUTPUT_TYPE" value="6ebd27ac-4d83-485d-a4fd-3e45f9a53484"/>
             <column name="REPORT_OWNER_ID" value="00000000-0000-0000-0000-000000000003"/>
-            <column name="REPORT_OWNER_NAME" value="William Moran"/>
-            <column name="REPORT_OWNER_EMAIL" value="William.Moran@Justice.gov.uk"/>
+            <column name="REPORT_OWNER_NAME" value="Teresa Green"/>
+            <column name="REPORT_OWNER_EMAIL" value="teresagreen@Justice.gov.uk"/>
         </insert>
         <insert tableName="REPORTS" schemaName="GPFD">
             <column name="ID" value="f46b4d3d-c100-429a-bf9a-6c3305dbdbf8"/>
@@ -121,8 +121,8 @@
             <column name="ACTIVE" value="Y"/>
             <column name="REPORT_OUTPUT_TYPE" value="6ebd27ac-4d83-485d-a4fd-3e45f9a53484"/>
             <column name="REPORT_OWNER_ID" value="00000000-0000-0000-0000-000000000003"/>
-            <column name="REPORT_OWNER_NAME" value="William Moran"/>
-            <column name="REPORT_OWNER_EMAIL" value="William.Moran@Justice.gov.uk"/>
+            <column name="REPORT_OWNER_NAME" value="Teresa Green"/>
+            <column name="REPORT_OWNER_EMAIL" value="teresagreen@Justice.gov.uk"/>
         </insert>
         <insert tableName="REPORTS" schemaName="GPFD">
             <column name="ID" value="f46b4d3d-c100-429a-bf9a-6c3305dbdbf9"/>
@@ -135,8 +135,8 @@
             <column name="ACTIVE" value="Y"/>
             <column name="REPORT_OUTPUT_TYPE" value="6ebd27ac-4d83-485d-a4fd-3e45f9a53484"/>
             <column name="REPORT_OWNER_ID" value="00000000-0000-0000-0000-000000000003"/>
-            <column name="REPORT_OWNER_NAME" value="William Moran"/>
-            <column name="REPORT_OWNER_EMAIL" value="William.Moran@Justice.gov.uk"/>
+            <column name="REPORT_OWNER_NAME" value="Teresa Green"/>
+            <column name="REPORT_OWNER_EMAIL" value="teresagreen@Justice.gov.uk"/>
         </insert>
         <insert tableName="REPORTS" schemaName="GPFD">
             <column name="ID" value="f46b4d3d-c100-429a-bf9a-6c3305dbdbfa"/>
@@ -149,8 +149,8 @@
             <column name="ACTIVE" value="Y"/>
             <column name="REPORT_OUTPUT_TYPE" value="6ebd27ac-4d83-485d-a4fd-3e45f9a53484"/>
             <column name="REPORT_OWNER_ID" value="00000000-0000-0000-0000-000000000003"/>
-            <column name="REPORT_OWNER_NAME" value="William Moran"/>
-            <column name="REPORT_OWNER_EMAIL" value="William.Moran@Justice.gov.uk"/>
+            <column name="REPORT_OWNER_NAME" value="Teresa Green"/>
+            <column name="REPORT_OWNER_EMAIL" value="teresagreen@Justice.gov.uk"/>
         </insert>
         <insert tableName="REPORTS" schemaName="GPFD">
             <column name="ID" value="f46b4d3d-c100-429a-bf9a-6c3305dbdbfb"/>
@@ -163,8 +163,8 @@
             <column name="ACTIVE" value="Y"/>
             <column name="REPORT_OUTPUT_TYPE" value="6ebd27ac-4d83-485d-a4fd-3e45f9a53484"/>
             <column name="REPORT_OWNER_ID" value="00000000-0000-0000-0000-000000000003"/>
-            <column name="REPORT_OWNER_NAME" value="William Moran"/>
-            <column name="REPORT_OWNER_EMAIL" value="William.Moran@Justice.gov.uk"/>
+            <column name="REPORT_OWNER_NAME" value="Teresa Green"/>
+            <column name="REPORT_OWNER_EMAIL" value="teresagreen@Justice.gov.uk"/>
         </insert>
     </changeSet>
 
