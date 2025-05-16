@@ -10,10 +10,11 @@ Feature: Generate and Retrieve Excel Financial Report
     Then the service should respond with a status code of 200
     And the response should include the Excel file with "<template>" report
     Examples:
-      | id                                   | template                                             |
-      | b36f9bbb-1178-432c-8f99-8090e285f2d3 | CCMS Invoice Analysis (CIS to CCMS)                  |
-      | f46b4d3d-c100-429a-bf9a-223305dbdbfb | CCMS General ledger extractor (small manual batches) |
-      | eee30b23-2c8d-4b4b-bb11-8cd67d07915c | CCMS and CIS Bank Account Report w Category Code (YTD) |
+      | id                                   | template                                                |
+      | b36f9bbb-1178-432c-8f99-8090e285f2d3 | CCMS Invoice Analysis (CIS to CCMS)                     |
+      | f46b4d3d-c100-429a-bf9a-223305dbdbfb | CCMS General ledger extractor (small manual batches)    |
+      | eee30b23-2c8d-4b4b-bb11-8cd67d07915c | CCMS and CIS Bank Account Report w Category Code (YTD)  |
+      | a017241a-359f-4fdb-a0cd-7f28f1946ef1 | CCMS and CIS Bank Account Report w Category Code (MNTH) |
 
   Scenario: Return an error when attempting to retrieve a report with an unrecognized ID
     Given I am authenticated with a valid session
@@ -23,7 +24,7 @@ Feature: Generate and Retrieve Excel Financial Report
 
   Scenario: Return an error when report generation fails due non existing view
     Given I am authenticated with a valid session
-    When a request is made to the Excel endpoint with the report ID "0fbec75b-2d72-44f5-a0e3-2dcb29d92f79"
+    When a request is made to the Excel endpoint with the report ID "abbec75b-2d72-44f5-a0e3-2dcb29d92f79"
     Then the service should respond with a status code of 500
     And the response should include the error message "bad SQL grammar"
 
