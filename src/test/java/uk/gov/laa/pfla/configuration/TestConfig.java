@@ -16,8 +16,6 @@ import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.web.client.RestTemplate;
-import uk.gov.laa.gpfd.graph.GraphClient;
-import uk.gov.laa.gpfd.graph.StubbedGraphClient;
 import uk.gov.laa.pfla.client.RestTemplateWithErrorHandling;
 import uk.gov.laa.pfla.client.AuthenticationProvider;
 import uk.gov.laa.pfla.client.RestClient;
@@ -43,12 +41,6 @@ public class TestConfig {
 
     @Value("${spring.liquibase.changelog}")
     private String liquibaseChangeLog;
-
-    @Bean
-    @Primary
-    public GraphClient graphClient() {
-        return new StubbedGraphClient();
-    }
 
     @Bean
     @Qualifier("validAuthenticationInterceptor")

@@ -31,22 +31,6 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-
-        <createTable tableName="CSV_TO_SQL_MAPPING_TABLE" schemaName="GPFD">
-            <column name="ID" type="CHAR(36)">
-                <constraints primaryKey="true" nullable="false"/>
-            </column>
-            <column name="REPORT_NAME" type="VARCHAR(200)"/>
-            <column name="SQL_QUERY" type="VARCHAR(4000)"/>
-            <column name="BASE_URL" type="VARCHAR(450)"/>
-            <column name="REPORT_OWNER" type="VARCHAR(100)"/>
-            <column name="REPORT_CREATOR" type="VARCHAR(100)"/>
-            <column name="REPORT_DESCRIPTION" type="VARCHAR(400)"/>
-            <column name="EXCEL_REPORT" type="VARCHAR(200)"/>
-            <column name="EXCEL_SHEET_NUM" type="NUMBER"/>
-            <column name="CSV_NAME" type="VARCHAR(200)"/>
-            <column name="OWNER_EMAIL" type="VARCHAR(300)"/>
-        </createTable>
     </changeSet>
 
     <changeSet id="003-create-reporting-tables" author="jason_smallman">
