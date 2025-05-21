@@ -10,3 +10,4 @@ This repository contains acceptance tests for the [Get Payments and Finance Data
 2. For that repository, run `mvn clean install` this is to ensure there is a payforlegalaid jar in your local ./m2
 3. Checkout this repository
 4. Run `mvn clean compile`
+5. Run `mvn test` to run the Cucumber tests
