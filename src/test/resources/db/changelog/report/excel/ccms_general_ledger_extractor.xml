@@ -24,7 +24,7 @@
         <insert tableName="REPORT_QUERIES" schemaName="GPFD">
             <column name="ID" value="f46b4d3d-c100-429a-bf9a-223305dbdbfb"/>
             <column name="REPORT_ID" value="f46b4d3d-c100-429a-bf9a-223305dbdbfb"/>
-            <column name="QUERY" value="SELECT *  FROM ANY_REPORT.FISH_AND_CHIPS_FOR_GENERAL_LEDGER"/>
+            <column name="QUERY" value="SELECT * FROM ANY_REPORT.FISH_AND_CHIPS_FOR_GENERAL_LEDGER"/>
             <column name="TAB_NAME" value="DATA"/>
         </insert>
 
