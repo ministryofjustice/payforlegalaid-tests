@@ -19,290 +19,290 @@
             <column name="REPORT_OUTPUT_TYPE" value="bd098666-94e4-4b0e-822c-8e5dfb04c908"/>
             <column name="REPORT_OWNER_ID" value="00000000-0000-0000-0000-000000000001"/>
             <column name="REPORT_OWNER_NAME" value="Teresa Green"/>
-            <column name="REPORT_OWNER_EMAIL" value="teresagreen@Justice.gov.uk"/>
+            <column name="REPORT_OWNER_EMAIL" value="teresagreen@example.org"/>
         </insert>
         <insert tableName="REPORT_QUERIES" schemaName="GPFD">
             <column name="ID" value="1dc32729-f50d-418e-a2af-ad83d9248bb0"/>
             <column name="REPORT_ID" value="b36f9bbb-1178-432c-8f99-8090e285f2d3"/>
-            <column name="QUERY" value="SELECT * FROM ANY_REPORT.V_CIS_TO_CCMS_INVOICE_SUMMARY"/>
+            <column name="QUERY" value="SELECT * FROM ANY_REPORT.WIZARD_POTION_SUPPLY_LEVELS"/>
             <column name="TAB_NAME" value="CIS to CCMS import analysis"/>
         </insert>
         <insert tableName="REPORT_QUERIES" schemaName="GPFD">
             <column name="ID" value="1dc32729-f50d-418e-a2af-ad83d9248bb1"/>
             <column name="REPORT_ID" value="b36f9bbb-1178-432c-8f99-8090e285f2d3"/>
-            <column name="QUERY" value="SELECT * FROM ANY_REPORT.V_CIS_TO_CCMS_INVOICE_EXCEPTIONS"/>
+            <column name="QUERY" value="SELECT * FROM ANY_REPORT.MARSHMALLOW_DENSITY_SUMMARY_VIEW"/>
             <column name="TAB_NAME" value="CIS to CCMS import exceptions"/>
         </insert>
         <insert tableName="REPORT_QUERIES" schemaName="GPFD">
             <column name="ID" value="1dc32729-f50d-418e-a2af-ad83d9248bb2"/>
             <column name="REPORT_ID" value="b36f9bbb-1178-432c-8f99-8090e285f2d3"/>
-            <column name="QUERY" value="SELECT * FROM ANY_REPORT.V_CIS_TO_CCMS_INVOICE_DEFINED_PAYMENT_GROUPS"/>
+            <column name="QUERY" value="SELECT * FROM ANY_REPORT.FISH_AND_CHIP_GENERAL_LEDGER"/>
             <column name="TAB_NAME" value="CCMS Payment value(defined)"/>
         </insert>
         <insert tableName="REPORT_QUERIES" schemaName="GPFD">
             <column name="ID" value="1dc32729-f50d-418e-a2af-ad83d9248bb3"/>
             <column name="REPORT_ID" value="b36f9bbb-1178-432c-8f99-8090e285f2d3"/>
-            <column name="QUERY" value="SELECT * FROM ANY_REPORT.V_CIS_TO_CCMS_INVOICE_NOT_DEFINED_PAYMENT_GROUPS"/>
+            <column name="QUERY" value="SELECT * FROM ANY_REPORT.CAKE_RECIPES"/>
             <column name="TAB_NAME" value="CCMS Payment value(not defined)"/>
         </insert>
         <insert tableName="REPORT_QUERIES" schemaName="GPFD">
             <column name="ID" value="1dc32729-f50d-418e-a2af-ad83d9248bb4"/>
             <column name="REPORT_ID" value="b36f9bbb-1178-432c-8f99-8090e285f2d3"/>
-            <column name="QUERY" value="SELECT * FROM ANY_REPORT.V_CIS_TO_CCMS_INVOICE_HELD_PAYMENTS"/>
+            <column name="QUERY" value="SELECT * FROM ANY_REPORT.CATERPILLAR_CAKE_PRICE_DATA"/>
             <column name="TAB_NAME" value="CCMS Held payments"/>
         </insert>
         <insert tableName="REPORT_QUERIES" schemaName="GPFD">
             <column name="ID" value="1dc32729-f50d-418e-a2af-ad83d9248bb5"/>
             <column name="REPORT_ID" value="b36f9bbb-1178-432c-8f99-8090e285f2d3"/>
-            <column name="QUERY" value="SELECT * FROM ANY_REPORT.V_CIS_TO_CCMS_INVOICE_CCMS_AP_DEBTS"/>
+            <column name="QUERY" value="SELECT * FROM ANY_REPORT.SAUSAGE_ROLL_RELATED_DEBT"/>
             <column name="TAB_NAME" value="CCMS AP Debtors"/>
         </insert>
-        <createTable tableName="V_CIS_TO_CCMS_INVOICE_SUMMARY" schemaName="ANY_REPORT">
-            <column name="DATE_AUTHORISED_CIS" type="date">
+        <createTable tableName="WIZARD_POTION_SUPPLY_LEVELS" schemaName="ANY_REPORT">
+            <column name="DATE_POTION_CREATED" type="date">
                 <constraints nullable="false"/>
             </column>
-            <column name="THE_SYSTEM" type="varchar(255)">
+            <column name="SPELL_TYPE" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="CIS_VALUE" type="decimal(18, 2)">
+            <column name="INGREDIENTS_COST" type="decimal(18, 2)">
                 <constraints nullable="false"/>
             </column>
-            <column name="CCMS_VALUE" type="decimal(18, 2)">
+            <column name="PRICE" type="decimal(18, 2)">
                 <constraints nullable="false"/>
             </column>
         </createTable>
-        <insert tableName="V_CIS_TO_CCMS_INVOICE_SUMMARY" schemaName="ANY_REPORT">
-            <column name="DATE_AUTHORISED_CIS" value="2024-12-25"/>
-            <column name="THE_SYSTEM" value="CWA Crime Lower Contract"/>
-            <column name="CIS_VALUE" value="2"/>
-            <column name="CCMS_VALUE" value="2"/>
+        <insert tableName="WIZARD_POTION_SUPPLY_LEVELS" schemaName="ANY_REPORT">
+            <column name="DATE_POTION_CREATED" value="2024-12-25"/>
+            <column name="SPELL_TYPE" value="Invisibility potion"/>
+            <column name="INGREDIENTS_COST" value="2"/>
+            <column name="PRICE" value="2.40"/>
         </insert>
-        <insert tableName="V_CIS_TO_CCMS_INVOICE_SUMMARY" schemaName="ANY_REPORT">
-            <column name="DATE_AUTHORISED_CIS" value="2023-08-02"/>
-            <column name="THE_SYSTEM" value="2dwddw"/>
-            <column name="CIS_VALUE" value="2"/>
-            <column name="CCMS_VALUE" value="2"/>
+        <insert tableName="WIZARD_POTION_SUPPLY_LEVELS" schemaName="ANY_REPORT">
+            <column name="DATE_POTION_CREATED" value="2023-08-02"/>
+            <column name="SPELL_TYPE" value="Healing spell"/>
+            <column name="INGREDIENTS_COST" value="2"/>
+            <column name="PRICE" value="2"/>
         </insert>
-        <insert tableName="V_CIS_TO_CCMS_INVOICE_SUMMARY" schemaName="ANY_REPORT">
-            <column name="DATE_AUTHORISED_CIS" value="2023-08-02"/>
-            <column name="THE_SYSTEM" value="2"/>
-            <column name="CIS_VALUE" value="2"/>
-            <column name="CCMS_VALUE" value="2"/>
+        <insert tableName="WIZARD_POTION_SUPPLY_LEVELS" schemaName="ANY_REPORT">
+            <column name="DATE_POTION_CREATED" value="2023-08-02"/>
+            <column name="SPELL_TYPE" value="Headache cure"/>
+            <column name="INGREDIENTS_COST" value="2"/>
+            <column name="PRICE" value="2"/>
         </insert>
-        <insert tableName="V_CIS_TO_CCMS_INVOICE_SUMMARY" schemaName="ANY_REPORT">
-            <column name="DATE_AUTHORISED_CIS" value="2023-08-07"/>
-            <column name="THE_SYSTEM" value="2"/>
-            <column name="CIS_VALUE" value="10466.08"/>
-            <column name="CCMS_VALUE" value="10466.08"/>
+        <insert tableName="WIZARD_POTION_SUPPLY_LEVELS" schemaName="ANY_REPORT">
+            <column name="DATE_POTION_CREATED" value="2023-08-07"/>
+            <column name="SPELL_TYPE" value="Energy increase"/>
+            <column name="INGREDIENTS_COST" value="10466.08"/>
+            <column name="PRICE" value="10466.08"/>
         </insert>
-        <insert tableName="V_CIS_TO_CCMS_INVOICE_SUMMARY" schemaName="ANY_REPORT">
-            <column name="DATE_AUTHORISED_CIS" value="2023-08-07"/>
-            <column name="THE_SYSTEM" value="AGFS scheme"/>
-            <column name="CIS_VALUE" value="1258037.63"/>
-            <column name="CCMS_VALUE" value="1256489.69"/>
+        <insert tableName="WIZARD_POTION_SUPPLY_LEVELS" schemaName="ANY_REPORT">
+            <column name="DATE_POTION_CREATED" value="2023-08-07"/>
+            <column name="SPELL_TYPE" value="Extra energy increase"/>
+            <column name="INGREDIENTS_COST" value="1258037.63"/>
+            <column name="PRICE" value="1256489.69"/>
         </insert>
-        <insert tableName="V_CIS_TO_CCMS_INVOICE_SUMMARY" schemaName="ANY_REPORT">
-            <column name="DATE_AUTHORISED_CIS" value="2023-07-26"/>
-            <column name="THE_SYSTEM" value="eForms"/>
-            <column name="CIS_VALUE" value="16231.76"/>
-            <column name="CCMS_VALUE" value="16231.76"/>
+        <insert tableName="WIZARD_POTION_SUPPLY_LEVELS" schemaName="ANY_REPORT">
+            <column name="DATE_POTION_CREATED" value="2023-07-26"/>
+            <column name="SPELL_TYPE" value="Nacho-flavoured headache cure"/>
+            <column name="INGREDIENTS_COST" value="16231.76"/>
+            <column name="PRICE" value="16231.76"/>
         </insert>
-        <insert tableName="V_CIS_TO_CCMS_INVOICE_SUMMARY" schemaName="ANY_REPORT">
-            <column name="DATE_AUTHORISED_CIS" value="2023-07-26"/>
-            <column name="THE_SYSTEM" value="AGFS scheme"/>
-            <column name="CIS_VALUE" value="1345210.89"/>
-            <column name="CCMS_VALUE" value="1345210.89"/>
+        <insert tableName="WIZARD_POTION_SUPPLY_LEVELS" schemaName="ANY_REPORT">
+            <column name="DATE_POTION_CREATED" value="2023-07-26"/>
+            <column name="SPELL_TYPE" value="The Complete Wizard Potion Set"/>
+            <column name="INGREDIENTS_COST" value="1345210.89"/>
+            <column name="PRICE" value="1345210.89"/>
         </insert>
-        <createTable tableName="V_CIS_TO_CCMS_INVOICE_CCMS_AP_DEBTS" schemaName="ANY_REPORT">
-            <column name="VENDOR_SITE_CODE" type="VARCHAR(50)">
+        <createTable tableName="SAUSAGE_ROLL_RELATED_DEBT" schemaName="ANY_REPORT">
+            <column name="USER_CODE" type="VARCHAR(50)">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="VENDOR_SITE_NAME" type="VARCHAR(255)"/>
-            <column name="FIRST_GL_DATE" type="DATE"/>
-            <column name="LATEST_GL_DATE" type="DATE"/>
-            <column name="TOTAL_INC_MEDIATION" type="DECIMAL(18, 2)"/>
+            <column name="USER_INITIALS" type="VARCHAR(255)"/>
+            <column name="FIRST_SALE" type="DATE"/>
+            <column name="LAST_SALE" type="DATE"/>
+            <column name="TOTAL_OWED" type="DECIMAL(18, 2)"/>
         </createTable>
-        <insert tableName="V_CIS_TO_CCMS_INVOICE_CCMS_AP_DEBTS" schemaName="ANY_REPORT">
-            <column name="VENDOR_SITE_CODE" value="5430C"/>
-            <column name="VENDOR_SITE_NAME" value="PAUL J EPSTEIN"/>
-            <column name="FIRST_GL_DATE" value="2012-10-30"/>
-            <column name="LATEST_GL_DATE" value="2021-05-11"/>
-            <column name="TOTAL_INC_MEDIATION" value="-1"/>
+        <insert tableName="SAUSAGE_ROLL_RELATED_DEBT" schemaName="ANY_REPORT">
+            <column name="USER_CODE" value="5430C"/>
+            <column name="USER_INITIALS" value="PJE"/>
+            <column name="FIRST_SALE" value="2012-10-30"/>
+            <column name="LAST_SALE" value="2021-05-11"/>
+            <column name="TOTAL_OWED" value="-1"/>
         </insert>
-        <insert tableName="V_CIS_TO_CCMS_INVOICE_CCMS_AP_DEBTS" schemaName="ANY_REPORT">
-            <column name="VENDOR_SITE_CODE" value="8932J"/>
-            <column name="VENDOR_SITE_NAME" value="LINDA A PEARCE-(DEC'D)"/>
-            <column name="FIRST_GL_DATE" value="2012-12-06"/>
-            <column name="LATEST_GL_DATE" value="2016-02-10"/>
-            <column name="TOTAL_INC_MEDIATION" value="-2"/>
+        <insert tableName="SAUSAGE_ROLL_RELATED_DEBT" schemaName="ANY_REPORT">
+            <column name="USER_CODE" value="8932J"/>
+            <column name="USER_INITIALS" value="LAP"/>
+            <column name="FIRST_SALE" value="2012-12-06"/>
+            <column name="LAST_SALE" value="2016-02-10"/>
+            <column name="TOTAL_OWED" value="-2"/>
         </insert>
-        <insert tableName="V_CIS_TO_CCMS_INVOICE_CCMS_AP_DEBTS" schemaName="ANY_REPORT">
-            <column name="VENDOR_SITE_CODE" value="9182F"/>
-            <column name="VENDOR_SITE_NAME" value="DEREK A SWEETING"/>
-            <column name="FIRST_GL_DATE" value="2013-02-11"/>
-            <column name="LATEST_GL_DATE" value="2023-05-30"/>
-            <column name="TOTAL_INC_MEDIATION" value="-2"/>
+        <insert tableName="SAUSAGE_ROLL_RELATED_DEBT" schemaName="ANY_REPORT">
+            <column name="USER_CODE" value="9182F"/>
+            <column name="USER_INITIALS" value="DAS"/>
+            <column name="FIRST_SALE" value="2013-02-11"/>
+            <column name="LAST_SALE" value="2023-05-30"/>
+            <column name="TOTAL_OWED" value="-2"/>
         </insert>
-        <insert tableName="V_CIS_TO_CCMS_INVOICE_CCMS_AP_DEBTS" schemaName="ANY_REPORT">
-            <column name="VENDOR_SITE_CODE" value="0P337X"/>
-            <column name="VENDOR_SITE_NAME" value="SYKES LEE BRYDSON"/>
-            <column name="FIRST_GL_DATE" value="2013-07-03"/>
-            <column name="LATEST_GL_DATE" value="2020-12-21"/>
-            <column name="TOTAL_INC_MEDIATION" value="-2394.94"/>
+        <insert tableName="SAUSAGE_ROLL_RELATED_DEBT" schemaName="ANY_REPORT">
+            <column name="USER_CODE" value="0P337X"/>
+            <column name="USER_INITIALS" value="SLB"/>
+            <column name="FIRST_SALE" value="2013-07-03"/>
+            <column name="LAST_SALE" value="2020-12-21"/>
+            <column name="TOTAL_OWED" value="-2394.94"/>
         </insert>
-        <createTable tableName="V_CIS_TO_CCMS_INVOICE_HELD_PAYMENTS" schemaName="ANY_REPORT">
-            <column name="VENDOR_SITE_CODE" type="VARCHAR(50)">
+        <createTable tableName="CATERPILLAR_CAKE_PRICE_DATA" schemaName="ANY_REPORT">
+            <column name="STORE_CODE" type="VARCHAR(50)">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="VENDOR_SITE_NAME" type="VARCHAR(255)"/>
-            <column name="FIRST_GL_DATE" type="DATE"/>
-            <column name="LATEST_GL_DATE" type="DATE"/>
-            <column name="TOTAL_INC_MEDIATION" type="DECIMAL(18, 2)"/>
+            <column name="CAKE_NAME" type="VARCHAR(255)"/>
+            <column name="SALE_START" type="DATE"/>
+            <column name="SALE_END" type="DATE"/>
+            <column name="PRICE" type="DECIMAL(18, 2)"/>
         </createTable>
-        <insert tableName="V_CIS_TO_CCMS_INVOICE_HELD_PAYMENTS" schemaName="ANY_REPORT">
-            <column name="VENDOR_SITE_CODE" value="0R038W"/>
-            <column name="VENDOR_SITE_NAME" value="LANGLEYS LLP"/>
-            <column name="FIRST_GL_DATE" value="2022-03-25"/>
-            <column name="LATEST_GL_DATE" value="2023-08-07"/>
-            <column name="TOTAL_INC_MEDIATION" value="489695.61"/>
+        <insert tableName="CATERPILLAR_CAKE_PRICE_DATA" schemaName="ANY_REPORT">
+            <column name="STORE_CODE" value="1AA11A"/>
+            <column name="CAKE_NAME" value="Martin"/>
+            <column name="SALE_START" value="2022-03-25"/>
+            <column name="SALE_END" value="2023-08-07"/>
+            <column name="PRICE" value="489695.61"/>
         </insert>
-        <insert tableName="V_CIS_TO_CCMS_INVOICE_HELD_PAYMENTS" schemaName="ANY_REPORT">
-            <column name="VENDOR_SITE_CODE" value="0D484M"/>
-            <column name="VENDOR_SITE_NAME" value="BERNARD CHILL AXTELL"/>
-            <column name="FIRST_GL_DATE" value="2017-04-10"/>
-            <column name="LATEST_GL_DATE" value="2022-11-28"/>
-            <column name="TOTAL_INC_MEDIATION" value="352559.28"/>
+        <insert tableName="CATERPILLAR_CAKE_PRICE_DATA" schemaName="ANY_REPORT">
+            <column name="STORE_CODE" value="1AA11B"/>
+            <column name="CAKE_NAME" value="Lucy"/>
+            <column name="SALE_START" value="2017-04-10"/>
+            <column name="SALE_END" value="2022-11-28"/>
+            <column name="PRICE" value="352559.28"/>
         </insert>
-        <insert tableName="V_CIS_TO_CCMS_INVOICE_HELD_PAYMENTS" schemaName="ANY_REPORT">
-            <column name="VENDOR_SITE_CODE" value="0L012H"/>
-            <column name="VENDOR_SITE_NAME" value="E REX MAKIN CO"/>
-            <column name="FIRST_GL_DATE" value="2013-10-18"/>
-            <column name="LATEST_GL_DATE" value="2020-02-12"/>
-            <column name="TOTAL_INC_MEDIATION" value="242610.75"/>
+        <insert tableName="CATERPILLAR_CAKE_PRICE_DATA" schemaName="ANY_REPORT">
+            <column name="STORE_CODE" value="74ABBD"/>
+            <column name="CAKE_NAME" value="Sinéad"/>
+            <column name="SALE_START" value="2013-10-18"/>
+            <column name="SALE_END" value="2020-02-12"/>
+            <column name="PRICE" value="242610.75"/>
         </insert>
-        <insert tableName="V_CIS_TO_CCMS_INVOICE_HELD_PAYMENTS" schemaName="ANY_REPORT">
-            <column name="VENDOR_SITE_CODE" value="1G205V"/>
-            <column name="VENDOR_SITE_NAME" value="KARIM CO SOLICITORS"/>
-            <column name="FIRST_GL_DATE" value="2023-05-06"/>
-            <column name="LATEST_GL_DATE" value="2023-06-06"/>
-            <column name="TOTAL_INC_MEDIATION" value="234639.37"/>
+        <insert tableName="CATERPILLAR_CAKE_PRICE_DATA" schemaName="ANY_REPORT">
+            <column name="STORE_CODE" value="5544DS"/>
+            <column name="CAKE_NAME" value="Robert"/>
+            <column name="SALE_START" value="2023-05-06"/>
+            <column name="SALE_END" value="2023-06-06"/>
+            <column name="PRICE" value="234639.37"/>
         </insert>
-        <insert tableName="V_CIS_TO_CCMS_INVOICE_HELD_PAYMENTS" schemaName="ANY_REPORT">
-            <column name="VENDOR_SITE_CODE" value="0U657T"/>
-            <column name="VENDOR_SITE_NAME" value="LANGLEYS LLP"/>
-            <column name="FIRST_GL_DATE" value="2022-03-23"/>
-            <column name="LATEST_GL_DATE" value="2023-07-27"/>
-            <column name="TOTAL_INC_MEDIATION" value="193722.84"/>
+        <insert tableName="CATERPILLAR_CAKE_PRICE_DATA" schemaName="ANY_REPORT">
+            <column name="STORE_CODE" value="848dNDN"/>
+            <column name="CAKE_NAME" value="Hellema"/>
+            <column name="SALE_START" value="2022-03-23"/>
+            <column name="SALE_END" value="2023-07-27"/>
+            <column name="PRICE" value="193722.84"/>
         </insert>
-        <insert tableName="V_CIS_TO_CCMS_INVOICE_HELD_PAYMENTS" schemaName="ANY_REPORT">
-            <column name="VENDOR_SITE_CODE" value="0B311A"/>
-            <column name="VENDOR_SITE_NAME" value="MATHIS-INTERVENTION"/>
-            <column name="FIRST_GL_DATE" value="2012-10-20"/>
-            <column name="LATEST_GL_DATE" value="2022-03-04"/>
-            <column name="TOTAL_INC_MEDIATION" value="140817.24"/>
+        <insert tableName="CATERPILLAR_CAKE_PRICE_DATA" schemaName="ANY_REPORT">
+            <column name="STORE_CODE" value="JDJHF34"/>
+            <column name="CAKE_NAME" value="VID"/>
+            <column name="SALE_START" value="2012-10-20"/>
+            <column name="SALE_END" value="2022-03-04"/>
+            <column name="PRICE" value="140817.24"/>
         </insert>
-        <insert tableName="V_CIS_TO_CCMS_INVOICE_HELD_PAYMENTS" schemaName="ANY_REPORT">
-            <column name="VENDOR_SITE_CODE" value="2N959L"/>
-            <column name="VENDOR_SITE_NAME" value="BIRMINGHAM LAW PRACTICE LTD"/>
-            <column name="FIRST_GL_DATE" value="2018-09-15"/>
-            <column name="LATEST_GL_DATE" value="2020-12-22"/>
-            <column name="TOTAL_INC_MEDIATION" value="111330.91"/>
+        <insert tableName="CATERPILLAR_CAKE_PRICE_DATA" schemaName="ANY_REPORT">
+            <column name="STORE_CODE" value="84KDSD"/>
+            <column name="CAKE_NAME" value="Alan"/>
+            <column name="SALE_START" value="2018-09-15"/>
+            <column name="SALE_END" value="2020-12-22"/>
+            <column name="PRICE" value="111330.91"/>
         </insert>
-        <insert tableName="V_CIS_TO_CCMS_INVOICE_HELD_PAYMENTS" schemaName="ANY_REPORT">
-            <column name="VENDOR_SITE_CODE" value="0L932H"/>
-            <column name="VENDOR_SITE_NAME" value="STEELE FORD NEWTON"/>
-            <column name="FIRST_GL_DATE" value="2017-08-14"/>
-            <column name="LATEST_GL_DATE" value="2022-02-23"/>
-            <column name="TOTAL_INC_MEDIATION" value="62318.93"/>
+        <insert tableName="CATERPILLAR_CAKE_PRICE_DATA" schemaName="ANY_REPORT">
+            <column name="STORE_CODE" value="5DJFJ"/>
+            <column name="CAKE_NAME" value="ISAAC"/>
+            <column name="SALE_START" value="2017-08-14"/>
+            <column name="SALE_END" value="2022-02-23"/>
+            <column name="PRICE" value="62318.93"/>
         </insert>
-        <insert tableName="V_CIS_TO_CCMS_INVOICE_HELD_PAYMENTS" schemaName="ANY_REPORT">
-            <column name="VENDOR_SITE_CODE" value="02AGH"/>
-            <column name="VENDOR_SITE_NAME" value="MACKESYS SOLICITORS-ADVOCATE"/>
-            <column name="FIRST_GL_DATE" value="2014-11-07"/>
-            <column name="LATEST_GL_DATE" value="2017-05-30"/>
-            <column name="TOTAL_INC_MEDIATION" value="59135.36"/>
+        <insert tableName="CATERPILLAR_CAKE_PRICE_DATA" schemaName="ANY_REPORT">
+            <column name="STORE_CODE" value="43fFFDS"/>
+            <column name="CAKE_NAME" value="Amy"/>
+            <column name="SALE_START" value="2014-11-07"/>
+            <column name="SALE_END" value="2017-05-30"/>
+            <column name="PRICE" value="59135.36"/>
         </insert>
-        <insert tableName="V_CIS_TO_CCMS_INVOICE_HELD_PAYMENTS" schemaName="ANY_REPORT">
-            <column name="VENDOR_SITE_CODE" value="2Q023T"/>
-            <column name="VENDOR_SITE_NAME" value="KINGSWRIGHT SOLICITORS-INTERVENTION"/>
-            <column name="FIRST_GL_DATE" value="2023-07-28"/>
-            <column name="LATEST_GL_DATE" value="2023-07-28"/>
-            <column name="TOTAL_INC_MEDIATION" value="54876.28"/>
+        <insert tableName="CATERPILLAR_CAKE_PRICE_DATA" schemaName="ANY_REPORT">
+            <column name="STORE_CODE" value="4DFDDF"/>
+            <column name="CAKE_NAME" value="MARTY"/>
+            <column name="SALE_START" value="2023-07-28"/>
+            <column name="SALE_END" value="2023-07-28"/>
+            <column name="PRICE" value="54876.28"/>
         </insert>
-        <insert tableName="V_CIS_TO_CCMS_INVOICE_HELD_PAYMENTS" schemaName="ANY_REPORT">
-            <column name="VENDOR_SITE_CODE" value="2M135D"/>
-            <column name="VENDOR_SITE_NAME" value="GORDONS LLP RE: HANSON YOUNG CO SOLICITORS-INTERVENTION"/>
-            <column name="FIRST_GL_DATE" value="2016-11-11"/>
-            <column name="LATEST_GL_DATE" value="2019-06-03"/>
-            <column name="TOTAL_INC_MEDIATION" value="49186.71"/>
+        <insert tableName="CATERPILLAR_CAKE_PRICE_DATA" schemaName="ANY_REPORT">
+            <column name="STORE_CODE" value="5JXJC"/>
+            <column name="CAKE_NAME" value="CJ"/>
+            <column name="SALE_START" value="2016-11-11"/>
+            <column name="SALE_END" value="2019-06-03"/>
+            <column name="PRICE" value="49186.71"/>
         </insert>
-        <createTable tableName="V_CIS_TO_CCMS_INVOICE_EXCEPTIONS" schemaName="ANY_REPORT">
+        <createTable tableName="MARSHMALLOW_DENSITY_SUMMARY_VIEW" schemaName="ANY_REPORT">
             <column name="ACC_CODE" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
         </createTable>
-        <insert tableName="V_CIS_TO_CCMS_INVOICE_EXCEPTIONS" schemaName="ANY_REPORT">
+        <insert tableName="MARSHMALLOW_DENSITY_SUMMARY_VIEW" schemaName="ANY_REPORT">
             <column name="ACC_CODE" value="02BZR"/>
         </insert>
-        <createTable tableName="V_CIS_TO_CCMS_INVOICE_DEFINED_PAYMENT_GROUPS" schemaName="ANY_REPORT">
-            <column name="VENDOR_SITE_CODE" type="varchar(50)">
+        <createTable tableName="FISH_AND_CHIP_GENERAL_LEDGER" schemaName="ANY_REPORT">
+            <column name="SHOP_CODE" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
-            <column name="VENDOR_SITE_NAME" type="varchar(255)">
+            <column name="SHOP_NAME" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="FIRST_GL_DATE" type="date">
+            <column name="START_DATE" type="date">
                 <constraints nullable="false"/>
             </column>
-            <column name="LATEST_GL_DATE" type="date">
-                <constraints nullable="false"/>
-            </column>
-            <column name="TOTAL" type="decimal(18, 2)">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-        <insert tableName="V_CIS_TO_CCMS_INVOICE_DEFINED_PAYMENT_GROUPS" schemaName="ANY_REPORT">
-            <column name="VENDOR_SITE_CODE" value="0E787D"/>
-            <column name="VENDOR_SITE_NAME" value="GWYN JAMES LEGAL LTD"/>
-            <column name="FIRST_GL_DATE" value="2023-08-03"/>
-            <column name="LATEST_GL_DATE" value="2023-08-04"/>
-            <column name="TOTAL" value="0"/>
-        </insert>
-        <createTable tableName="V_CIS_TO_CCMS_INVOICE_NOT_DEFINED_PAYMENT_GROUPS" schemaName="ANY_REPORT">
-            <column name="VENDOR_SITE_CODE" type="varchar(50)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="VENDOR_SITE_NAME" type="varchar(255)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="PAY_GROUP_LOOKUP_CODE" type="varchar(50)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="FIRST_GL_DATE" type="date">
-                <constraints nullable="false"/>
-            </column>
-            <column name="LATEST_GL_DATE" type="date">
+            <column name="END_DATE" type="date">
                 <constraints nullable="false"/>
             </column>
             <column name="TOTAL" type="decimal(18, 2)">
                 <constraints nullable="false"/>
             </column>
         </createTable>
-        <insert tableName="V_CIS_TO_CCMS_INVOICE_NOT_DEFINED_PAYMENT_GROUPS" schemaName="ANY_REPORT">
-            <column name="VENDOR_SITE_CODE" value="020ED"/>
-            <column name="VENDOR_SITE_NAME" value="DAVID O'BRIEN"/>
-            <column name="PAY_GROUP_LOOKUP_CODE" value="OFFLINE 3"/>
-            <column name="FIRST_GL_DATE" value="2017-12-08"/>
-            <column name="LATEST_GL_DATE" value="2017-12-08"/>
-            <column name="TOTAL" value="0"/>
+        <insert tableName="FISH_AND_CHIP_GENERAL_LEDGER" schemaName="ANY_REPORT">
+            <column name="SHOP_CODE" value="A7373"/>
+            <column name="SHOP_NAME" value="Cod On The Coast"/>
+            <column name="START_DATE" value="2023-08-03"/>
+            <column name="END_DATE" value="2023-08-04"/>
+            <column name="TOTAL" value="3231.90"/>
         </insert>
-        <insert tableName="V_CIS_TO_CCMS_INVOICE_NOT_DEFINED_PAYMENT_GROUPS" schemaName="ANY_REPORT">
-            <column name="VENDOR_SITE_CODE" value="027EP"/>
-            <column name="VENDOR_SITE_NAME" value="JAYNE PYE"/>
-            <column name="PAY_GROUP_LOOKUP_CODE" value="APCRSWEEP"/>
-            <column name="FIRST_GL_DATE" value="2020-10-27"/>
-            <column name="LATEST_GL_DATE" value="2020-10-27"/>
-            <column name="TOTAL" value="2"/>
+        <createTable tableName="CAKE_RECIPES" schemaName="ANY_REPORT">
+            <column name="RECIPE_CODE" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="RECIPE_NAME" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TYPE_CODE" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="BAKE_START_DATE" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="BAKE_END_DATE" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TOTAL_INGREDIENTS" type="decimal(18, 2)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <insert tableName="CAKE_RECIPES" schemaName="ANY_REPORT">
+            <column name="RECIPE_CODE" value="LLDJ4214"/>
+            <column name="RECIPE_NAME" value="Chocolate fudge cake"/>
+            <column name="TYPE_CODE" value="CHOCOLATE"/>
+            <column name="BAKE_START_DATE" value="2017-12-08"/>
+            <column name="BAKE_END_DATE" value="2017-12-08"/>
+            <column name="TOTAL_INGREDIENTS" value="7"/>
+        </insert>
+        <insert tableName="CAKE_RECIPES" schemaName="ANY_REPORT">
+            <column name="RECIPE_CODE" value="NNFDJ343"/>
+            <column name="RECIPE_NAME" value="Victoria sponge"/>
+            <column name="TYPE_CODE" value="SPONGE"/>
+            <column name="BAKE_START_DATE" value="2020-10-27"/>
+            <column name="BAKE_END_DATE" value="2020-10-27"/>
+            <column name="TOTAL_INGREDIENTS" value="5"/>
         </insert>
     </changeSet>
 
