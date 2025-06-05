@@ -20,7 +20,7 @@
             <column name="REPORT_OUTPUT_TYPE" value="bd098666-94e4-4b0e-822c-8e5dfb04c908"/>
             <column name="REPORT_OWNER_ID" value="00000000-0000-0000-0000-000000000003"/>
             <column name="REPORT_OWNER_NAME" value="Teresa Green"/>
-            <column name="REPORT_OWNER_EMAIL" value="teresagreen@Justice.gov.uk"/>
+            <column name="REPORT_OWNER_EMAIL" value="teresagreen@example.org"/>
         </insert>
         <insert tableName="REPORT_QUERIES" schemaName="GPFD">
             <column name="ID" value="eee30b23-2c8d-4b4b-bb11-8cd67d07915c"/>
