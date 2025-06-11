@@ -25,7 +25,7 @@
             <column name="ID" value="1dc32729-f50d-418e-a2af-ad83d9248cc1"/>
             <column name="REPORT_ID" value="abbec75b-2d72-44f5-a0e3-2dcb29d92f79"/>
             <column name="QUERY" value="SELECT * FROM ANY_REPORT.V_VIEW_THAT_DOESNT_EXIST"/>
-            <column name="TAB_NAME" value="MAIN"/>
+            <column name="TAB_NAME" value="RESULTS"/>
         </insert>
     </changeSet>
 
