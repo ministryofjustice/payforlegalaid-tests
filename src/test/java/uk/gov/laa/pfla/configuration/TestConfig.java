@@ -6,9 +6,12 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.security.oauth2.client.registration.InMemoryClientRegistrationRepository;
@@ -193,4 +196,19 @@ public class TestConfig {
         liquibase.setShouldRun(true);
         return liquibase;
     }
+
+    @Bean
+    @Primary
+    @ConfigurationProperties(prefix = "gpfd.datasource.read-only")
+    DataSource readOnlyDataSource() {
+        return new DriverManagerDataSource();
+    }
+
+    @Bean
+    @Primary
+    JdbcTemplate readOnlyJdbcTemplate(@Qualifier("readOnlyDataSource") DataSource dataSource) {
+        JdbcTemplate template = new JdbcTemplate(dataSource);
+        return template;
+    }
+
 }
