@@ -91,10 +91,13 @@
                 <constraints nullable="false"/>
             </column>
             <column name="QUERY" type="VARCHAR(4000)">
-                <constraints nullable="false"/>
+                <constraints nullable="true"/>
             </column>
             <column name="TAB_NAME" type="VARCHAR(100)">
                 <constraints nullable="false"/>
+            </column>
+            <column name="INDEX" type="VARCHAR(100)">
+                <constraints nullable="true"/>
             </column>
         </createTable>
 

@@ -26,36 +26,43 @@
             <column name="REPORT_ID" value="b36f9bbb-1178-432c-8f99-8090e285f2d3"/>
             <column name="QUERY" value="SELECT * FROM ANY_REPORT.WIZARD_POTION_SUPPLY_LEVELS"/>
             <column name="TAB_NAME" value="CIS to CCMS import analysis"/>
+            <column name="INDEX" value="2"/>
         </insert>
         <insert tableName="REPORT_QUERIES" schemaName="GPFD">
             <column name="ID" value="1dc32729-f50d-418e-a2af-ad83d9248bb1"/>
             <column name="REPORT_ID" value="b36f9bbb-1178-432c-8f99-8090e285f2d3"/>
             <column name="QUERY" value="SELECT * FROM ANY_REPORT.MARSHMALLOW_DENSITY_SUMMARY_VIEW"/>
             <column name="TAB_NAME" value="CIS to CCMS import exceptions"/>
+            <column name="INDEX" value="1"/>
         </insert>
         <insert tableName="REPORT_QUERIES" schemaName="GPFD">
             <column name="ID" value="1dc32729-f50d-418e-a2af-ad83d9248bb2"/>
             <column name="REPORT_ID" value="b36f9bbb-1178-432c-8f99-8090e285f2d3"/>
             <column name="QUERY" value="SELECT * FROM ANY_REPORT.FISH_AND_CHIP_GENERAL_LEDGER"/>
             <column name="TAB_NAME" value="CCMS Payment value(defined)"/>
+            <column name="INDEX" value="4"/>
         </insert>
         <insert tableName="REPORT_QUERIES" schemaName="GPFD">
             <column name="ID" value="1dc32729-f50d-418e-a2af-ad83d9248bb3"/>
             <column name="REPORT_ID" value="b36f9bbb-1178-432c-8f99-8090e285f2d3"/>
             <column name="QUERY" value="SELECT * FROM ANY_REPORT.CAKE_RECIPES"/>
             <column name="TAB_NAME" value="CCMS Payment value(not defined)"/>
+            <column name="INDEX" value="5"/>
+
         </insert>
         <insert tableName="REPORT_QUERIES" schemaName="GPFD">
             <column name="ID" value="1dc32729-f50d-418e-a2af-ad83d9248bb4"/>
             <column name="REPORT_ID" value="b36f9bbb-1178-432c-8f99-8090e285f2d3"/>
             <column name="QUERY" value="SELECT * FROM ANY_REPORT.CATERPILLAR_CAKE_PRICE_DATA"/>
             <column name="TAB_NAME" value="CCMS Held payments"/>
+            <column name="INDEX" value="1"/>
         </insert>
         <insert tableName="REPORT_QUERIES" schemaName="GPFD">
             <column name="ID" value="1dc32729-f50d-418e-a2af-ad83d9248bb5"/>
             <column name="REPORT_ID" value="b36f9bbb-1178-432c-8f99-8090e285f2d3"/>
             <column name="QUERY" value="SELECT * FROM ANY_REPORT.SAUSAGE_ROLL_RELATED_DEBT"/>
             <column name="TAB_NAME" value="CCMS AP Debtors"/>
+            <column name="INDEX" value="6"/>
         </insert>
         <createTable tableName="WIZARD_POTION_SUPPLY_LEVELS" schemaName="ANY_REPORT">
             <column name="DATE_POTION_CREATED" type="date">
