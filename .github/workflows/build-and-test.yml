@@ -15,6 +15,13 @@ jobs:
         with:
           path: testCode
 
+      - name: Build test dependencies
+        run: |
+          cd testCode
+          mvn -B clean compile
+          echo "THIS IS THE TEST VERSION OF OPENAPI"
+          mvn dependency:tree
+
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
