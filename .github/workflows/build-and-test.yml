@@ -32,6 +32,9 @@ jobs:
         run: |
           cd openapi
           mvn -B clean install
+          echo "THIS IS THE INSTALL VERSION OF OPENAPI"
+          mvn dependency:tree
+          
 
       - name: Checkout source code repo
         uses: actions/checkout@v4
@@ -43,11 +46,16 @@ jobs:
         run: |
           cd sourceCode
           mvn -B -DskipTests clean install -s .github/settings.xml
+          echo "THIS ARE THE MAIN APP DEPENDENCIES"
+          mvn dependency:tree
 
       - name: Run tests
         run: |
           cd testCode
-          mvn -B clean test -s .github/settings.xml
+          mvn -B clean compile
+          echo "THIS ARE THE TEST APP DEPENDENCIES"
+          mvn dependency:tree
+          mvn test -s .github/settings.xml
 
         shell:
           bash
