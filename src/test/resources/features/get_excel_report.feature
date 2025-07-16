@@ -1,4 +1,3 @@
-@NotReady
 Feature: Generate and Retrieve Excel Financial Report
 
   As a user of the system
