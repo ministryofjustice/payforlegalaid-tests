@@ -27,6 +27,13 @@
             <column name="REPORT_ID" value="7073dd13-e325-4863-a05c-a049a815d1f7"/>
             <column name="QUERY" value="SELECT * FROM ANY_REPORT.SPILL_THE_TEA"/>
             <column name="TAB_NAME" value="DATA"/>
+            <column name="INDEX" value="0" />
+        </insert>
+        <insert tableName="REPORT_QUERIES" schemaName="GPFD">
+            <column name="ID" value="d9dc14b8-bab5-4ebe-9b8a-47f5f9de1228"/>
+            <column name="REPORT_ID" value="7073dd13-e325-4863-a05c-a049a815d1f7"/>
+            <column name="TAB_NAME" value="MAIN"/>
+            <column name="INDEX" value="2" />
         </insert>
         <insert tableName="FIELD_ATTRIBUTES" schemaName="GPFD">
             <column name="ID" value="1d9cf44d-d02b-437e-bf12-95148a7e812b"/>
@@ -159,6 +166,7 @@
             <column name="REPORT_ID" value="7073dd13-e325-4863-a05c-a049a815d1f7"/>
             <column name="QUERY" value="SELECT * FROM ANY_REPORT.TEQUILA_MOCKINGBIRD"/>
             <column name="TAB_NAME" value="Adjusted Expenditure"/>
+            <column name="INDEX" value="1"/>
         </insert>
         <insert tableName="FIELD_ATTRIBUTES" schemaName="GPFD">
             <column name="ID" value="9c4f18cd-2260-4035-91f7-91ae5368b921"/>
