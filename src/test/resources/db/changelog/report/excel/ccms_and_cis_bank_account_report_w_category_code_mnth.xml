@@ -23,10 +23,23 @@
             <column name="REPORT_OWNER_EMAIL" value="teresagreen@example.org"/>
         </insert>
         <insert tableName="REPORT_QUERIES" schemaName="GPFD">
+            <column name="ID" value="e7ede5f3-b0d8-4ad9-95a2-160cfa22dfc5"/>
+            <column name="REPORT_ID" value="a017241a-359f-4fdb-a0cd-7f28f1946ef1"/>
+            <column name="TAB_NAME" value="Summary"/>
+            <column name="INDEX" value="2"/>
+        </insert>
+        <insert tableName="REPORT_QUERIES" schemaName="GPFD">
+            <column name="ID" value="4214ce83-52c0-4570-a533-eb58ed9bd65f"/>
+            <column name="REPORT_ID" value="a017241a-359f-4fdb-a0cd-7f28f1946ef1"/>
+            <column name="TAB_NAME" value="Transparency Rec"/>
+            <column name="INDEX" value="3"/>
+        </insert>
+        <insert tableName="REPORT_QUERIES" schemaName="GPFD">
             <column name="ID" value="273b08af-147c-4de8-bebe-8033c09b6b8b"/>
             <column name="REPORT_ID" value="a017241a-359f-4fdb-a0cd-7f28f1946ef1"/>
             <column name="QUERY" value="SELECT * FROM ANY_REPORT.BREAKING_BREAD"/>
             <column name="TAB_NAME" value="MAIN"/>
+            <column name="INDEX" value="0"/>
         </insert>
         <insert tableName="FIELD_ATTRIBUTES" schemaName="GPFD">
             <column name="ID" value="b5fa61b8-2e3c-44d0-953d-0e244f64bd91"/>
@@ -141,6 +154,7 @@
             <column name="REPORT_ID" value="a017241a-359f-4fdb-a0cd-7f28f1946ef1"/>
             <column name="QUERY" value="SELECT * FROM ANY_REPORT.WOK_THIS_WAY"/>
             <column name="TAB_NAME" value="Provider Contigency"/>
+            <column name="INDEX" value="1"/>
         </insert>
         <insert tableName="FIELD_ATTRIBUTES" schemaName="GPFD">
             <column name="ID" value="bc71d65e-89ee-4b3e-bd36-b7a65409b7af"/>

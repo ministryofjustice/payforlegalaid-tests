@@ -27,6 +27,7 @@
             <column name="REPORT_ID" value="eee30b23-2c8d-4b4b-bb11-8cd67d07915c"/>
             <column name="QUERY" value="SELECT * FROM ANY_REPORT.NACHO_AVERAGE_TABLE"/>
             <column name="TAB_NAME" value="MAIN"/>
+            <column name="INDEX" value="0"/>
         </insert>
         <insert tableName="FIELD_ATTRIBUTES" schemaName="GPFD">
             <column name="ID" value="ca98e379-ee0e-41d3-bc2e-3bd5808ebdfe"/>
@@ -141,6 +142,19 @@
             <column name="REPORT_ID" value="eee30b23-2c8d-4b4b-bb11-8cd67d07915c"/>
             <column name="QUERY" value="SELECT * FROM ANY_REPORT.LETTUCE_TURNIP_THE_BEET"/>
             <column name="TAB_NAME" value="Provider Contigency"/>
+            <column name="INDEX" value="1"/>
+        </insert>
+        <insert tableName="REPORT_QUERIES" schemaName="GPFD">
+            <column name="ID" value="d7755d5e-5f08-45bd-b7fa-bbf7c12cee64"/>
+            <column name="REPORT_ID" value="eee30b23-2c8d-4b4b-bb11-8cd67d07915c"/>
+            <column name="TAB_NAME" value="Summary"/>
+            <column name="INDEX" value="2"/>
+        </insert>
+        <insert tableName="REPORT_QUERIES" schemaName="GPFD">
+            <column name="ID" value="7d71a145-a4e1-4bb9-ba50-d0d2c2e2fd47"/>
+            <column name="REPORT_ID" value="eee30b23-2c8d-4b4b-bb11-8cd67d07915c"/>
+            <column name="TAB_NAME" value="Transparency Rec"/>
+            <column name="INDEX" value="3"/>
         </insert>
         <insert tableName="FIELD_ATTRIBUTES" schemaName="GPFD">
             <column name="ID" value="030eeff8-9d2e-4d97-b244-7e5b6f1af205"/>
