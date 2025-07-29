@@ -36,6 +36,12 @@ jobs:
           path: openapi
           ssh-key: ${{ secrets.DEPLOY_KEY_OPENAPI }}
 
+      - name: Use only specific package
+        run: |
+          cd openapi/packages/
+          echo "HERE ARE MY PACKAGES"
+          ls -la
+
       - name: Build openapi spec dependency
         run: |
           cd openapi
