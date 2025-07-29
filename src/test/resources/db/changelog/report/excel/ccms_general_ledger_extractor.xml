@@ -26,8 +26,8 @@
             <column name="REPORT_ID" value="f46b4d3d-c100-429a-bf9a-223305dbdbfb"/>
             <column name="QUERY" value="SELECT * FROM ANY_REPORT.FISH_AND_CHIPS_FOR_GENERAL_LEDGER"/>
             <column name="TAB_NAME" value="DATA"/>
+            <column name="INDEX" value="0"/>
         </insert>
-
         <createTable tableName="FISH_AND_CHIPS_FOR_GENERAL_LEDGER" schemaName="ANY_REPORT">
             <column name="GL_BATCH_ID" type="CHAR (255)"/>
             <column name="GL_BATCH_STATUS" type="VARCHAR(255)"/>
@@ -170,6 +170,136 @@
             <column name="ACCOUNTED_CR" value="10500.00"/>
             <column name="ACCOUNTED_DR" value="0.00"/>
             <column name="TOTAL" value="10500.00"/>
+        </insert>
+        <insert tableName="FISH_AND_CHIPS_FOR_GENERAL_LEDGER" schemaName="ANY_REPORT">
+            <column name="GL_BATCH_ID" value="BATCH-011"/>
+            <column name="GL_BATCH_STATUS" value="POSTED"/>
+            <column name="GL_BATCH_NAME" value="November Payroll"/>
+            <column name="GL_BATCH_DESC" value="November employee salaries"/>
+            <column name="GL_HEADER_PERIOD" value="2023-11"/>
+            <column name="JE_SOURCE" value="PAYROLL"/>
+            <column name="GL_CODE" value="6000"/>
+            <column name="SEG5" value="300"/>
+            <column name="ACCOUNTED_CR" value="0.00"/>
+            <column name="ACCOUNTED_DR" value="34200.00"/>
+            <column name="TOTAL" value="34200.00"/>
+        </insert>
+        <insert tableName="FISH_AND_CHIPS_FOR_GENERAL_LEDGER" schemaName="ANY_REPORT">
+            <column name="GL_BATCH_ID" value="BATCH-012"/>
+            <column name="GL_BATCH_STATUS" value="PENDING"/>
+            <column name="GL_BATCH_NAME" value="December Adjustments"/>
+            <column name="GL_BATCH_DESC" value="Year-end accounting adjustments"/>
+            <column name="GL_HEADER_PERIOD" value="2023-12"/>
+            <column name="JE_SOURCE" value="MANUAL"/>
+            <column name="GL_CODE" value="7000"/>
+            <column name="SEG5" value="400"/>
+            <column name="ACCOUNTED_CR" value="2300.00"/>
+            <column name="ACCOUNTED_DR" value="0.00"/>
+            <column name="TOTAL" value="2300.00"/>
+        </insert>
+        <insert tableName="FISH_AND_CHIPS_FOR_GENERAL_LEDGER" schemaName="ANY_REPORT">
+            <column name="GL_BATCH_ID" value="BATCH-013"/>
+            <column name="GL_BATCH_STATUS" value="APPROVED"/>
+            <column name="GL_BATCH_NAME" value="Q4 Revenue"/>
+            <column name="GL_BATCH_DESC" value="Fourth quarter revenue transactions"/>
+            <column name="GL_HEADER_PERIOD" value="2023-Q4"/>
+            <column name="JE_SOURCE" value="MANUAL"/>
+            <column name="GL_CODE" value="4000"/>
+            <column name="SEG5" value="100"/>
+            <column name="ACCOUNTED_CR" value="0.00"/>
+            <column name="ACCOUNTED_DR" value="24800.00"/>
+            <column name="TOTAL" value="24800.00"/>
+        </insert>
+        <insert tableName="FISH_AND_CHIPS_FOR_GENERAL_LEDGER" schemaName="ANY_REPORT">
+            <column name="GL_BATCH_ID" value="BATCH-014"/>
+            <column name="GL_BATCH_STATUS" value="POSTED"/>
+            <column name="GL_BATCH_NAME" value="January Expenses"/>
+            <column name="GL_BATCH_DESC" value="January operational expenses"/>
+            <column name="GL_HEADER_PERIOD" value="2024-01"/>
+            <column name="JE_SOURCE" value="AUTO"/>
+            <column name="GL_CODE" value="5000"/>
+            <column name="SEG5" value="200"/>
+            <column name="ACCOUNTED_CR" value="11200.00"/>
+            <column name="ACCOUNTED_DR" value="0.00"/>
+            <column name="TOTAL" value="11200.00"/>
+        </insert>
+        <insert tableName="FISH_AND_CHIPS_FOR_GENERAL_LEDGER" schemaName="ANY_REPORT">
+            <column name="GL_BATCH_ID" value="BATCH-015"/>
+            <column name="GL_BATCH_STATUS" value="APPROVED"/>
+            <column name="GL_BATCH_NAME" value="February Payroll"/>
+            <column name="GL_BATCH_DESC" value="February employee salaries"/>
+            <column name="GL_HEADER_PERIOD" value="2024-02"/>
+            <column name="JE_SOURCE" value="PAYROLL"/>
+            <column name="GL_CODE" value="6000"/>
+            <column name="SEG5" value="300"/>
+            <column name="ACCOUNTED_CR" value="0.00"/>
+            <column name="ACCOUNTED_DR" value="35600.00"/>
+            <column name="TOTAL" value="35600.00"/>
+        </insert>
+        <insert tableName="FISH_AND_CHIPS_FOR_GENERAL_LEDGER" schemaName="ANY_REPORT">
+            <column name="GL_BATCH_ID" value="BATCH-016"/>
+            <column name="GL_BATCH_STATUS" value="REJECTED"/>
+            <column name="GL_BATCH_NAME" value="March Adjustments"/>
+            <column name="GL_BATCH_DESC" value="Q1 accounting adjustments"/>
+            <column name="GL_HEADER_PERIOD" value="2024-03"/>
+            <column name="JE_SOURCE" value="MANUAL"/>
+            <column name="GL_CODE" value="7000"/>
+            <column name="SEG5" value="400"/>
+            <column name="ACCOUNTED_CR" value="1500.00"/>
+            <column name="ACCOUNTED_DR" value="0.00"/>
+            <column name="TOTAL" value="1500.00"/>
+        </insert>
+        <insert tableName="FISH_AND_CHIPS_FOR_GENERAL_LEDGER" schemaName="ANY_REPORT">
+            <column name="GL_BATCH_ID" value="BATCH-017"/>
+            <column name="GL_BATCH_STATUS" value="POSTED"/>
+            <column name="GL_BATCH_NAME" value="Q1 2024 Revenue"/>
+            <column name="GL_BATCH_DESC" value="First quarter 2024 revenue transactions"/>
+            <column name="GL_HEADER_PERIOD" value="2024-Q1"/>
+            <column name="JE_SOURCE" value="MANUAL"/>
+            <column name="GL_CODE" value="4000"/>
+            <column name="SEG5" value="100"/>
+            <column name="ACCOUNTED_CR" value="0.00"/>
+            <column name="ACCOUNTED_DR" value="28750.00"/>
+            <column name="TOTAL" value="28750.00"/>
+        </insert>
+        <insert tableName="FISH_AND_CHIPS_FOR_GENERAL_LEDGER" schemaName="ANY_REPORT">
+            <column name="GL_BATCH_ID" value="BATCH-018"/>
+            <column name="GL_BATCH_STATUS" value="PENDING"/>
+            <column name="GL_BATCH_NAME" value="April Expenses"/>
+            <column name="GL_BATCH_DESC" value="April operational expenses"/>
+            <column name="GL_HEADER_PERIOD" value="2024-04"/>
+            <column name="JE_SOURCE" value="AUTO"/>
+            <column name="GL_CODE" value="5000"/>
+            <column name="SEG5" value="200"/>
+            <column name="ACCOUNTED_CR" value="12500.00"/>
+            <column name="ACCOUNTED_DR" value="0.00"/>
+            <column name="TOTAL" value="12500.00"/>
+        </insert>
+        <insert tableName="FISH_AND_CHIPS_FOR_GENERAL_LEDGER" schemaName="ANY_REPORT">
+            <column name="GL_BATCH_ID" value="BATCH-019"/>
+            <column name="GL_BATCH_STATUS" value="APPROVED"/>
+            <column name="GL_BATCH_NAME" value="May Payroll"/>
+            <column name="GL_BATCH_DESC" value="May employee salaries"/>
+            <column name="GL_HEADER_PERIOD" value="2024-05"/>
+            <column name="JE_SOURCE" value="PAYROLL"/>
+            <column name="GL_CODE" value="6000"/>
+            <column name="SEG5" value="300"/>
+            <column name="ACCOUNTED_CR" value="0.00"/>
+            <column name="ACCOUNTED_DR" value="36800.00"/>
+            <column name="TOTAL" value="36800.00"/>
+        </insert>
+        <insert tableName="FISH_AND_CHIPS_FOR_GENERAL_LEDGER" schemaName="ANY_REPORT">
+            <column name="GL_BATCH_ID" value="BATCH-020"/>
+            <column name="GL_BATCH_STATUS" value="POSTED"/>
+            <column name="GL_BATCH_NAME" value="June Adjustments"/>
+            <column name="GL_BATCH_DESC" value="Mid-year accounting adjustments"/>
+            <column name="GL_HEADER_PERIOD" value="2024-06"/>
+            <column name="JE_SOURCE" value="MANUAL"/>
+            <column name="GL_CODE" value="7000"/>
+            <column name="SEG5" value="400"/>
+            <column name="ACCOUNTED_CR" value="1800.00"/>
+            <column name="ACCOUNTED_DR" value="0.00"/>
+            <column name="TOTAL" value="1800.00"/>
         </insert>
     </changeSet>
 
