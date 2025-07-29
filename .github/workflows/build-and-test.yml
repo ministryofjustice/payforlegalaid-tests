@@ -38,8 +38,8 @@ jobs:
 
       - name: Use only specific package
         run: |
-          cd openapi/packages/
-          echo "HERE ARE MY PACKAGES"
+          cd openapi
+          echo "HERE ARE MY DIRECTORIES"
           ls -la
 
       - name: Build openapi spec dependency
