@@ -11,7 +11,7 @@ Feature: Generate and Retrieve Excel Financial Report
     And the response should include the Excel file with "<template>" report
     Examples:
       | id                                   | template                                                |
-#      | b36f9bbb-1178-432c-8f99-8090e285f2d3 | CCMS Invoice Analysis (CIS to CCMS)                     |
+      | b36f9bbb-1178-432c-8f99-8090e285f2d3 | CCMS Invoice Analysis (CIS to CCMS)                     |
       | f46b4d3d-c100-429a-bf9a-223305dbdbfb | CCMS General ledger extractor (small manual batches)    |
       | eee30b23-2c8d-4b4b-bb11-8cd67d07915c | CCMS and CIS Bank Account Report w Category Code (YTD)  |
       | a017241a-359f-4fdb-a0cd-7f28f1946ef1 | CCMS and CIS Bank Account Report w Category Code (MNTH) |
