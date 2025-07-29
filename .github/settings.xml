@@ -22,10 +22,17 @@
         </profile>
     </profiles>
 
+<!--    <servers>-->
+<!--        <server>-->
+<!--            <id>github</id>-->
+<!--            <privateKey>${env.HOME}/.ssh/github_key</privateKey>-->
+<!--        </server>-->
+<!--    </servers>-->
     <servers>
         <server>
             <id>github</id>
-            <privateKey>${env.HOME}/.ssh/github_key</privateKey>
+            <username>OWNER</username>
+            <password>${{ secrets.GITHUB_TOKEN }}</password>
         </server>
     </servers>
 </settings>

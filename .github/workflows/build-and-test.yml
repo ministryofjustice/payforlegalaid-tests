@@ -30,10 +30,17 @@ jobs:
 
       - name: Checkout openapi spec
         uses: actions/checkout@v4
+#        THIS IS THE ISSUE, IT'S DOING CHECKOUT RATHER THAN GETTING A PACKAGE
         with:
           repository: ministryofjustice/payforlegalaid-openapi
           path: openapi
           ssh-key: ${{ secrets.DEPLOY_KEY_OPENAPI }}
+
+      - name: Use only specific package
+        run: |
+          cd openapi
+          echo "HERE ARE MY DIRECTORIES"
+          ls -la
 
       - name: Build openapi spec dependency
         run: |
