@@ -5,7 +5,11 @@ import org.apache.poi.xssf.usermodel.XSSFPivotTable;
 import static uk.gov.laa.pfla.util.workbook.pivot.PivotTableValidationStrategy.CacheDefinitionValidation;
 import static uk.gov.laa.pfla.util.workbook.pivot.PivotTableValidationStrategy.DataSourceValidation;
 import static uk.gov.laa.pfla.util.workbook.pivot.PivotTableValidationStrategy.LocationValidation;
+import static uk.gov.laa.pfla.util.workbook.pivot.PivotTableValidationStrategy.PivotCacheFieldStyleValidation;
+import static uk.gov.laa.pfla.util.workbook.pivot.PivotTableValidationStrategy.PivotCacheFieldValidation;
+import static uk.gov.laa.pfla.util.workbook.pivot.PivotTableValidationStrategy.PivotFieldStyleValidation;
 import static uk.gov.laa.pfla.util.workbook.pivot.PivotTableValidationStrategy.PivotFieldsValidation;
+import static uk.gov.laa.pfla.util.workbook.pivot.PivotTableValidationStrategy.PivotFormatValidation;
 
 /**
  * Validates an XSSF PivotTable against a set of predefined validation strategies.
@@ -22,7 +26,11 @@ public class PivotTableValidator {
             new CacheDefinitionValidation(),
             new DataSourceValidation(),
             new LocationValidation(),
-            new PivotFieldsValidation()
+            new PivotFieldsValidation(),
+            new PivotFieldStyleValidation(),
+            new PivotFormatValidation(),
+            new PivotCacheFieldValidation(),
+            new PivotCacheFieldStyleValidation()
     };
 
     /**

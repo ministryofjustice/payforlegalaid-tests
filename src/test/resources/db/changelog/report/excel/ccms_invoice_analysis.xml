@@ -84,8 +84,8 @@
             </column>
         </createTable>
         <insert tableName="WIZARD_POTION_SUPPLY_LEVELS" schemaName="ANY_REPORT">
-            <column name="DATE_POTION_CREATED" value="2023-08-06"/>
-            <column name="SPELL_TYPE" value="CIS transaction"/>
+            <column name="DATE_POTION_CREATED" value="2024-12-25"/>
+            <column name="SPELL_TYPE" value="Invisibility potion"/>
             <column name="INGREDIENTS_COST" value="2"/>
             <column name="PRICE" value="2.40"/>
         </insert>
@@ -93,7 +93,7 @@
             <column name="DATE_POTION_CREATED" value="2023-08-02"/>
             <column name="SPELL_TYPE" value="Healing spell"/>
             <column name="INGREDIENTS_COST" value="2"/>
-            <column name="PRICE" value="2.45"/>
+            <column name="PRICE" value="2"/>
         </insert>
         <insert tableName="WIZARD_POTION_SUPPLY_LEVELS" schemaName="ANY_REPORT">
             <column name="DATE_POTION_CREATED" value="2023-08-02"/>
@@ -103,13 +103,13 @@
         </insert>
         <insert tableName="WIZARD_POTION_SUPPLY_LEVELS" schemaName="ANY_REPORT">
             <column name="DATE_POTION_CREATED" value="2023-08-07"/>
-            <column name="SPELL_TYPE" value="CIS transaction"/>
+            <column name="SPELL_TYPE" value="Energy increase"/>
             <column name="INGREDIENTS_COST" value="10466.08"/>
             <column name="PRICE" value="10466.08"/>
         </insert>
         <insert tableName="WIZARD_POTION_SUPPLY_LEVELS" schemaName="ANY_REPORT">
             <column name="DATE_POTION_CREATED" value="2023-08-07"/>
-            <column name="SPELL_TYPE" value="eForms"/>
+            <column name="SPELL_TYPE" value="Extra energy increase"/>
             <column name="INGREDIENTS_COST" value="1258037.63"/>
             <column name="PRICE" value="1256489.69"/>
         </insert>
