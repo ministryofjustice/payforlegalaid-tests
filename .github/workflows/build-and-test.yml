@@ -35,13 +35,7 @@ jobs:
           repository: ministryofjustice/payforlegalaid-openapi
           path: openapi
           ssh-key: ${{ secrets.DEPLOY_KEY_OPENAPI }}
-          tag: v0.0.2
-
-      - name: Use only specific package
-        run: |
-          cd openapi
-          echo "HERE ARE MY DIRECTORIES"
-          ls -la
+          ref: refs/tags/v0.0.2
 
       - name: Build openapi spec dependency
         run: |
