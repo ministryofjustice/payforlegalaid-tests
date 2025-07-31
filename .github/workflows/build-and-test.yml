@@ -40,7 +40,8 @@ jobs:
       - name: Build openapi spec dependency
         run: |
           cd openapi
-          mvn -B clean install
+          mvn -B clean install -Dpayforlegalaid-openapi.version=0.0.2
+
           echo "THIS IS THE INSTALL VERSION OF OPENAPI"
           mvn dependency:tree
           
