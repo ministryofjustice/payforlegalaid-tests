@@ -27,6 +27,7 @@ public record GetExcelSteps(HttpProvider httpProvider, ScenarioContext scenarioC
         var expectedResult = excelService.loadExcelFromResources("expected_results/{0}.xlsx", file);
         var headers = scenarioContext.getResponseAs(Object.class).getHeaders();
 
+
         assertAll("Verify Excel response",
                 () -> assertThat(headers.getContentType()).isEqualTo(parseMediaType(APPLICATION_EXCEL)),
                 () -> assertThat(headers.getContentDisposition()).isEqualTo(
