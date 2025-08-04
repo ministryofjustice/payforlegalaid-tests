@@ -21,12 +21,20 @@ jobs:
           distribution: 'corretto'
           java-version: '17'
 
+      - name: Get openapi version from pom
+        id: get_openapi_version
+        run: |
+          cd testCode
+          VERSION=$(mvn help:evaluate -Dexpression=payforlegalaid-openapi.version -q -DforceStdout)
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+
       - name: Checkout openapi spec
         uses: actions/checkout@v4
         with:
           repository: ministryofjustice/payforlegalaid-openapi
           path: openapi
           ssh-key: ${{ secrets.DEPLOY_KEY_OPENAPI }}
+          ref: refs/tags/v${{ steps.get_openapi_version.outputs.version }}
 
       - name: Build openapi spec dependency
         run: |
@@ -42,12 +50,11 @@ jobs:
       - name: Build source code
         run: |
           cd sourceCode
-          mvn -B -DskipTests clean install -s .github/settings.xml
+          mvn -B -DskipTests clean install -Dpayforlegalaid-openapi.version=${{ steps.get_openapi_version.outputs.version }}
 
       - name: Run tests
         run: |
           cd testCode
-          mvn -B clean test -s .github/settings.xml
-
+          mvn -B clean test
         shell:
           bash
