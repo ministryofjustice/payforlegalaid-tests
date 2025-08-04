@@ -51,7 +51,7 @@
         </dependency>
         <dependency>
             <groupId>org.apache.poi</groupId>
-            <artifactId>poi-ooxml</artifactId>
+            <artifactId>poi-ooxml-full</artifactId>
             <version>${poi.version}</version>
         </dependency>
 

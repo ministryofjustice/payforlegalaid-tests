@@ -3,15 +3,21 @@ package uk.gov.laa.pfla.assertion;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFPivotCacheDefinition;
 import org.apache.poi.xssf.usermodel.XSSFPivotTable;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.assertj.core.api.AbstractAssert;
+import org.junit.jupiter.api.Assertions;
 import uk.gov.laa.pfla.comparator.WorkbookComparator;
 import uk.gov.laa.pfla.util.workbook.SheetCellIterator;
 import uk.gov.laa.pfla.util.workbook.pivot.PivotTableValidator;
 
+import java.util.stream.StreamSupport;
+
 import static org.apache.poi.ss.usermodel.CellType.ERROR;
 import static org.apache.poi.ss.usermodel.CellType.FORMULA;
+import static org.apache.poi.xssf.usermodel.XSSFRelation.PIVOT_CACHE_DEFINITION;
 import static org.apache.poi.xssf.usermodel.XSSFRelation.PIVOT_TABLE;
 
 public abstract class WorkbookAssert extends AbstractAssert<WorkbookAssert, Workbook> {
@@ -52,10 +58,20 @@ public abstract class WorkbookAssert extends AbstractAssert<WorkbookAssert, Work
         var xssfWorkbook = (XSSFWorkbook) actual;
         var validator = new PivotTableValidator();
 
+        // Workbook has relationship with the pivot cache
+        // validate these relationships as if invalid will corrupt the pivots.
         xssfWorkbook.getRelationParts().stream()
-                .filter(part -> part.getRelationship().getRelationshipType().contains(PIVOT_TABLE.getRelation()))
-                .map(part -> (XSSFPivotTable) xssfWorkbook.getRelationById(part.getRelationship().getId()))
-                .forEach(validator::validate);
-    }
+                .filter(part -> part.getRelationship().getRelationshipType().equals(PIVOT_CACHE_DEFINITION.getRelation()))
+                .map(part -> (XSSFPivotCacheDefinition) xssfWorkbook.getRelationById(part.getRelationship().getId()))
+                .forEach(Assertions::assertNotNull);
 
+        // For each sheet, find any pivot tables it has on it and validate the contents
+        StreamSupport.stream(xssfWorkbook.spliterator(), false)
+            .map(sheet -> (XSSFSheet) sheet)
+            .flatMap(sheet -> (sheet.getRelationParts().stream())
+            .filter(part -> part.getRelationship().getRelationshipType().equals(PIVOT_TABLE.getRelation()))
+            .map(part -> (XSSFPivotTable) sheet.getRelationById(part.getRelationship().getId())))
+            .forEach(validator::validate);
+
+    }
 }
