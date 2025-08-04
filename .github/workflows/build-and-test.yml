@@ -27,7 +27,7 @@ jobs:
           repository: ministryofjustice/payforlegalaid-openapi
           path: openapi
           ssh-key: ${{ secrets.DEPLOY_KEY_OPENAPI }}
-          ref: refs/tags/v0.0.2
+          ref: refs/tags/v0.0.3
 
       - name: Build openapi spec dependency
         run: |
@@ -43,7 +43,7 @@ jobs:
       - name: Build source code
         run: |
           cd sourceCode
-          mvn -B -DskipTests clean install -Dpayforlegalaid-openapi.version=0.0.2
+          mvn -B -DskipTests clean install -Dpayforlegalaid-openapi.version=0.0.3
           echo "THIS ARE THE MAIN APP DEPENDENCIES"
           mvn dependency:tree
 
