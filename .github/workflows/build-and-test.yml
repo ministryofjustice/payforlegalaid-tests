@@ -30,7 +30,7 @@ jobs:
           cd testCode
           VERSION=$(mvn help:evaluate -Dexpression=payforlegalaid-openapi.version -q -DforceStdout)
           echo "THIS IS THE VERSION=$VERSION"
-          echo "version=v$VERSION" >> "$GITHUB_OUTPUT"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
 
       - name: Checkout openapi spec
         uses: actions/checkout@v4
@@ -54,7 +54,7 @@ jobs:
       - name: Build source code
         run: |
           cd sourceCode
-          mvn -B -DskipTests clean install -Dpayforlegalaid-openapi.version=${{ steps.get_version.outputs.version }}
+          mvn -B -DskipTests clean install -Dpayforlegalaid-openapi.version=${{ steps.get_openapi_version.outputs.version }}
           echo "THIS ARE THE MAIN APP DEPENDENCIES"
           mvn dependency:tree
 
