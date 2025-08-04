@@ -55,7 +55,6 @@ jobs:
       - name: Run tests
         run: |
           cd testCode
-          mvn -B clean compile
-          mvn test
+          mvn -B clean test
         shell:
           bash
