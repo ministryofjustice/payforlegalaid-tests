@@ -6,9 +6,6 @@ on:
   repository_dispatch:
     types: [ trigger-tests ]
 
-env:
-  VERSION:
-
 jobs:
   run_tests:
     runs-on: ubuntu-latest
@@ -29,7 +26,6 @@ jobs:
         run: |
           cd testCode
           VERSION=$(mvn help:evaluate -Dexpression=payforlegalaid-openapi.version -q -DforceStdout)
-          echo "THIS IS THE VERSION=$VERSION"
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
 
       - name: Checkout openapi spec
@@ -55,15 +51,11 @@ jobs:
         run: |
           cd sourceCode
           mvn -B -DskipTests clean install -Dpayforlegalaid-openapi.version=${{ steps.get_openapi_version.outputs.version }}
-          echo "THIS ARE THE MAIN APP DEPENDENCIES"
-          mvn dependency:tree
 
       - name: Run tests
         run: |
           cd testCode
           mvn -B clean compile
-          echo "THIS ARE THE TEST APP DEPENDENCIES"
-          mvn dependency:tree
           mvn test
         shell:
           bash
