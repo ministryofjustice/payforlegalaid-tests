@@ -2,6 +2,11 @@ name: Smoke Test Workflow
 
 on:
   workflow_dispatch:
+  pull_request:
+    types: [ opened, reopened, synchronize ]
+  repository_dispatch:
+    types: [ trigger-tests ]
+
   schedule:
     - cron: '0 5 * * *'
 
