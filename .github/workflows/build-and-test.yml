@@ -50,7 +50,8 @@ jobs:
       - name: Build source code
         run: |
           cd sourceCode
-          mvn -B -DskipTests clean install -Dpayforlegalaid-openapi.version=${{ steps.get_openapi_version.outputs.version }}
+          mvn -B -DskipTests install
+#          -Dpayforlegalaid-openapi.version=${{ steps.get_openapi_version.outputs.version }}
 
       - name: Run tests
         run: |
