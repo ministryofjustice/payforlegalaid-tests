@@ -61,3 +61,12 @@ runs:
         TESTS_TO_DISABLE: "flaky,known_issues"
       run: mvn test
 ```
+
+
+
+## Smoke test
+To run the smoke test, you can use the following command:
+By default, the smoke test will run all scenarios tagged with `@smoke`.
+
+```bash
+       mvn -B clean test  -Dcucumber. filter.tags="@smoke"

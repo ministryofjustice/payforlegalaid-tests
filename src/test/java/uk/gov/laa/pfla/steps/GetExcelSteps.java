@@ -2,6 +2,9 @@ package uk.gov.laa.pfla.steps;
 
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.junit.platform.commons.logging.Logger;
+import org.junit.platform.commons.logging.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import uk.gov.laa.pfla.assertion.WorkbookAssert;
 import uk.gov.laa.pfla.scenario.ScenarioContext;
 import uk.gov.laa.pfla.service.HttpProvider;
@@ -12,13 +15,21 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.springframework.http.ContentDisposition.attachment;
 import static org.springframework.http.MediaType.parseMediaType;
 
-public record GetExcelSteps(HttpProvider httpProvider, ScenarioContext scenarioContext, WorkbookUtil excelService) {
+public record GetExcelSteps(HttpProvider httpProvider, ScenarioContext scenarioContext, WorkbookUtil excelService,
+                            @Value("${cis-to-cms-report-id}") String reportIdFromConfig) {
+    private static final Logger logger = LoggerFactory.getLogger(GetExcelSteps.class);
 
     private static final String APPLICATION_EXCEL = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+
 
     @When("a request is made to the Excel endpoint with the report ID {string}")
     public void aRequestIsMadeToTheExcelEndpointWithTheReportId(String reportId) {
         scenarioContext.setResponse(httpProvider.getClient().getForEntity("/excel/" + reportId, byte[].class));
+    }
+
+    @When("a request is made to download the 'CCMS Invoice Analysis' Excel file for the report ID from configuration")
+    public void aRequestIsMadeToDownloadCCMSInvoiceAnalysisExcelFileForReportIdFromConfig() throws Exception {
+        scenarioContext.setResponse(httpProvider.getClient().getForEntity("/excel/" + reportIdFromConfig, byte[].class));
     }
 
     @Then("the response should include the Excel file with {string} report")
