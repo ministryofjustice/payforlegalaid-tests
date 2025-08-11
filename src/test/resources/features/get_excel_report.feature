@@ -17,6 +17,7 @@ Feature: Generate and Retrieve Excel Financial Report
       | a017241a-359f-4fdb-a0cd-7f28f1946ef1 | CCMS and CIS Bank Account Report w Category Code (MNTH) |
       | 7073dd13-e325-4863-a05c-a049a815d1f7 | Legal Help contract balances                            |
       | 77ef818d-e35d-47ad-8813-74b9fa675877 | CCMS Third party report                                 |
+      | 56328b13-254d-435d-813a-5863f94b996d | Mediation contract balances                             |
 
   Scenario: Return an error when attempting to retrieve a report with an unrecognized ID
     Given I am authenticated with a valid session
