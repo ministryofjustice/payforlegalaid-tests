@@ -67,6 +67,7 @@ runs:
 ## Smoke test
 To run the smoke test, you can use the following command:
 By default, the smoke test will run all scenarios tagged with `@smoke`.
+Any existing test can be tagged with `@smoke` to include it in the smoke test suite.
 
 ```bash
        mvn -B clean test  -Dcucumber. filter.tags="@smoke"
