@@ -2,9 +2,6 @@ package uk.gov.laa.pfla.steps;
 
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.junit.platform.commons.logging.Logger;
-import org.junit.platform.commons.logging.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import uk.gov.laa.pfla.assertion.WorkbookAssert;
 import uk.gov.laa.pfla.scenario.ScenarioContext;
 import uk.gov.laa.pfla.service.HttpProvider;
