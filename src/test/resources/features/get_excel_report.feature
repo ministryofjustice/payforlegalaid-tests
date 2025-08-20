@@ -15,8 +15,9 @@ Feature: Generate and Retrieve Excel Financial Report
       | f46b4d3d-c100-429a-bf9a-223305dbdbfb | CCMS General ledger extractor (small manual batches)    |
       | eee30b23-2c8d-4b4b-bb11-8cd67d07915c | CCMS and CIS Bank Account Report w Category Code (YTD)  |
       | a017241a-359f-4fdb-a0cd-7f28f1946ef1 | CCMS and CIS Bank Account Report w Category Code (MNTH) |
-      | 7073dd13-e325-4863-a05c-a049a815d1f7 | Legal Help contract balances                            |
-      | 77ef818d-e35d-47ad-8813-74b9fa675877 | CCMS Third party report                                 |
+      | 7073dd13-e325-4863-a05c-a049a815d1f7 | Legal Help contract balances
+#      Needs updating when we finish the third party report LPF-1002
+#      | 77ef818d-e35d-47ad-8813-74b9fa675877 | CCMS Third party report                                 |
       | 56328b13-254d-435d-813a-5863f94b996d | Mediation contract balances                             |
 
   Scenario: Return an error when attempting to retrieve a report with an unrecognized ID

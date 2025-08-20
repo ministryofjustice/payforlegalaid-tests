@@ -348,6 +348,7 @@
             <column name="FORMAT" value="dd-MMM-yy"/>
             <column name="FORMAT_TYPE" value="date"/>
             <column name="COLUMN_WIDTH" value="20.67"/>
+            <column name="COLUMN_ORDER" value="1"/>
         </insert>
         <insert tableName="FIELD_ATTRIBUTES" schemaName="GPFD">
             <column name="ID" value="b9dc706c-b05d-4339-9521-1fad144b7362"/>
@@ -357,6 +358,7 @@
             <column name="FORMAT" value=""/>
             <column name="FORMAT_TYPE" value="string"/>
             <column name="COLUMN_WIDTH" value="22.83"/>
+            <column name="COLUMN_ORDER" value="2"/>
         </insert>
         <insert tableName="FIELD_ATTRIBUTES" schemaName="GPFD">
             <column name="ID" value="b9dc706c-b05d-4339-9521-1fad144b7363"/>
@@ -366,6 +368,7 @@
             <column name="FORMAT" value="#.00"/>
             <column name="FORMAT_TYPE" value="double"/>
             <column name="COLUMN_WIDTH" value="10.17"/>
+            <column name="COLUMN_ORDER" value="3"/>
         </insert>
         <insert tableName="FIELD_ATTRIBUTES" schemaName="GPFD">
             <column name="ID" value="b9dc706c-b05d-4339-9521-1fad144b7364"/>
@@ -375,6 +378,7 @@
             <column name="FORMAT" value="#.00"/>
             <column name="FORMAT_TYPE" value="double"/>
             <column name="COLUMN_WIDTH" value="11.83"/>
+            <column name="COLUMN_ORDER" value="4"/>
         </insert>
 
         <!-- Add field attributes for Import Exceptions tab-->
@@ -386,6 +390,7 @@
             <column name="FORMAT" value=""/>
             <column name="FORMAT_TYPE" value="string"/>
             <column name="COLUMN_WIDTH" value="9.33"/>
+            <column name="COLUMN_ORDER" value="1"/>
         </insert>
         <insert tableName="FIELD_ATTRIBUTES" schemaName="GPFD">
             <column name="ID" value="8f0fb820-640a-41a9-b5a1-e74c336a19a2"/>
@@ -395,6 +400,7 @@
             <column name="FORMAT" value=""/>
             <column name="FORMAT_TYPE" value="string"/>
             <column name="COLUMN_WIDTH" value="18.67"/>
+            <column name="COLUMN_ORDER" value="2"/>
         </insert>
         <insert tableName="FIELD_ATTRIBUTES" schemaName="GPFD">
             <column name="ID" value="8f0fb820-640a-41a9-b5a1-e74c336a19a3"/>
@@ -404,6 +410,7 @@
             <column name="FORMAT" value=""/>
             <column name="FORMAT_TYPE" value="string"/>
             <column name="COLUMN_WIDTH" value="17.33"/>
+            <column name="COLUMN_ORDER" value="3"/>
         </insert>
         <insert tableName="FIELD_ATTRIBUTES" schemaName="GPFD">
             <column name="ID" value="8f0fb820-640a-41a9-b5a1-e74c336a19a4"/>
@@ -413,6 +420,7 @@
             <column name="FORMAT" value=""/>
             <column name="FORMAT_TYPE" value="string"/>
             <column name="COLUMN_WIDTH" value="11.17"/>
+            <column name="COLUMN_ORDER" value="4"/>
         </insert>
         <insert tableName="FIELD_ATTRIBUTES" schemaName="GPFD">
             <column name="ID" value="8f0fb820-640a-41a9-b5a1-e74c336a19a5"/>
@@ -422,6 +430,7 @@
             <column name="FORMAT" value="dd-MMM-yy"/>
             <column name="FORMAT_TYPE" value="date"/>
             <column name="COLUMN_WIDTH" value="17.17"/>
+            <column name="COLUMN_ORDER" value="5"/>
         </insert>
         <insert tableName="FIELD_ATTRIBUTES" schemaName="GPFD">
             <column name="ID" value="8f0fb820-640a-41a9-b5a1-e74c336a19a6"/>
@@ -431,6 +440,7 @@
             <column name="FORMAT" value="dd-MMM-yy"/>
             <column name="FORMAT_TYPE" value="date"/>
             <column name="COLUMN_WIDTH" value="20.67"/>
+            <column name="COLUMN_ORDER" value="6"/>
         </insert>
         <insert tableName="FIELD_ATTRIBUTES" schemaName="GPFD">
             <column name="ID" value="8f0fb820-640a-41a9-b5a1-e74c336a19a7"/>
@@ -440,6 +450,7 @@
             <column name="FORMAT" value=""/>
             <column name="FORMAT_TYPE" value="long"/>
             <column name="COLUMN_WIDTH" value="12.67"/>
+            <column name="COLUMN_ORDER" value="7"/>
         </insert>
         <insert tableName="FIELD_ATTRIBUTES" schemaName="GPFD">
             <column name="ID" value="8f0fb820-640a-41a9-b5a1-e74c336a19a8"/>
@@ -449,6 +460,7 @@
             <column name="FORMAT" value=""/>
             <column name="FORMAT_TYPE" value="long"/>
             <column name="COLUMN_WIDTH" value="7.67"/>
+            <column name="COLUMN_ORDER" value="8"/>
         </insert>
         <insert tableName="FIELD_ATTRIBUTES" schemaName="GPFD">
             <column name="ID" value="8f0fb820-640a-41a9-b5a1-e74c336a19a9"/>
@@ -458,6 +470,7 @@
             <column name="FORMAT" value="#.00"/>
             <column name="FORMAT_TYPE" value="double"/>
             <column name="COLUMN_WIDTH" value="9.17"/>
+            <column name="COLUMN_ORDER" value="9"/>
         </insert>
         <insert tableName="FIELD_ATTRIBUTES" schemaName="GPFD">
             <column name="ID" value="8f0fb820-640a-41a9-b5a1-e74c336a19b1"/>
@@ -467,6 +480,7 @@
             <column name="FORMAT" value=""/>
             <column name="FORMAT_TYPE" value="string"/>
             <column name="COLUMN_WIDTH" value="10"/>
+            <column name="COLUMN_ORDER" value="10"/>
         </insert>
         <insert tableName="FIELD_ATTRIBUTES" schemaName="GPFD">
             <column name="ID" value="8f0fb820-640a-41a9-b5a1-e74c336a19b2"/>
@@ -476,6 +490,7 @@
             <column name="FORMAT" value="dd-MMM-yy"/>
             <column name="FORMAT_TYPE" value="date"/>
             <column name="COLUMN_WIDTH" value="7.67"/>
+            <column name="COLUMN_ORDER" value="11"/>
         </insert>
         <insert tableName="FIELD_ATTRIBUTES" schemaName="GPFD">
             <column name="ID" value="8f0fb820-640a-41a9-b5a1-e74c336a19b3"/>
@@ -485,6 +500,7 @@
             <column name="FORMAT" value=""/>
             <column name="FORMAT_TYPE" value="long"/>
             <column name="COLUMN_WIDTH" value="16.5"/>
+            <column name="COLUMN_ORDER" value="12"/>
         </insert>
 
         <!-- Add field attributes for Payment Value (User def) tab-->
@@ -496,6 +512,7 @@
             <column name="FORMAT" value=""/>
             <column name="FORMAT_TYPE" value="string"/>
             <column name="COLUMN_WIDTH" value="17.83"/>
+            <column name="COLUMN_ORDER" value="1"/>
         </insert>
         <insert tableName="FIELD_ATTRIBUTES" schemaName="GPFD">
             <column name="ID" value="251ab6d4-0e29-4c9a-aae2-dfa3abf91c42"/>
@@ -505,6 +522,7 @@
             <column name="FORMAT" value=""/>
             <column name="FORMAT_TYPE" value="string"/>
             <column name="COLUMN_WIDTH" value="63.67"/>
+            <column name="COLUMN_ORDER" value="2"/>
         </insert>
         <insert tableName="FIELD_ATTRIBUTES" schemaName="GPFD">
             <column name="ID" value="251ab6d4-0e29-4c9a-aae2-dfa3abf91c43"/>
@@ -514,6 +532,7 @@
             <column name="FORMAT" value="dd-MMM-yy"/>
             <column name="FORMAT_TYPE" value="date"/>
             <column name="COLUMN_WIDTH" value="13.33"/>
+            <column name="COLUMN_ORDER" value="3"/>
         </insert>
         <insert tableName="FIELD_ATTRIBUTES" schemaName="GPFD">
             <column name="ID" value="251ab6d4-0e29-4c9a-aae2-dfa3abf91c44"/>
@@ -523,6 +542,7 @@
             <column name="FORMAT" value="dd-MMM-yy"/>
             <column name="FORMAT_TYPE" value="date"/>
             <column name="COLUMN_WIDTH" value="15"/>
+            <column name="COLUMN_ORDER" value="4"/>
         </insert>
         <insert tableName="FIELD_ATTRIBUTES" schemaName="GPFD">
             <column name="ID" value="251ab6d4-0e29-4c9a-aae2-dfa3abf91c45"/>
@@ -532,6 +552,7 @@
             <column name="FORMAT" value="#.00"/>
             <column name="FORMAT_TYPE" value="double"/>
             <column name="COLUMN_WIDTH" value="9.17"/>
+            <column name="COLUMN_ORDER" value="5"/>
         </insert>
 
         <!-- Add field attributes for Payment value (not def)-->
@@ -543,6 +564,7 @@
             <column name="FORMAT" value=""/>
             <column name="FORMAT_TYPE" value="string"/>
             <column name="COLUMN_WIDTH" value="17.83"/>
+            <column name="COLUMN_ORDER" value="1"/>
         </insert>
         <insert tableName="FIELD_ATTRIBUTES" schemaName="GPFD">
             <column name="ID" value="ba373b4e-e735-49dd-9087-d7f1fb40e1b2"/>
@@ -552,6 +574,7 @@
             <column name="FORMAT" value=""/>
             <column name="FORMAT_TYPE" value="string"/>
             <column name="COLUMN_WIDTH" value="35"/>
+            <column name="COLUMN_ORDER" value="2"/>
         </insert>
         <insert tableName="FIELD_ATTRIBUTES" schemaName="GPFD">
             <column name="ID" value="ba373b4e-e735-49dd-9087-d7f1fb40e1b3"/>
@@ -561,6 +584,7 @@
             <column name="FORMAT" value=""/>
             <column name="FORMAT_TYPE" value="string"/>
             <column name="COLUMN_WIDTH" value="24.83"/>
+            <column name="COLUMN_ORDER" value="3"/>
         </insert>
         <insert tableName="FIELD_ATTRIBUTES" schemaName="GPFD">
             <column name="ID" value="ba373b4e-e735-49dd-9087-d7f1fb40e1b4"/>
@@ -570,6 +594,7 @@
             <column name="FORMAT" value="dd-MMM-yy"/>
             <column name="FORMAT_TYPE" value="date"/>
             <column name="COLUMN_WIDTH" value="13.33"/>
+            <column name="COLUMN_ORDER" value="4"/>
         </insert>
         <insert tableName="FIELD_ATTRIBUTES" schemaName="GPFD">
             <column name="ID" value="ba373b4e-e735-49dd-9087-d7f1fb40e1b5"/>
@@ -579,6 +604,7 @@
             <column name="FORMAT" value="dd-MMM-yy"/>
             <column name="FORMAT_TYPE" value="date"/>
             <column name="COLUMN_WIDTH" value="15"/>
+            <column name="COLUMN_ORDER" value="5"/>
         </insert>
         <insert tableName="FIELD_ATTRIBUTES" schemaName="GPFD">
             <column name="ID" value="ba373b4e-e735-49dd-9087-d7f1fb40e1b6"/>
@@ -588,6 +614,7 @@
             <column name="FORMAT" value="#.00"/>
             <column name="FORMAT_TYPE" value="double"/>
             <column name="COLUMN_WIDTH" value="8.17"/>
+            <column name="COLUMN_ORDER" value="6"/>
         </insert>
 
         <!-- Add field attributes for CCMS Held payments tab-->
@@ -599,6 +626,7 @@
             <column name="FORMAT" value=""/>
             <column name="FORMAT_TYPE" value="string"/>
             <column name="COLUMN_WIDTH" value="17.83"/>
+            <column name="COLUMN_ORDER" value="1"/>
         </insert>
         <insert tableName="FIELD_ATTRIBUTES" schemaName="GPFD">
             <column name="ID" value="de98ef9c-400f-4260-9e3c-927cc503db22"/>
@@ -608,6 +636,7 @@
             <column name="FORMAT" value=""/>
             <column name="FORMAT_TYPE" value="string"/>
             <column name="COLUMN_WIDTH" value="68.67"/>
+            <column name="COLUMN_ORDER" value="2"/>
         </insert>
         <insert tableName="FIELD_ATTRIBUTES" schemaName="GPFD">
             <column name="ID" value="de98ef9c-400f-4260-9e3c-927cc503db23"/>
@@ -617,6 +646,7 @@
             <column name="FORMAT" value="dd-MMM-yy"/>
             <column name="FORMAT_TYPE" value="date"/>
             <column name="COLUMN_WIDTH" value="13.33"/>
+            <column name="COLUMN_ORDER" value="3"/>
         </insert>
         <insert tableName="FIELD_ATTRIBUTES" schemaName="GPFD">
             <column name="ID" value="de98ef9c-400f-4260-9e3c-927cc503db24"/>
@@ -626,6 +656,7 @@
             <column name="FORMAT" value="dd-MMM-yy"/>
             <column name="FORMAT_TYPE" value="date"/>
             <column name="COLUMN_WIDTH" value="15"/>
+            <column name="COLUMN_ORDER" value="4"/>
         </insert>
         <insert tableName="FIELD_ATTRIBUTES" schemaName="GPFD">
             <column name="ID" value="de98ef9c-400f-4260-9e3c-927cc503db25"/>
@@ -635,6 +666,7 @@
             <column name="FORMAT" value="#.00"/>
             <column name="FORMAT_TYPE" value="double"/>
             <column name="COLUMN_WIDTH" value="21"/>
+            <column name="COLUMN_ORDER" value="5"/>
         </insert>
 
         <!-- Add field attributes for CCMS AP Debtors tab-->
@@ -646,6 +678,7 @@
             <column name="FORMAT" value=""/>
             <column name="FORMAT_TYPE" value="string"/>
             <column name="COLUMN_WIDTH" value="17.83"/>
+            <column name="COLUMN_ORDER" value="1"/>
         </insert>
         <insert tableName="FIELD_ATTRIBUTES" schemaName="GPFD">
             <column name="ID" value="de98ef9c-400f-4260-9e3c-927cc503dd22"/>
@@ -655,6 +688,7 @@
             <column name="FORMAT" value=""/>
             <column name="FORMAT_TYPE" value="string"/>
             <column name="COLUMN_WIDTH" value="68.67"/>
+            <column name="COLUMN_ORDER" value="2"/>
         </insert>
         <insert tableName="FIELD_ATTRIBUTES" schemaName="GPFD">
             <column name="ID" value="de98ef9c-400f-4260-9e3c-927cc503dd23"/>
@@ -664,6 +698,7 @@
             <column name="FORMAT" value="dd-MMM-yy"/>
             <column name="FORMAT_TYPE" value="date"/>
             <column name="COLUMN_WIDTH" value="13.33"/>
+            <column name="COLUMN_ORDER" value="3"/>
         </insert>
         <insert tableName="FIELD_ATTRIBUTES" schemaName="GPFD">
             <column name="ID" value="de98ef9c-400f-4260-9e3c-927cc503dd24"/>
@@ -673,6 +708,7 @@
             <column name="FORMAT" value="dd-MMM-yy"/>
             <column name="FORMAT_TYPE" value="date"/>
             <column name="COLUMN_WIDTH" value="15"/>
+            <column name="COLUMN_ORDER" value="4"/>
         </insert>
         <insert tableName="FIELD_ATTRIBUTES" schemaName="GPFD">
             <column name="ID" value="de98ef9c-400f-4260-9e3c-927cc503dd25"/>
@@ -682,6 +718,7 @@
             <column name="FORMAT" value="#.00"/>
             <column name="FORMAT_TYPE" value="double"/>
             <column name="COLUMN_WIDTH" value="21"/>
+            <column name="COLUMN_ORDER" value="5"/>
         </insert>
     </changeSet>
 

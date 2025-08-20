@@ -119,6 +119,7 @@
             <column name="COLUMN_WIDTH" type="NUMBER(6,2)">
                 <constraints nullable="false"/>
             </column>
+            <column name="COLUMN_ORDER" type="NUMBER(6)"/>
         </createTable>
 
         <createTable tableName="REPORTS_TRACKING" schemaName="GPFD">
