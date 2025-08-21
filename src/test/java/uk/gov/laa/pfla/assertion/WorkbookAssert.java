@@ -1,6 +1,7 @@
 package uk.gov.laa.pfla.assertion;
 
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFPivotCacheDefinition;
@@ -13,6 +14,7 @@ import uk.gov.laa.pfla.comparator.WorkbookComparator;
 import uk.gov.laa.pfla.util.workbook.SheetCellIterator;
 import uk.gov.laa.pfla.util.workbook.pivot.PivotTableValidator;
 
+import java.util.List;
 import java.util.stream.StreamSupport;
 
 import static org.apache.poi.ss.usermodel.CellType.ERROR;
@@ -73,5 +75,27 @@ public abstract class WorkbookAssert extends AbstractAssert<WorkbookAssert, Work
             .map(part -> (XSSFPivotTable) sheet.getRelationById(part.getRelationship().getId())))
             .forEach(validator::validate);
 
+    }
+
+    public WorkbookAssert hasTabChecks(Sheet sheet, List<SheetLabelValidator> checks) {
+        isNotNull();
+
+        for (SheetLabelValidator lc : checks) {
+            var anchor = WorkbookHelper.findCellContaining(sheet, lc.label())
+                    .orElseThrow(() -> new AssertionError(sheet.getSheetName() + ": label not found: " + lc.label()));
+
+            for (CellValidationRule rc : lc.cells()) {
+                Cell target = WorkbookHelper.getCell(sheet, anchor.getRow() + rc.dRow(), anchor.getColumn() + rc.dCol());
+                String where = String.format("%s %s [offset r%+d,c%+d]", sheet.getSheetName(), anchor.formatAsString(), rc.dRow(), rc.dCol());
+                if (!rc.validator().test(target, actual)) {
+                    String rendered = WorkbookHelper.safeRender(target, actual);
+                    throw new AssertionError(
+                            "Validation failed for \"" + lc.label() + "\" at " + where +
+                                    " value: " + rendered + " validator: " + rc.validatorName()
+                    );
+                }
+            }
+        }
+        return this;
     }
 }
