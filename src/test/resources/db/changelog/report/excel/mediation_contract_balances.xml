@@ -44,6 +44,7 @@
             <column name="FORMAT" value=""/>
             <column name="FORMAT_TYPE" value="string"/>
             <column name="COLUMN_WIDTH" value="12.33"/>
+            <column name="COLUMN_ORDER" value="1"/>
         </insert>
         <insert tableName="FIELD_ATTRIBUTES" schemaName="GPFD">
             <column name="ID" value="4418c554-1e1e-4c56-aab1-252c5e7d695a"/>
@@ -53,6 +54,7 @@
             <column name="FORMAT" value=""/>
             <column name="FORMAT_TYPE" value="string"/>
             <column name="COLUMN_WIDTH" value="11.50"/>
+            <column name="COLUMN_ORDER" value="2"/>
         </insert>
         <insert tableName="FIELD_ATTRIBUTES" schemaName="GPFD">
             <column name="ID" value="4e37d5df-0a43-4d16-a0ff-2eaefb921378"/>
@@ -62,6 +64,7 @@
             <column name="FORMAT" value=""/>
             <column name="FORMAT_TYPE" value="string"/>
             <column name="COLUMN_WIDTH" value="12.50"/>
+            <column name="COLUMN_ORDER" value="3"/>
         </insert>
         <insert tableName="FIELD_ATTRIBUTES" schemaName="GPFD">
             <column name="ID" value="2ef5910e-ec95-4900-89f9-d09a293f8e27"/>
@@ -71,6 +74,7 @@
             <column name="FORMAT" value=""/>
             <column name="FORMAT_TYPE" value="string"/>
             <column name="COLUMN_WIDTH" value="13.67"/>
+            <column name="COLUMN_ORDER" value="4"/>
         </insert>
         <insert tableName="FIELD_ATTRIBUTES" schemaName="GPFD">
             <column name="ID" value="2087bc97-7c5a-431d-9d6c-bda729c8f206"/>
@@ -80,6 +84,7 @@
             <column name="FORMAT" value=""/>
             <column name="FORMAT_TYPE" value="string"/>
             <column name="COLUMN_WIDTH" value="11.67"/>
+            <column name="COLUMN_ORDER" value="5"/>
         </insert>
         <insert tableName="FIELD_ATTRIBUTES" schemaName="GPFD">
             <column name="ID" value="fced6f77-cf57-4c57-bf1b-76eef0e7a5a9"/>
@@ -89,6 +94,7 @@
             <column name="FORMAT" value=""/>
             <column name="FORMAT_TYPE" value="string"/>
             <column name="COLUMN_WIDTH" value="12.67"/>
+            <column name="COLUMN_ORDER" value="6"/>
         </insert>
         <insert tableName="FIELD_ATTRIBUTES" schemaName="GPFD">
             <column name="ID" value="769c1b58-ddc5-40b3-b241-8c196b8a8fb1"/>
@@ -98,6 +104,7 @@
             <column name="FORMAT" value=""/>
             <column name="FORMAT_TYPE" value="string"/>
             <column name="COLUMN_WIDTH" value="13.83"/>
+            <column name="COLUMN_ORDER" value="7"/>
         </insert>
         <insert tableName="FIELD_ATTRIBUTES" schemaName="GPFD">
             <column name="ID" value="325bade9-6283-4866-98a3-9c89ba1dea7e"/>
@@ -107,6 +114,7 @@
             <column name="FORMAT" value=""/>
             <column name="FORMAT_TYPE" value="string"/>
             <column name="COLUMN_WIDTH" value="23"/>
+            <column name="COLUMN_ORDER" value="8"/>
         </insert>
         <insert tableName="FIELD_ATTRIBUTES" schemaName="GPFD">
             <column name="ID" value="eadad560-85f4-4ad4-b72a-dd0ee2149b09"/>
@@ -116,6 +124,7 @@
             <column name="FORMAT" value=""/>
             <column name="FORMAT_TYPE" value="string"/>
             <column name="COLUMN_WIDTH" value="24.29"/>
+            <column name="COLUMN_ORDER" value="9"/>
         </insert>
         <insert tableName="FIELD_ATTRIBUTES" schemaName="GPFD">
             <column name="ID" value="c7749447-d47c-492b-8db4-2cbc277be1b9"/>
@@ -125,6 +134,7 @@
             <column name="FORMAT" value=""/>
             <column name="FORMAT_TYPE" value="string"/>
             <column name="COLUMN_WIDTH" value="19.17"/>
+            <column name="COLUMN_ORDER" value="10"/>
         </insert>
         <insert tableName="FIELD_ATTRIBUTES" schemaName="GPFD">
             <column name="ID" value="9522d40f-6d39-4b19-a20b-5fa7efb81404"/>
@@ -134,6 +144,7 @@
             <column name="FORMAT" value=""/>
             <column name="FORMAT_TYPE" value="string"/>
             <column name="COLUMN_WIDTH" value="15.67"/>
+            <column name="COLUMN_ORDER" value="11"/>
         </insert>
         <insert tableName="FIELD_ATTRIBUTES" schemaName="GPFD">
             <column name="ID" value="d8b382c7-4d53-40f7-960c-3adcfa1fda6c"/>
@@ -143,6 +154,7 @@
             <column name="FORMAT" value=""/>
             <column name="FORMAT_TYPE" value="string"/>
             <column name="COLUMN_WIDTH" value="18.83"/>
+            <column name="COLUMN_ORDER" value="12"/>
         </insert>
         <insert tableName="FIELD_ATTRIBUTES" schemaName="GPFD">
             <column name="ID" value="7d988ab6-e800-4964-a8f4-4306f117f80b"/>
@@ -152,6 +164,7 @@
             <column name="FORMAT" value=""/>
             <column name="FORMAT_TYPE" value="string"/>
             <column name="COLUMN_WIDTH" value="27.67"/>
+            <column name="COLUMN_ORDER" value="13"/>
         </insert>
         <insert tableName="FIELD_ATTRIBUTES" schemaName="GPFD">
             <column name="ID" value="ea3cb880-9e49-451f-b823-eebfc771c162"/>
@@ -161,6 +174,7 @@
             <column name="FORMAT" value="#.00"/>
             <column name="FORMAT_TYPE" value="double"/>
             <column name="COLUMN_WIDTH" value="25.67"/>
+            <column name="COLUMN_ORDER" value="14"/>
         </insert>
 
         <!-- Create PIZZA_ACCOUNT_MEDIATION to populate the DATA tab-->
@@ -278,6 +292,7 @@
             <column name="FORMAT" value=""/>
             <column name="FORMAT_TYPE" value="string"/>
             <column name="COLUMN_WIDTH" value="17.33"/>
+            <column name="COLUMN_ORDER" value="1"/>
         </insert>
         <insert tableName="FIELD_ATTRIBUTES" schemaName="GPFD">
             <column name="ID" value="2c596952-1996-4434-a618-e2cce5326af2"/>
@@ -287,6 +302,7 @@
             <column name="FORMAT" value=""/>
             <column name="FORMAT_TYPE" value="string"/>
             <column name="COLUMN_WIDTH" value="13.5"/>
+            <column name="COLUMN_ORDER" value="2"/>
         </insert>
         <insert tableName="FIELD_ATTRIBUTES" schemaName="GPFD">
             <column name="ID" value="9e76ec6c-f07c-4572-aa85-9086d2471491"/>
@@ -296,6 +312,7 @@
             <column name="FORMAT" value=""/>
             <column name="FORMAT_TYPE" value="string"/>
             <column name="COLUMN_WIDTH" value="42.83"/>
+            <column name="COLUMN_ORDER" value="3"/>
         </insert>
         <insert tableName="FIELD_ATTRIBUTES" schemaName="GPFD">
             <column name="ID" value="0252fe3c-1438-4234-910c-94364af1d006"/>
@@ -305,6 +322,7 @@
             <column name="FORMAT" value="dd-MMM-yy"/>
             <column name="FORMAT_TYPE" value="date"/>
             <column name="COLUMN_WIDTH" value="9.33"/>
+            <column name="COLUMN_ORDER" value="4"/>
         </insert>
         <insert tableName="FIELD_ATTRIBUTES" schemaName="GPFD">
             <column name="ID" value="20fbb13d-0350-4100-8441-b509e4f7effe"/>
@@ -314,6 +332,7 @@
             <column name="FORMAT" value=""/>
             <column name="FORMAT_TYPE" value="string"/>
             <column name="COLUMN_WIDTH" value="11"/>
+            <column name="COLUMN_ORDER" value="5"/>
         </insert>
         <insert tableName="FIELD_ATTRIBUTES" schemaName="GPFD">
             <column name="ID" value="9cc6dbec-02cf-4736-8535-28c9282d7225"/>
@@ -323,6 +342,7 @@
             <column name="FORMAT" value=""/>
             <column name="FORMAT_TYPE" value="number"/>
             <column name="COLUMN_WIDTH" value="15.33"/>
+            <column name="COLUMN_ORDER" value="6"/>
         </insert>
 
         <!-- Create PIZZA_CHEF_BONUSES to populate the Adjusted Expenditure tab-->
