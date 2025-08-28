@@ -1,4 +1,4 @@
-package uk.gov.laa.pfla.assertion;
+package uk.gov.laa.pfla.enums;
 
 public enum FieldTypeEnum {
     NUMERIC,

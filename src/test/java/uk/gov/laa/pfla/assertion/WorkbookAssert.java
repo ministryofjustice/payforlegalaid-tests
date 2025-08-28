@@ -77,25 +77,19 @@ public abstract class WorkbookAssert extends AbstractAssert<WorkbookAssert, Work
 
     }
 
-    public WorkbookAssert hasTabChecks(Sheet sheet, List<SheetLabelValidator> checks) {
+    public void validateRequiredCells(Sheet sheet, List<CellCheck> cellChecks) {
         isNotNull();
 
-        for (SheetLabelValidator lc : checks) {
-            var anchor = WorkbookHelper.findCellContaining(sheet, lc.label())
-                    .orElseThrow(() -> new AssertionError(sheet.getSheetName() + ": label not found: " + lc.label()));
-
-            for (CellValidationRule rc : lc.cells()) {
-                Cell target = WorkbookHelper.getCell(sheet, anchor.getRow() + rc.dRow(), anchor.getColumn() + rc.dCol());
-                String where = String.format("%s %s [offset r%+d,c%+d]", sheet.getSheetName(), anchor.formatAsString(), rc.dRow(), rc.dCol());
-                if (!rc.validator().test(target, actual)) {
-                    String rendered = WorkbookHelper.safeRender(target, actual);
-                    throw new AssertionError(
-                            "Validation failed for \"" + lc.label() + "\" at " + where +
-                                    " value: " + rendered + " validator: " + rc.validatorName()
-                    );
-                }
+        for (CellCheck cellCheck : cellChecks) {
+            Cell cell = WorkbookHelper.getCellByAddress(sheet, cellCheck.address());
+            String where = String.format("%s %s", sheet.getSheetName(), cellCheck.address());
+            if (!cellCheck.namedValidator().predicate().test(cell, actual)) {
+                String rendered = WorkbookHelper.safeRender(cell);
+                throw new AssertionError(
+                        "Validation failed at " + where +
+                                " value: " + rendered + " namedValidator: " + cellCheck.namedValidator().name()
+                );
             }
         }
-        return this;
     }
 }

@@ -1,6 +1,11 @@
 package uk.gov.laa.pfla.assertion;
 
-import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.DataFormatter;
+import org.apache.poi.ss.usermodel.FormulaEvaluator;
+import uk.gov.laa.pfla.enums.FieldTypeEnum;
+
 import java.util.Locale;
 
 public class FieldValidators {
@@ -18,44 +23,14 @@ public class FieldValidators {
             FieldTypeEnum.CURRENCY_GBP.name(),
             (cell, wb) -> {
                 if (cell == null) return false;
-                CellType type = cell.getCellType();
-                if (!(type == CellType.NUMERIC || type == CellType.FORMULA)) return false;
-
                 DataFormatter fmt = new DataFormatter(Locale.UK, true);
                 FormulaEvaluator eval = wb.getCreationHelper().createFormulaEvaluator();
 
-                String rendered = fmt.formatCellValue(cell, eval);
-                if (rendered != null && rendered.trim().startsWith("£")) return true;
+                String rendered = cell.getCellType() == CellType.FORMULA
+                        ? fmt.formatCellValue(cell, eval)
+                        : fmt.formatCellValue(cell);
 
-                if (type == CellType.FORMULA) {
-                    CellType cached = cell.getCachedFormulaResultType();
-                    if (cached == CellType.NUMERIC) {
-                        CellStyle style = cell.getCellStyle();
-                        String fmtStr = style != null ? style.getDataFormatString() : null;
-                        if (fmtStr != null) {
-                            String fs = fmtStr.toLowerCase(Locale.ROOT);
-                            if (fs.contains("£")) {
-                                return true;
-                            }
-                        }
-                        return true;
-                    }
-                    if (cached == CellType.STRING) {
-                        String s = fmt.formatCellValue(cell, eval);
-                        return s != null && s.trim().startsWith("£");
-                    }
-                    return false;
-                }
-
-                if (type == CellType.NUMERIC) {
-                    CellStyle style = cell.getCellStyle();
-                    String fmtStr = style != null ? style.getDataFormatString() : null;
-                    if (fmtStr != null && fmtStr.contains("£")) return true;
-                    String renderedNoEval = fmt.formatCellValue(cell);
-                    return renderedNoEval != null && renderedNoEval.trim().startsWith("£");
-                }
-
-                return false;
+                return rendered != null && rendered.trim().startsWith("£");
             }
     );
 
@@ -77,7 +52,16 @@ public class FieldValidators {
                 };
             }
     );
-
+    public static NamedValidator stringEquals(String expected) {
+        return new NamedValidator(
+                "STRING_EQUALS_" + expected,
+                (cell, wb) -> {
+                    if (cell == null) return false;
+                    String value = cell.getStringCellValue();
+                    return expected.equals(value);
+                }
+        );
+    }
     private static boolean isFormulaNumeric(Cell c) {
         try {
             c.getNumericCellValue();
