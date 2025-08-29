@@ -1,6 +1,7 @@
 package uk.gov.laa.pfla.assertion;
 
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFPivotCacheDefinition;
@@ -13,6 +14,7 @@ import uk.gov.laa.pfla.comparator.WorkbookComparator;
 import uk.gov.laa.pfla.util.workbook.SheetCellIterator;
 import uk.gov.laa.pfla.util.workbook.pivot.PivotTableValidator;
 
+import java.util.List;
 import java.util.stream.StreamSupport;
 
 import static org.apache.poi.ss.usermodel.CellType.ERROR;
@@ -73,5 +75,21 @@ public abstract class WorkbookAssert extends AbstractAssert<WorkbookAssert, Work
             .map(part -> (XSSFPivotTable) sheet.getRelationById(part.getRelationship().getId())))
             .forEach(validator::validate);
 
+    }
+
+    public void validateRequiredCells(Sheet sheet, List<CellCheck> cellChecks) {
+        isNotNull();
+
+        for (CellCheck cellCheck : cellChecks) {
+            Cell cell = WorkbookHelper.getCellByAddress(sheet, cellCheck.address());
+            String where = String.format("%s %s", sheet.getSheetName(), cellCheck.address());
+            if (!cellCheck.namedValidator().predicate().test(cell, actual)) {
+                String rendered = WorkbookHelper.safeRender(cell);
+                throw new AssertionError(
+                        "Validation failed at " + where +
+                                " value: " + rendered + " namedValidator: " + cellCheck.namedValidator().name()
+                );
+            }
+        }
     }
 }
