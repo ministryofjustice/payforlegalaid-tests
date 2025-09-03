@@ -9,7 +9,10 @@ known as Pay For Legal Aid.
 # How to run the tests against your local system
 ### The following ensures the test can access dependency payforlegalaid
 1. Checkout the [Get Payments and Finance Data repository](https://github.com/ministryofjustice/payforlegalaid)
-2. For that repository, run `mvn clean install` this is to ensure there is a payforlegalaid jar in your local ./m2
+2. You will need to populate the GPFD repository's src/main/resources folder with any template files you need. 
+These are the .xlsx files that hold a skeleton of the report in. E.g. if you want to test the Third Party Report you should place a copy of the Third Party Report template in the folder. 
+For more details on how to get this template visit the [Confluence](https://dsdmoj.atlassian.net/wiki/spaces/LPF/pages/5803409516/How+to+create+a+template#How-do-I-get-a-template-to-use-on-my-local-system)
+3. For that repository, run `mvn clean install` this is to ensure there is a payforlegalaid jar in your local ./m2
 3. Checkout this repository
 4. Run `mvn clean compile`
 5. Run `mvn test` to run the Cucumber tests
