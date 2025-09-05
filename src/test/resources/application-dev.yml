@@ -12,6 +12,8 @@ gpfd:
       password: ${MOJFIN_DEV_WRITE_PASSWORD}
       driver-class-name: oracle.jdbc.OracleDriver
   jwks-uri: https://sts.windows.net/${spring.cloud.azure.active-directory.profile.tenant-id}/
+  s3:
+    use-template-store: true
 
 spring:
   main:
