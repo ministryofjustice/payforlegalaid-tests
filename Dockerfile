@@ -5,6 +5,7 @@ ARG REPO_REF=LPF-1043-v4
 RUN echo "GITHUB_TESSSTT: ${GITHUB_USERNAME}" \
 RUN echo "GITHUB_TES12: ${GITHUB_USERNAME}" \
 
+
 WORKDIR /build-deps
 RUN apk add --no-cache --virtual .build-deps \
         git \
@@ -21,6 +22,8 @@ RUN apk add --no-cache --virtual .build-deps \
     https://github.com/ministryofjustice/payforlegalaid.git && \
     rm -rf /build-deps/payforlegalaid/.git && \
     find /build-deps/payforlegalaid -type f -exec chmod 644 {} \;
+
+RUN pwd && ls -al
 
 WORKDIR /build-deps/payforlegalaid
 
