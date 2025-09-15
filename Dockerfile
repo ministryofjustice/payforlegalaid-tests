@@ -1,8 +1,9 @@
 FROM maven:3.9.9-amazoncorretto-17-alpine AS dependency-builder
 
-ARG REPO_REF=main
+ARG REPO_REF=LPF-1043-v4
 
 RUN echo "GITHUB_TESSSTT: ${GITHUB_USERNAME}" \
+RUN echo "GITHUB_TES12: ${GITHUB_USERNAME}" \
 
 WORKDIR /build-deps
 RUN apk add --no-cache --virtual .build-deps \
