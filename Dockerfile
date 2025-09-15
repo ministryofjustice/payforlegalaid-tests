@@ -3,10 +3,12 @@ FROM maven:3.9.9-amazoncorretto-17-alpine AS dependency-builder
 ARG REPO_REF=LPF-1043-v4
 
 RUN echo "GITHUB_TESSSTT: ${GITHUB_USERNAME}" \
-RUN echo "GITHUB_TES12: ${GITHUB_USERNAME}" \
+RUN echo "GITHUB_TES12 GITHUB_TES12: ${GITHUB_USERNAME}" \
 
 
 WORKDIR /build-deps
+RUN echo "inside a buildrepo"
+RUN pwd && ls -al
 RUN apk add --no-cache --virtual .build-deps \
         git \
         gettext && \
@@ -23,6 +25,7 @@ RUN apk add --no-cache --virtual .build-deps \
     rm -rf /build-deps/payforlegalaid/.git && \
     find /build-deps/payforlegalaid -type f -exec chmod 644 {} \;
 
+RUN echo "outside a buildrepo"
 RUN pwd && ls -al
 
 WORKDIR /build-deps/payforlegalaid
