@@ -1,10 +1,30 @@
 FROM maven:3.9.9-amazoncorretto-17-alpine AS dependency-builder
 
 ARG REPO_REF=LPF-1043-v4
+ARG REPO_REF_OPEN=v0.0.6
 
 WORKDIR /build-deps
 RUN echo "inside a build repo"
 RUN pwd && ls -al
+
+RUN apk add --no-cache --virtual .build-deps \
+        git \
+        curl \
+        gettext && \
+    mkdir -p /build-deps  && \
+    git config --global advice.detachedHead false && \
+    git config --global http.sslVerify true && \
+    git config --global gc.auto 0 && \
+    git clone \
+    --depth 1 \
+    --branch "${REPO_REF_OPEN}" \
+    --single-branch \
+    --filter=blob:none \
+    https://github.com/ministryofjustice/payforlegalaid-openapi && \
+    rm -rf /build-deps/payforlegalaid-openapi/.git && \
+    find /build-deps/payforlegalaid-openapi -type f -exec chmod 644 {} \;
+
+
 RUN apk add --no-cache --virtual .build-deps \
         git \
         curl \
@@ -36,9 +56,22 @@ RUN --mount=type=secret,id=maven_username \
     mkdir -p /home/builder/.m2 && \
     mkdir -p /home/builder/.m2/repository && \
     chmod -R 775 /home/builder/.m2 && \
+    mvn clean install -DfinalName=payforlegalaid-openapi-0.0.6 \
+    -DskipTests \
+    -Dmaven.artifact.threads=5 \
+    -Djdk.tls.client.protocols=TLSv1.2
+
+
+RUN --mount=type=secret,id=maven_username \
+    --mount=type=secret,id=maven_password \
+    export USERNAME="$(cat /run/secrets/maven_username)" && \
+    export PASSWORD="$(cat /run/secrets/maven_password)" && \
+    mkdir -p /home/builder/.m2 && \
+    mkdir -p /home/builder/.m2/repository && \
+    chmod -R 775 /home/builder/.m2 && \
     cp .github/settings.xml /home/builder/.m2/settings.xml && \
     cp .github/settings.xml /home/builder/.m2/repository/settings.xml && \
-    mvn -B -e -X clean package \
+    mvn -B -e -X clean install \
     -s .github/settings.xml \
     -DskipTests \
     -Dmaven.artifact.threads=5 \
@@ -51,12 +84,9 @@ RUN pwd && ls -al
 FROM maven:3.9.9-amazoncorretto-17-alpine AS builder
 
 WORKDIR /build
-COPY --from=dependency-builder --chown=root:root /home/builder/.m2 /root/.m2
-COPY --from=dependency-builder --chown=root:root /home/builder/.m2/repository /root/.m2/repository
-COPY --from=dependency-builder --chown=root:root /home/builder/.m2/settings.xml /root/.m2/settings.xml
+COPY --from=dependency-builder --chown=root:root /root/.m2/repository /root/.m2/repository
 
 COPY pom.xml src/ ./
-#COPY .github/settings.xml /root/.m2/settings.xml
 
 RUN --mount=type=secret,id=maven_username \
     --mount=type=secret,id=maven_password \
@@ -68,7 +98,7 @@ RUN --mount=type=secret,id=maven_username \
     mkdir -p /build-artifacts/target && \
     export USERNAME="$(cat /run/secrets/maven_username)" && \
     export PASSWORD="$(cat /run/secrets/maven_password)" && \
-    mvn -B -X -s /root/.m2/settings.xml \
+    mvn -B -X \
         -Dmaven.repo.local=/root/.m2/repository \
         clean package
 
