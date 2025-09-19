@@ -45,9 +45,9 @@ RUN apk add --no-cache --virtual .build-deps \
 RUN echo "finished build step for payforlegalaid"
 RUN pwd && ls -al
 
-WORKDIR /build-deps/payforlegalaid
+WORKDIR /build-deps/payforlegalaid-openapi
 
-RUN echo "Current directory inside build-deps/payforlegalaid:" && pwd && echo "Files:" && ls -al
+RUN echo "Current directory inside build-deps/payforlegalaid-openapi:" && pwd && echo "Files:" && ls -al
 
 RUN --mount=type=secret,id=maven_username \
     --mount=type=secret,id=maven_password \
@@ -60,6 +60,10 @@ RUN --mount=type=secret,id=maven_username \
     -DskipTests \
     -Dmaven.artifact.threads=5 \
     -Djdk.tls.client.protocols=TLSv1.2
+
+WORKDIR /build-deps/payforlegalaid
+
+RUN echo "Current directory inside build-deps/payforlegalaid:" && pwd && echo "Files:" && ls -al
 
 
 RUN --mount=type=secret,id=maven_username \
@@ -79,14 +83,15 @@ RUN --mount=type=secret,id=maven_username \
 
 RUN echo "After mvn -B clean package"
 RUN pwd && ls -al
+RUN ls -la /root/.m2/repository/uk/gov/
 
 
 FROM maven:3.9.9-amazoncorretto-17-alpine AS builder
 
 WORKDIR /build
 COPY --from=dependency-builder --chown=root:root /root/.m2/repository /root/.m2/repository
+COPY .github/settings.xml pom.xml src/ ./
 
-COPY pom.xml src/ ./
 
 RUN --mount=type=secret,id=maven_username \
     --mount=type=secret,id=maven_password \
@@ -103,20 +108,20 @@ RUN --mount=type=secret,id=maven_username \
         clean package
 
 
-#FROM gcr.io/distroless/java17-debian12
-#WORKDIR /app
-#
-#LABEL org.opencontainers.image.authors="GPFD team (laa-payments-finance@digital.justice.gov.uk)" \
-#      org.opencontainers.image.description="Pay for Legal Aid Application Tests" \
-#      org.opencontainers.image.vendor="Ministry of Justice" \
-#      org.opencontainers.image.title="Get Payments & Finance Data" \
-#      org.opencontainers.image.url="https://github.com/ministryofjustice/payforlegalaid-tests" \
-#      org.opencontainers.image.documentation="https://github.com/ministryofjustice/payforlegalaid-tests/readme.md" \
-#      org.opencontainers.image.source="https://github.com/ministryofjustice/payforlegalaid-tests" \
-#      org.opencontainers.image.licenses="MIT" \
-#      org.opencontainers.image.base.name="gcr.io/distroless/java17-debian11"
-#
-#COPY --from=builder --chown=65532:65532 /build/target/payforlegalaid-tests-*.jar app.jar
-#
-#USER 65532:65532
-#ENTRYPOINT ["java", "-Dspring.profiles.active=dev", "-jar", "app.jar"]
+FROM gcr.io/distroless/java17-debian12
+WORKDIR /app
+
+LABEL org.opencontainers.image.authors="GPFD team (laa-payments-finance@digital.justice.gov.uk)" \
+     org.opencontainers.image.description="Pay for Legal Aid Application Tests" \
+     org.opencontainers.image.vendor="Ministry of Justice" \
+     org.opencontainers.image.title="Get Payments & Finance Data" \
+     org.opencontainers.image.url="https://github.com/ministryofjustice/payforlegalaid-tests" \
+     org.opencontainers.image.documentation="https://github.com/ministryofjustice/payforlegalaid-tests/readme.md" \
+     org.opencontainers.image.source="https://github.com/ministryofjustice/payforlegalaid-tests" \
+     org.opencontainers.image.licenses="MIT" \
+     org.opencontainers.image.base.name="gcr.io/distroless/java17-debian11"
+
+COPY --from=builder --chown=65532:65532 /build/target/payforlegalaid-tests-*.jar app.jar
+
+USER 65532:65532
+ENTRYPOINT ["java", "-Dspring.profiles.active=dev", "-jar", "app.jar"]
