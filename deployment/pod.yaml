@@ -60,3 +60,5 @@ spec:
             secretKeyRef:
               name: gpfd-test-secret-01
               key: mojfin-db-url
+        - name: AWS_REGION
+          value: "${{ vars.AWS_REGION }}"
