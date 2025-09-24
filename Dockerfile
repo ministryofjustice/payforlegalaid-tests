@@ -1,7 +1,7 @@
 FROM maven:3.9.9-amazoncorretto-17-alpine AS dependency-builder
 
-ARG REPO_REF=LPF-1043-v4
-ARG REPO_REF_OPEN=v0.0.6
+ARG REPO_REF=main
+ARG REPO_REF_OPEN_API=v0.0.6
 
 WORKDIR /build-deps
 RUN echo "inside a build repo"
@@ -17,7 +17,7 @@ RUN apk add --no-cache --virtual .build-deps \
     git config --global gc.auto 0 && \
     git clone \
     --depth 1 \
-    --branch "${REPO_REF_OPEN}" \
+    --branch "${REPO_REF_OPEN_API}" \
     --single-branch \
     --filter=blob:none \
     https://github.com/ministryofjustice/payforlegalaid-openapi && \
@@ -81,7 +81,7 @@ RUN --mount=type=secret,id=maven_username \
     -Dmaven.artifact.threads=5 \
     -Djdk.tls.client.protocols=TLSv1.2
 
-RUN echo "After mvn -B clean package"
+
 RUN pwd && ls -al
 RUN ls -la /root/.m2/repository/uk/gov/
 
