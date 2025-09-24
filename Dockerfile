@@ -72,7 +72,7 @@ RUN --mount=type=secret,id=maven_username \
     -Djdk.tls.client.protocols=TLSv1.2
 
 
-FROM maven:3.9.9-amazoncorretto-17-alpine AS builder
+FROM maven:3.9.9-amazoncorretto-17 AS builder
 
 WORKDIR /build
 COPY --from=dependency-builder --chown=root:root /root/.m2/repository /root/.m2/repository
