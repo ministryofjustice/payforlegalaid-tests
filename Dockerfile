@@ -4,8 +4,6 @@ ARG REPO_REF=main
 ARG REPO_REF_OPEN_API=v0.0.6
 
 WORKDIR /build-deps
-RUN echo "inside a build repo"
-RUN pwd && ls -al
 
 RUN apk add --no-cache --virtual .build-deps \
         git \
@@ -42,12 +40,7 @@ RUN apk add --no-cache --virtual .build-deps \
     rm -rf /build-deps/payforlegalaid/.git && \
     find /build-deps/payforlegalaid -type f -exec chmod 644 {} \;
 
-RUN echo "finished build step for payforlegalaid"
-RUN pwd && ls -al
-
 WORKDIR /build-deps/payforlegalaid-openapi
-
-RUN echo "Current directory inside build-deps/payforlegalaid-openapi:" && pwd && echo "Files:" && ls -al
 
 RUN --mount=type=secret,id=maven_username \
     --mount=type=secret,id=maven_password \
@@ -62,9 +55,6 @@ RUN --mount=type=secret,id=maven_username \
     -Djdk.tls.client.protocols=TLSv1.2
 
 WORKDIR /build-deps/payforlegalaid
-
-RUN echo "Current directory inside build-deps/payforlegalaid:" && pwd && echo "Files:" && ls -al
-
 
 RUN --mount=type=secret,id=maven_username \
     --mount=type=secret,id=maven_password \
@@ -82,16 +72,11 @@ RUN --mount=type=secret,id=maven_username \
     -Djdk.tls.client.protocols=TLSv1.2
 
 
-RUN pwd && ls -al
-RUN ls -la /root/.m2/repository/uk/gov/
-
-
 FROM maven:3.9.9-amazoncorretto-17-alpine AS builder
 
 WORKDIR /build
 COPY --from=dependency-builder --chown=root:root /root/.m2/repository /root/.m2/repository
 COPY .github/settings.xml pom.xml src/ ./
-
 
 RUN --mount=type=secret,id=maven_username \
     --mount=type=secret,id=maven_password \
@@ -107,7 +92,6 @@ RUN --mount=type=secret,id=maven_username \
         -Dmaven.repo.local=/root/.m2/repository \
         -Pdev \
         clean package
-
 
 FROM gcr.io/distroless/java17-debian12
 WORKDIR /app
