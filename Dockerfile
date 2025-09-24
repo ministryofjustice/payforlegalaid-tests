@@ -1,4 +1,4 @@
-FROM maven:3.9.9-amazoncorretto-17-alpine AS dependency-builder
+FROM maven:3.9.9-amazoncorretto-17 AS dependency-builder
 
 ARG REPO_REF=main
 ARG REPO_REF_OPEN_API=v0.0.6
