@@ -1,6 +1,6 @@
-FROM maven:3.9.9-amazoncorretto-17 AS dependency-builder
+FROM maven:3.9.9-amazoncorretto-17-alpine AS dependency-builder
 
-ARG REPO_REF=main
+ARG REPO_REF=LPF-1043-v4
 ARG REPO_REF_OPEN_API=v0.0.6
 
 WORKDIR /build-deps
@@ -72,7 +72,7 @@ RUN --mount=type=secret,id=maven_username \
     -Djdk.tls.client.protocols=TLSv1.2
 
 
-FROM maven:3.9.9-amazoncorretto-17 AS builder
+FROM maven:3.9.9-amazoncorretto-17-alpine AS builder
 
 WORKDIR /build
 COPY --from=dependency-builder --chown=root:root /root/.m2/repository /root/.m2/repository
