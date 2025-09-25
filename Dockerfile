@@ -54,8 +54,7 @@ RUN mkdir -p /home/builder/.m2 && \
     chmod -R 775 /home/builder/.m2 && \
     mvn clean install -DfinalName=payforlegalaid-openapi-0.0.6 \
     -DskipTests \
-    -Dmaven.artifact.threads=5 \
-    -Djdk.tls.client.protocols=TLSv1.2
+    -Dmaven.artifact.threads=5
 
 WORKDIR /build-deps/payforlegalaid
 
@@ -64,8 +63,7 @@ RUN mkdir -p /home/builder/.m2 && \
     chmod -R 775 /home/builder/.m2 && \
     mvn -B -e -X clean install \
     -DskipTests \
-    -Dmaven.artifact.threads=5 \
-    -Djdk.tls.client.protocols=TLSv1.2
+    -Dmaven.artifact.threads=5
 
 FROM maven:3.9.9-amazoncorretto-17-alpine AS builder
 
@@ -85,17 +83,18 @@ RUN apk add --no-cache --virtual .build-deps gettext && \
     fi && \
     if [ -d "test/resources" ]; then \
         mkdir -p src/main/resources && \
-        mv test/resources/* src/main/resources/ && \
-        echo "prsf"; \
+        mv test/resources/* src/main/resources/; \
     fi && \
     mkdir -p /build-artifacts/target && \
-    mvn -B -X \
+    mvn -B \
         -Dmaven.repo.local=/root/.m2/repository \
         -Pdev \
         clean package
 
+
 # Stage 3: the final image, using a distroless image which contains just java and jvm - no shell, package manager etc
 # So this is smaller, more secure, etc than using say alpine-coretto here like we did in Stage 1 and 2.
+
 FROM gcr.io/distroless/java17-debian12
 WORKDIR /app
 
