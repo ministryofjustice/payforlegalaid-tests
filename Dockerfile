@@ -49,11 +49,7 @@ RUN apk add --no-cache --virtual .build-deps \
 
 WORKDIR /build-deps/payforlegalaid-openapi
 
-RUN --mount=type=secret,id=maven_username \
-    --mount=type=secret,id=maven_password \
-    export USERNAME="$(cat /run/secrets/maven_username)" && \
-    export PASSWORD="$(cat /run/secrets/maven_password)" && \
-    mkdir -p /home/builder/.m2 && \
+RUN mkdir -p /home/builder/.m2 && \
     mkdir -p /home/builder/.m2/repository && \
     chmod -R 775 /home/builder/.m2 && \
     mvn clean install -DfinalName=payforlegalaid-openapi-0.0.6 \
@@ -63,20 +59,10 @@ RUN --mount=type=secret,id=maven_username \
 
 WORKDIR /build-deps/payforlegalaid
 
-# HIGH LEVEL: We prepare for the clean install by setting up the PAT to access OPEN-API
-#     Replace env variable placeholders in the .github/settings.xml from the repo - so the idea was to set our PAT token to access the Open API repo
-
-RUN --mount=type=secret,id=maven_username \
-    --mount=type=secret,id=maven_password \
-    export USERNAME="$(cat /run/secrets/maven_username)" && \
-    export PASSWORD="$(cat /run/secrets/maven_password)" && \
-    mkdir -p /home/builder/.m2 && \
+RUN mkdir -p /home/builder/.m2 && \
     mkdir -p /home/builder/.m2/repository && \
     chmod -R 775 /home/builder/.m2 && \
-    cp .github/settings.xml /home/builder/.m2/settings.xml && \
-    cp .github/settings.xml /home/builder/.m2/repository/settings.xml && \
     mvn -B -e -X clean install \
-    -s .github/settings.xml \
     -DskipTests \
     -Dmaven.artifact.threads=5 \
     -Djdk.tls.client.protocols=TLSv1.2
@@ -89,24 +75,20 @@ FROM maven:3.9.9-amazoncorretto-17-alpine AS builder
 
 WORKDIR /build
 COPY --from=dependency-builder --chown=root:root /root/.m2/repository /root/.m2/repository
-COPY .github/settings.xml pom.xml src/ ./
+COPY pom.xml src/ ./
 
-RUN --mount=type=secret,id=maven_username \
-    --mount=type=secret,id=maven_password \
-    apk add --no-cache --virtual .build-deps gettext && \
+RUN apk add --no-cache --virtual .build-deps gettext && \
     if [ -d "test/java" ]; then \
-            mkdir -p src/main/java && \
-            mv test/java/* src/main/java/ && \
-            rmdir test/java; \
-        fi && \
-        if [ -d "test/resources" ]; then \
-            mkdir -p src/main/resources && \
-            mv test/resources/* src/main/resources/ && \
-            rmdir test/resources; \
-        fi && \
+        mkdir -p src/main/java && \
+        mv test/java/* src/main/java/ && \
+        rmdir test/java; \
+    fi && \
+    if [ -d "test/resources" ]; then \
+        mkdir -p src/main/resources && \
+        mv test/resources/* src/main/resources/ && \
+        echo "prsf"; \
+    fi && \
     mkdir -p /build-artifacts/target && \
-    export USERNAME="$(cat /run/secrets/maven_username)" && \
-    export PASSWORD="$(cat /run/secrets/maven_password)" && \
     mvn -B -X \
         -Dmaven.repo.local=/root/.m2/repository \
         -Pdev \
