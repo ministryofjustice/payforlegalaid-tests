@@ -21,7 +21,6 @@ spring:
   main:
     allow-bean-definition-overriding: true
   liquibase:
-    drop-first=true:
     enabled: true
     changelog: /db/changelog/db.changelog-master.xml
   cloud:

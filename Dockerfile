@@ -80,10 +80,16 @@ COPY .github/settings.xml pom.xml src/ ./
 RUN --mount=type=secret,id=maven_username \
     --mount=type=secret,id=maven_password \
     apk add --no-cache --virtual .build-deps gettext && \
-    mkdir -p src/main/java && \
-    mv test/java/* src/main/java/ && \
-    mkdir -p src/main/resources && \
-    mv test/resources/* src/main/resources/ && \
+    if [ -d "test/java" ]; then \
+            mkdir -p src/main/java && \
+            mv test/java/* src/main/java/ && \
+            rmdir test/java; \
+        fi && \
+        if [ -d "test/resources" ]; then \
+            mkdir -p src/main/resources && \
+            mv test/resources/* src/main/resources/ && \
+            rmdir test/resources; \
+        fi && \
     mkdir -p /build-artifacts/target && \
     export USERNAME="$(cat /run/secrets/maven_username)" && \
     export PASSWORD="$(cat /run/secrets/maven_password)" && \
