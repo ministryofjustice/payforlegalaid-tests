@@ -60,3 +60,7 @@ spec:
             secretKeyRef:
               name: gpfd-test-secret-01
               key: mojfin-db-url
+        - name: AWS_REGION
+          value: eu-west-2
+        - name: S3_FILE_STORE
+          value: laa-get-payments-finance-data-dev-file-store
