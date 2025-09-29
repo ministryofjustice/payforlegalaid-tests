@@ -196,12 +196,6 @@ public class TestConfig {
         liquibase.setShouldRun(true);
         return liquibase;
     }
-    @Bean
-    @Primary
-    @ConfigurationProperties(prefix = "gpfd.datasource.write")
-    DataSource writeDataSource() {
-        return new DriverManagerDataSource();
-    }
 
     @Bean
     @Primary
