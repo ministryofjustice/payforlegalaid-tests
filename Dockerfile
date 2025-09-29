@@ -3,7 +3,7 @@
 FROM maven:3.9.9-amazoncorretto-17-alpine AS dependency-builder
 
 # We pass in a branch ref, but default to main
-ARG REPO_REF=main
+ARG REPO_REF=LPF-1043-v5
 ARG REPO_REF_OPEN_API=v0.0.8
 
 WORKDIR /build-deps
