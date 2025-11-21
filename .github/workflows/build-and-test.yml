@@ -15,7 +15,7 @@ jobs:
 
     steps:
       - name: Checkout GitHub repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           path: testCode
 
@@ -39,7 +39,7 @@ jobs:
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
 
       - name: Checkout openapi spec
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           repository: ministryofjustice/payforlegalaid-openapi
           path: openapi
@@ -52,7 +52,7 @@ jobs:
           mvn -B clean install
 
       - name: Checkout source code repo
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           repository: ministryofjustice/payforlegalaid
           path: sourceCode
