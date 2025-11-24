@@ -21,7 +21,7 @@
         <cucumber.version>7.20.1</cucumber.version>
         <pay-for-legal-aid.version>0.0.1-SNAPSHOT</pay-for-legal-aid.version>
         <spring-cloud-azure-dependencies.version>5.19.0</spring-cloud-azure-dependencies.version>
-        <payforlegalaid-openapi.version>0.0.8</payforlegalaid-openapi.version>
+        <payforlegalaid-openapi.version>0.0.15</payforlegalaid-openapi.version>
     </properties>
 
     <dependencyManagement>
