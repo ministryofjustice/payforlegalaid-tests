@@ -1,8 +1,10 @@
 package uk.gov.laa.pfla.hooks;
 
+import io.cucumber.java.AfterAll;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import org.junit.platform.commons.logging.Logger;
+import uk.gov.laa.pfla.configuration.PlaywrightManager;
 
 import static java.lang.System.getenv;
 import static java.util.stream.Stream.of;
@@ -22,6 +24,15 @@ public class Hooks {
     private static final Logger logger = getLogger(SkipScenarioPredicate.class);
 
     private static final String SPLITTER = ",";
+
+
+    /**
+     * Ensure if any Playwright is hanging around it is cleaned up to avoid memory errors
+     */
+    @AfterAll
+    public static void afterAll(){
+        PlaywrightManager.closePlaywright();
+    }
 
     /**
      * Executes before each scenario and checks if the scenario should be skipped based on configuration.
