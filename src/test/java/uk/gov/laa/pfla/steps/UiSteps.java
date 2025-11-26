@@ -18,6 +18,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class UiSteps {
 
     private Page page;
+    private int reportCount;
+
+    @Autowired
+    private AuthenticationProvider authenticationProvider;
 
     @Before("@ui")
     public void setupUI(){
