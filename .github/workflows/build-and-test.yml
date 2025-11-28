@@ -19,6 +19,9 @@ jobs:
         with:
           path: testCode
 
+      - name: Checkout GitHub repository
+        uses: actions/checkout@v4
+
       - name: Snyk Scan
         uses: './.github/snyk-scan'
         env:
