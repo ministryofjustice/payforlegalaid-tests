@@ -19,6 +19,11 @@ jobs:
         with:
           path: testCode
 
+      - name: Snyk Scan
+        uses: './.github/snyk-scan'
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN}}
+
       - name: Assume role in Cloud Platform
         uses: aws-actions/configure-aws-credentials@v5
         with:
@@ -76,8 +81,3 @@ jobs:
           mvn -B clean test
         shell:
           bash
-
-      - name: Snyk Scan
-        uses: './.github/snyk-scan'
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN}}
