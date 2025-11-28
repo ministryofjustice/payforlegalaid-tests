@@ -25,7 +25,7 @@ jobs:
       - name: Snyk Scan
         uses: './.github/snyk-scan'
         env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN}}
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
       - name: Assume role in Cloud Platform
         uses: aws-actions/configure-aws-credentials@v5
