@@ -8,7 +8,9 @@ runs:
       uses: snyk/actions/setup@master
 
     - name: Run Snyk scan
-      run: snyk test -d --all-projects --severity-threshold=high --sarif-file-output=snyk.sarif
+      run: |
+         cd $GITHUB_WORKSPACE/testCode
+         snyk test -d --all-projects --severity-threshold=high --sarif-file-output=snyk.sarif
       env:
         SNYK_TOKEN: ${{ env.SNYK_TOKEN }}
       shell: bash
