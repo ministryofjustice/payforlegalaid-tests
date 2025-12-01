@@ -79,7 +79,6 @@ jobs:
 
       - name: Run tests
         run: |
-          cd testCode
           mvn -B clean test
         shell:
           bash
