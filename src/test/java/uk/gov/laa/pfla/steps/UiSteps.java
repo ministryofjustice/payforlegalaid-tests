@@ -79,8 +79,7 @@ public class UiSteps {
     @Then("there is at least one report row")
     public void checkReportsExist(){
         var rows = page.locator(".govuk-grid-row");
-        // -1 as header row
-        reportCount = rows.count() - 1;
+        reportCount = rows.count();
         assertTrue(reportCount > 0);
     }
 
