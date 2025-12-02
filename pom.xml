@@ -40,6 +40,8 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <!-- The dependency was explicitly included to address a
+            transitive vulnerability reported by Snyk.-->
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
