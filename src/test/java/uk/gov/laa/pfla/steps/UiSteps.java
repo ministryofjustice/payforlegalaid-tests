@@ -1,5 +1,6 @@
 package uk.gov.laa.pfla.steps;
 
+import com.deque.html.axecore.playwright.AxeBuilder;
 import com.microsoft.playwright.Browser;
 import com.microsoft.playwright.BrowserContext;
 import com.microsoft.playwright.Page;
@@ -10,13 +11,17 @@ import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import uk.gov.laa.pfla.client.AuthenticationProvider;
 import uk.gov.laa.pfla.configuration.PlaywrightManager;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@Slf4j
 public class UiSteps {
 
     private Page page;
@@ -95,6 +100,34 @@ public class UiSteps {
     @Then("return 401 unauthorised")
     public void returnUnauthorised() {
         assertEquals(401, response.status());
+    }
+
+    @Then("there are no accessibility errors")
+    public void doAccessibilityChecks() {
+        // Gov minimum is WCAG 2.2 AA
+        var ruleList = List.of(
+                "wcag2a",
+                "wcag2aa",
+                "wcag21a",
+                "wcag21aa",
+                "wcag22aa",
+                "best-practice"
+        );
+        var axeBuilder = new AxeBuilder(page).withTags(ruleList);
+
+        var axeResults = axeBuilder.analyze();
+        var incompleteTests = axeResults.getIncomplete();
+        if (!incompleteTests.isEmpty()) {
+            log.warn("Incomplete accessibility test count is {} and should be reviewed", incompleteTests.size());
+            incompleteTests.forEach(rule -> log.warn("Incomplete accessibility test: {}", rule.getDescription()));
+        }
+
+        var violations = axeResults.getViolations();
+        if (!violations.isEmpty()) {
+            log.error("Accessibility test violation count is {}", violations.size());
+            violations.forEach(rule -> log.error("Failed accessibility test: {}", rule.getDescription()));
+        }
+        assertEquals(0, violations.size());
     }
 
 }
