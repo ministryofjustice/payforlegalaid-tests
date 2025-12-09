@@ -17,3 +17,8 @@ Feature: Be able to view UI
     Given The user is not authorised in the UI
     When I load the GLAD page
     Then return 401 unauthorised
+
+  Scenario: UI result page has no accessibility errors
+    Given The user is authorised in the UI
+    When I load the GLAD page
+    Then there are no accessibility errors
