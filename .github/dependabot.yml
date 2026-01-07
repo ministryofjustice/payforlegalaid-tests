@@ -7,34 +7,74 @@ version: 2
 updates:
   - package-ecosystem: "bundler"
     directory: "/"
+    groups:
+      minor:
+        update-types:
+          - "minor"
+          - "patch"
     schedule:
       interval: "daily"
   - package-ecosystem: "terraform"
     directory: "/terraform"
+    groups:
+      minor:
+        update-types:
+          - "minor"
+          - "patch"
     schedule:
       interval: "daily"
   - package-ecosystem: "github-actions"
     directory: "/"
+    groups:
+      minor:
+        update-types:
+          - "minor"
+          - "patch"
     schedule:
       interval: "daily"
   - package-ecosystem: "pip"
     directory: "/"
+    groups:
+      minor:
+        update-types:
+          - "minor"
+          - "patch"
     schedule:
       interval: "daily"
   - package-ecosystem: "npm"
     directory: "/"
+    groups:
+      minor:
+        update-types:
+          - "minor"
+          - "patch"
     schedule:
       interval: "daily"
   - package-ecosystem: "gomod"
     directory: "/"
+    groups:
+      minor:
+        update-types:
+          - "minor"
+          - "patch"
     schedule:
       interval: "daily"
   - package-ecosystem: "docker"
     directory: "/"
+    groups:
+      minor:
+        update-types:
+          - "minor"
+          - "patch"
     schedule:
       interval: "daily"
   - package-ecosystem: "gradle"
     directory: "/"
+    groups:
+      minor:
+        update-types:
+          - "minor"
+          - "patch"
     schedule:
       interval: "weekly"
     commit-message:
