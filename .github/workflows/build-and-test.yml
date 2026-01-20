@@ -47,14 +47,11 @@ jobs:
 
       - name: Checkout openapi spec
         uses: actions/checkout@v6
-        env:
-           DEPLOY_KEY: ${{ secrets.DEPLOY_KEY_OPENAPI }}
-           OUTPUT_VERSION: ${{ steps.get_openapi_version.outputs.version }}
         with:
           repository: ministryofjustice/payforlegalaid-openapi
           path: openapi
-          ssh-key: ${{ env.DEPLOY_KEY }}
-          ref: refs/tags/v${{ env.OUTPUT_VERSION }}
+          ssh-key: ${{ secrets.DEPLOY_KEY_OPENAPI }}
+          ref: refs/tags/v${{ steps.get_openapi_version.outputs.version }}
 
       - name: Build openapi spec dependency
         run: |
