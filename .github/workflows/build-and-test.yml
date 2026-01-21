@@ -65,17 +65,21 @@ jobs:
           path: sourceCode
 
       - name: Get necessary templates from S3
+        env:
+          S3_BUCKET_NAME: ${{ vars.FILE_STORE_UAT_S3_BUCKET_NAME }}
         # If in future we add reports without adding an AT, we could filter this to just ones needed in a test
         # We are using UAT right now as that is a stable environment.
         run: |
-          aws s3 sync s3://${{ vars.FILE_STORE_UAT_S3_BUCKET_NAME }}/templates sourceCode/src/main/resources
+          aws s3 sync s3://${S3_BUCKET_NAME}/templates sourceCode/src/main/resources
         shell:
           bash
 
       - name: Build source code
+        env:
+          OUTPUT_VERSION: ${{ steps.get_openapi_version.outputs.version }}
         run: |
           cd sourceCode
-          mvn -B -DskipTests clean install -Dpayforlegalaid-openapi.version=${{ steps.get_openapi_version.outputs.version }}
+          mvn -B -DskipTests clean install -Dpayforlegalaid-openapi.version=${OUTPUT_VERSION}
 
       - name: Run tests
         run: |
