@@ -28,7 +28,7 @@ jobs:
           sarif_file: snyk.sarif
 
       - name: Assume role in Cloud Platform
-        uses: aws-actions/configure-aws-credentials@v5
+        uses: aws-actions/configure-aws-credentials@v6
         with:
           role-to-assume: ${{ secrets.FILE_STORE_UAT_S3_ROLE_TO_ASSUME }}
           aws-region: ${{ vars.FILE_STORE_UAT_S3_REGION }}
