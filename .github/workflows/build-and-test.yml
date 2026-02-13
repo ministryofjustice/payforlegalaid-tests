@@ -62,7 +62,6 @@ jobs:
         uses: actions/checkout@v6
         with:
           repository: ministryofjustice/payforlegalaid
-          ref: bug/LPF-1235-excel-endpoint-wrong-filetype
           path: sourceCode
 
       - name: Get necessary templates from S3
