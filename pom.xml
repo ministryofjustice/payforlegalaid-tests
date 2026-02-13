@@ -129,8 +129,7 @@
                 <configuration>
                     <argLine>--add-opens java.base/java.lang=ALL-UNNAMED</argLine>
                     <systemPropertyVariables>
-                        <!-- Pretty prints Given/When/Then steps in console -->
-                        cucumber.plugin=pretty,html:target/cucumber-html-report,json:target/cucumber.json
+                        <cucumber.plugin>pretty,html:target/cucumber-html-report,json:target/cucumber.json</cucumber.plugin>
                     </systemPropertyVariables>
                     <forkCount>1</forkCount>
                     <reuseForks>false</reuseForks>
