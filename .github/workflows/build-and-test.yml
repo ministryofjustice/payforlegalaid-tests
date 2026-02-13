@@ -62,6 +62,7 @@ jobs:
         uses: actions/checkout@v6
         with:
           repository: ministryofjustice/payforlegalaid
+          ref: bug/LPF-1235-excel-endpoint-wrong-filetype
           path: sourceCode
 
       - name: Get necessary templates from S3
@@ -81,8 +82,8 @@ jobs:
           cd sourceCode
           mvn -B -DskipTests clean install -Dpayforlegalaid-openapi.version=${OUTPUT_VERSION}
 
-#      - name: Run tests
-#        run: |
-#          mvn -B clean test
-#        shell:
-#          bash
+      - name: Run tests
+        run: |
+          mvn -B clean test
+        shell:
+          bash
