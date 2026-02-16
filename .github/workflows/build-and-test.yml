@@ -81,8 +81,8 @@ jobs:
           cd sourceCode
           mvn -B -DskipTests clean install -Dpayforlegalaid-openapi.version=${OUTPUT_VERSION}
 
-#      - name: Run tests
-#        run: |
-#          mvn -B clean test
-#        shell:
-#          bash
+      - name: Run tests
+        run: |
+          mvn -B clean test
+        shell:
+          bash
