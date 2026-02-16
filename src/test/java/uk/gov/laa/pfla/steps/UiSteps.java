@@ -20,6 +20,9 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 
 @Slf4j
 public class UiSteps {
@@ -95,6 +98,44 @@ public class UiSteps {
         // Should be as many download links as report rows
         assertEquals(reportCount, linkCount);
         assertTrue(links.first().getAttribute("href").matches(".*(csv|excel|file).*"));
+    }
+
+    @Then("the download links match the file format descriptor")
+    public void checkDownloadLinksAndFormatDescriptor() {
+
+        var links = page.getByRole(
+                AriaRole.LINK,
+                new Page.GetByRoleOptions().setName("Download report")
+        );
+
+        int count = links.count();
+
+        for (int i = 0; i < count; i++) {
+            var link = links.nth(i);
+
+            String href = link.getAttribute("href");
+            assertNotNull(href, "Download link href should not be null");
+
+            // The visible file descriptor span (e.g. "(.xlsx file)")
+            var descriptorSpan =
+                    link.locator("xpath=following::span[@aria-hidden='true'][1]");
+
+            String descriptorText = descriptorSpan.textContent().trim();
+
+            if (href.contains("/excel/")) {
+                assertTrue(
+                        descriptorText.contains("(.xlsx"),
+                        "Expected XLSX descriptor for link: " + href
+                );
+            } else if (href.contains("/csv/") || href.contains("/reports/")) {
+                assertTrue(
+                        descriptorText.contains("(.csv"),
+                        "Expected CSV descriptor for link: " + href
+                );
+            } else {
+                fail("Unexpected download link format: " + href);
+            }
+        }
     }
 
     @Then("return 401 unauthorised")

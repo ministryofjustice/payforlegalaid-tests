@@ -12,6 +12,7 @@ Feature: Be able to view UI
     And the heading is set
     And there is at least one report row
     And there are download links
+    And the download links match the file format descriptor
 
   Scenario: UI needs auth or will error
     Given The user is not authorised in the UI
