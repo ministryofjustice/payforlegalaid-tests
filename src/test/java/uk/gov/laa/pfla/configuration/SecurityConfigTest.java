@@ -42,7 +42,7 @@ public class SecurityConfigTest {
         var testUser = User.withDefaultPasswordEncoder()
                 .username("test-user")
                 .password("test-password")
-                .roles("USER")
+                .roles("Financial", "Reconciliation", "REP000")
                 .build();
 
         return new InMemoryUserDetailsManager(testUser);
