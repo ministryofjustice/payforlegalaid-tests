@@ -2,6 +2,7 @@ package uk.gov.laa.pfla.configuration;
 
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -9,13 +10,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import uk.gov.laa.gpfd.config.builders.AuthorizeHttpRequestsBuilder;
 
+import java.util.List;
+
 import static org.springframework.security.config.Customizer.withDefaults;
 
+@Slf4j
 @Configuration
 @RequiredArgsConstructor
 public class SecurityConfigTest {
@@ -39,12 +42,15 @@ public class SecurityConfigTest {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        var testUser = User.withDefaultPasswordEncoder()
-                .username("test-user")
-                .password("test-password")
-                .roles("Financial", "Reconciliation", "REP000")
-                .build();
+        return username -> {
+            List<String> roles = RoleRegistry.getRoles();
+            log.info("GEEEET Roles in Scenario: " + roles);
 
-        return new InMemoryUserDetailsManager(testUser);
+            return User.withUsername(username)
+                    .password("{noop}test-password")
+                    .roles(roles.toArray(new String[0]))
+                    .build();
+        };
     }
+
 }
