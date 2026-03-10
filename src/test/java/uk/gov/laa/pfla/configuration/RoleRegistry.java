@@ -1,9 +1,7 @@
 package uk.gov.laa.pfla.configuration;
 
-import lombok.AllArgsConstructor;
-
 import java.util.List;
-@AllArgsConstructor
+
 public class RoleRegistry {
 
     private static List<String> roles = List.of();
