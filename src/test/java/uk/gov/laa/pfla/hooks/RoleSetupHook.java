@@ -3,12 +3,10 @@ package uk.gov.laa.pfla.hooks;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
-import lombok.extern.slf4j.Slf4j;
 import uk.gov.laa.pfla.configuration.RoleRegistry;
 
 import java.util.List;
 
-@Slf4j
 public class RoleSetupHook {
 
     @Before
