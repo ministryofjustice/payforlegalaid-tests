@@ -74,3 +74,8 @@ Any existing test can be tagged with `@smoke` to include it in the smoke test su
 To run the smoke tests, you can use the following command:
 ```bash
        mvn -B clean test  -Dcucumber. filter.tags="@smoke"
+```
+
+## Pre commit hooks
+
+Pre commit hooks have been set up on this repository to ensure no accidental commits of secrets, keys etc. Provided by DevSecOps https://github.com/ministryofjustice/devsecops-hooks
