@@ -20,11 +20,11 @@ Feature: Generate and Retrieve Excel Financial Report
 #      | 77ef818d-e35d-47ad-8813-74b9fa675877 | CCMS Third party report                                 |
       | 56328b13-254d-435d-813a-5863f94b996d | Mediation contract balances                             |
 
-  # Scenario: Return an error when attempting to retrieve a report with an unrecognized ID
-    # Given I am authenticated with a valid session
-    # When a request is made to the Excel endpoint with the report ID "01010101-0101-0101-0101-010101010101"
-    # Then the service should respond with a status code of 403
-    # And the response should include the error message "You cannot access report with ID: 01010101-0101-0101-0101-010101010101"
+  Scenario: Return an error when attempting to retrieve a report with an unrecognized ID
+    Given I am authenticated with a valid session
+    When a request is made to the Excel endpoint with the report ID "01010101-0101-0101-0101-010101010101"
+    Then the service should respond with a status code of 403
+    And the response should include the error message "You cannot access report with ID: 01010101-0101-0101-0101-010101010101"
 
   @NotReady
   Scenario: Return an error when report generation fails due non existing view
