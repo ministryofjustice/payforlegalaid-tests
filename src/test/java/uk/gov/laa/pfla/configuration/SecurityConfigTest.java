@@ -10,9 +10,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import uk.gov.laa.gpfd.config.builders.AuthorizeHttpRequestsBuilder;
+import uk.gov.laa.gpfd.utils.SecurityUtils;
 
 import java.util.List;
 
@@ -42,14 +44,23 @@ public class SecurityConfigTest {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        return username -> {
-            List<String> roles = RoleRegistry.getRoles();
-            log.info("GEEEET Roles in Scenario: " + roles);
+        var testUser = User.withDefaultPasswordEncoder()
+                .username("test-user")
+                .password("test-password")
+                .roles("USER")
+                .build();
 
-            return User.withUsername(username)
-                    .password("{noop}test-password")
-                    .roles(roles.toArray(new String[0]))
-                    .build();
+        return new InMemoryUserDetailsManager(testUser);
+    }
+
+    @Bean
+    @Primary
+    public SecurityUtils securityUtils() {
+        return new SecurityUtils() {
+            @Override
+            public List<String> extractRoles() {
+                return RoleRegistry.getRoles();
+            }
         };
     }
 

@@ -13,13 +13,10 @@ public class RoleSetupHook {
 
     @Before
     public void beforeScenario(Scenario scenario) {
-        log.info("SCCCE : " + scenario.getName());
         List<String> roles = scenario.getSourceTagNames().stream()
                 .filter(t -> t.startsWith("@Role="))
                 .map(t -> t.replace("@Role=", ""))
                 .toList();
-
-        log.info("Roles in Scenario: " + roles);
 
         //set Default role = Financial
         if (roles.isEmpty()) {
