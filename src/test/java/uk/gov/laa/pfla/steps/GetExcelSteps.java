@@ -24,7 +24,7 @@ public record GetExcelSteps(HttpProvider httpProvider, ScenarioContext scenarioC
 
     @When("a request is made to the Excel endpoint with the report ID {string}")
     public void aRequestIsMadeToTheExcelEndpointWithTheReportId(String reportId) {
-        scenarioContext.setResponse(httpProvider.getClient().getForEntity("/excel/" + reportId, byte[].class));
+        scenarioContext.setResponse(httpProvider.getClient().getForEntity("/reports/" + reportId + "/excel", byte[].class));
     }
 
     @Then("the response should include the Excel file with {string} report")

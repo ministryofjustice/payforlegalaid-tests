@@ -1,8 +1,8 @@
 package uk.gov.laa.pfla.steps;
 
-import io.cucumber.core.internal.com.fasterxml.jackson.core.JsonProcessingException;
-import io.cucumber.core.internal.com.fasterxml.jackson.databind.JsonNode;
-import io.cucumber.core.internal.com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import uk.gov.laa.pfla.client.RestClient;
@@ -15,8 +15,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public record GetS3StorageReportsSteps(HttpProvider httpProvider, ScenarioContext scenarioContext, RestClient restClient) {
 
-    @When("a request is made to the S3 storage with the report ID {string}")
-    public void aRequestIsMadeToTheS3StorageWithTheReportId(String reportId) {
+    @When("a request is made to get the report details with the report ID {string}")
+    public void aRequestIsMadeToTheReportDetailsWithTheReportId(String reportId) {
 
         AuthenticationState state = scenarioContext.getAuthenticationState();
 

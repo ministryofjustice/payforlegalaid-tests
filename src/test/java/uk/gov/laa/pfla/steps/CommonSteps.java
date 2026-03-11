@@ -23,7 +23,7 @@ public record CommonSteps(ScenarioContext scenarioContext) {
     @Then("the service should respond with a status code of {int}")
     public void theServiceShouldRespondWithAStatusCodeOf(int expectedStatusCode) {
         var response = scenarioContext.getResponse();
-        assertEquals(expectedStatusCode, response.getStatusCodeValue(), "Expected status code " + expectedStatusCode);
+        assertEquals(expectedStatusCode, response.getStatusCode().value(), "Expected status code " + expectedStatusCode);
     }
 
     @Then("the response should include the error message {string}")
