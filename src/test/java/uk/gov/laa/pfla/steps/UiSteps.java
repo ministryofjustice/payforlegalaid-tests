@@ -122,12 +122,12 @@ public class UiSteps {
 
             String descriptorText = descriptorSpan.textContent().trim();
 
-            if (href.contains("/excel/")) {
+            if (href.contains("/excel")) {
                 assertTrue(
                         descriptorText.contains("(.xlsx"),
                         "Expected XLSX descriptor for link: " + href
                 );
-            } else if (href.contains("/csv/") || href.contains("/reports/")) {
+            } else if (href.contains("/csv")) {
                 assertTrue(
                         descriptorText.contains("(.csv"),
                         "Expected CSV descriptor for link: " + href
