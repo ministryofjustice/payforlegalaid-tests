@@ -6,6 +6,7 @@ import uk.gov.laa.pfla.scenario.ScenarioContext;
 import uk.gov.laa.pfla.service.HttpProvider;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.springframework.test.util.AssertionErrors.assertNotNull;
 
 public record GetReportsFeatureSteps(HttpProvider httpProvider, ScenarioContext scenarioContext) {
 
@@ -19,6 +20,14 @@ public record GetReportsFeatureSteps(HttpProvider httpProvider, ScenarioContext 
     public void theResponseShouldIncludeAListOfAllAvailableReports() {
         var responseBody = scenarioContext.getResponseAs(String.class).getBody();
         assertTrue(responseBody != null && responseBody.contains("reportList"), "Expected response to include a list of reports");
+    }
+
+    @Then("the response should include a empty list")
+    public void theResponseShouldIncludeEmptyReportList() {
+        String responseBody = scenarioContext.getResponseAs(String.class).getBody();
+
+        assertNotNull(responseBody, "Response body should not be null");
+        assertTrue(responseBody.contains("\"reportList\":[]"), "Expected response to include an empty reportList");
     }
 
 }
