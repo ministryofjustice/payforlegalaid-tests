@@ -37,7 +37,7 @@ Feature: Generate and Retrieve Excel Financial Report
    @Role=Reconciliation
    Scenario: Successfully retrieve a list of all reports with valid authentication
      Given I am authenticated with a valid session
-     When a request is made to the S3 storage with the report ID "b36f9bbb-1178-432c-8f99-8090e285f2d3"
+     When a request is made to the Excel endpoint with the report ID "b36f9bbb-1178-432c-8f99-8090e285f2d3"
      Then the service should respond with a status code of 403
      And the response should include the error message "You cannot access report with ID: b36f9bbb-1178-432c-8f99-8090e285f2d3"
 
