@@ -90,14 +90,6 @@
         <column name="REPORT_ID" value="56328b13-254d-435d-813a-5863f94b996d"/>
         <column name="ROLE_ID" value="3"/>
     </insert>
-    <!--<insert tableName="REPORT_ROLES" schemaName="GPFD">
-        <column name="REPORT_ID" value="7bda9aa4-6129-4c71-bd12-7d4e46fdd882"/>
-        <column name="ROLE_ID" value="3"/>
-    </insert>
-    <insert tableName="REPORT_ROLES" schemaName="GPFD">
-        <column name="REPORT_ID" value="516cdbff-5fa8-4050-b5e6-7edf71daf679"/>
-        <column name="ROLE_ID" value="3"/>
-    </insert>-->
     <insert tableName="REPORT_ROLES" schemaName="GPFD">
         <column name="REPORT_ID" value="8b9f0484-819f-4e0f-b60a-0b3f9d30d9ba"/>
         <column name="ROLE_ID" value="3"/>
