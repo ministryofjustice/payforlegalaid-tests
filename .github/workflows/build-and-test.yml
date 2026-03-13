@@ -37,7 +37,7 @@ jobs:
         uses: actions/setup-java@v5
         with:
           distribution: 'corretto'
-          java-version: '17'
+          java-version: '25'
 
       - name: Get openapi version from pom
         id: get_openapi_version
