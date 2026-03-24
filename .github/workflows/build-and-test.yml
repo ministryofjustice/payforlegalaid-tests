@@ -63,6 +63,7 @@ jobs:
         with:
           repository: ministryofjustice/payforlegalaid
           path: sourceCode
+          ref: LPF-1222-dockerize-app
 
       - name: Get necessary templates from S3
         env:
