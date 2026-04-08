@@ -15,7 +15,7 @@ updates:
     schedule:
       interval: "daily"
     cooldown:
-      default-days: 7
+      default-days: 3
   - package-ecosystem: "terraform"
     directory: "/terraform"
     groups:
@@ -26,7 +26,7 @@ updates:
     schedule:
       interval: "daily"
     cooldown:
-      default-days: 7
+      default-days: 3
   - package-ecosystem: "github-actions"
     directory: "/"
     groups:
@@ -37,7 +37,7 @@ updates:
     schedule:
       interval: "daily"
     cooldown:
-      default-days: 7
+      default-days: 3
   - package-ecosystem: "pip"
     directory: "/"
     groups:
@@ -48,7 +48,7 @@ updates:
     schedule:
       interval: "daily"
     cooldown:
-      default-days: 7
+      default-days: 3
   - package-ecosystem: "npm"
     directory: "/"
     groups:
@@ -59,7 +59,7 @@ updates:
     schedule:
       interval: "daily"
     cooldown:
-      default-days: 7
+      default-days: 3
   - package-ecosystem: "gomod"
     directory: "/"
     groups:
@@ -70,7 +70,7 @@ updates:
     schedule:
       interval: "daily"
     cooldown:
-      default-days: 7
+      default-days: 3
   - package-ecosystem: "docker"
     directory: "/"
     groups:
@@ -81,7 +81,7 @@ updates:
     schedule:
       interval: "daily"
     cooldown:
-      default-days: 7
+      default-days: 3
   - package-ecosystem: "gradle"
     directory: "/"
     groups:
@@ -92,7 +92,7 @@ updates:
     schedule:
       interval: "weekly"
     cooldown:
-      default-days: 7
+      default-days: 3
     commit-message:
       prefix: "Gradle"
       include: "scope"
