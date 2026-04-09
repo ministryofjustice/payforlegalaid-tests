@@ -52,7 +52,7 @@ WORKDIR /build-deps/payforlegalaid-openapi
 RUN mkdir -p /home/builder/.m2 && \
     mkdir -p /home/builder/.m2/repository && \
     chmod -R 775 /home/builder/.m2 && \
-    mvn clean install -DfinalName=payforlegalaid-openapi-0.0.27 \
+    mvn clean install -DfinalName=payforlegalaid-openapi-0.0.30 \
     -DskipTests \
     -Dmaven.artifact.threads=5
 
