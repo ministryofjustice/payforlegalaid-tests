@@ -26,6 +26,8 @@ import static org.springframework.security.config.Customizer.withDefaults;
 public class SecurityConfigTest {
     private final AuthorizationManager<RequestAuthorizationContext> authManager;
 
+    private final String testUserOid = "eec2e3c9-02d1-4013-920b-9531a01f89fd";
+
     @Bean
     @Primary
     @SneakyThrows
@@ -60,6 +62,11 @@ public class SecurityConfigTest {
             @Override
             public List<String> extractRoles() {
                 return RoleRegistry.getRoles();
+            }
+
+            @Override
+            public String extractUserId() {
+                return testUserOid;
             }
         };
     }
