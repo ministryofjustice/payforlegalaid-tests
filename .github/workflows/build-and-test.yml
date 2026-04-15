@@ -63,6 +63,7 @@ jobs:
         with:
           repository: ministryofjustice/payforlegalaid
           path: sourceCode
+          ref: lpf-1189
 
       - name: Get necessary templates from S3
         env:
