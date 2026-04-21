@@ -63,6 +63,7 @@ jobs:
         with:
           repository: ministryofjustice/payforlegalaid
           path: sourceCode
+          ref: LPF-716-update-url-to-align-with-rest-standards
 
       - name: Get necessary templates from S3
         env:
