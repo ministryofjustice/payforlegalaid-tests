@@ -14,14 +14,14 @@ public record ReportTrackingSteps(JdbcTemplate trackingJdbcTemplate) {
 
     @Given("I have an empty tracking table")
     public void deleteTrackingEntries() {
-        trackingJdbcTemplate.update("DELETE FROM glad.report_tracking WHERE user_id = ?", SecurityConfigTest.getTestUserOidAsUuid());
+        trackingJdbcTemplate.update("DELETE FROM glad.report_tracking WHERE user_id = ?", SecurityConfigTest.getTestUserOid());
     }
 
     @Then("a row is entered in the report tracking table for report ID {string}")
     public void shouldBeAnEntryInTheReportTrackingTableForReport(String reportId) {
 
         var rowCount = trackingJdbcTemplate.queryForObject(
-                "SELECT COUNT(id) FROM glad.report_tracking WHERE report_id = ? AND user_id = ?", Integer.class, UUID.fromString(reportId), SecurityConfigTest.getTestUserOidAsUuid()
+                "SELECT COUNT(id) FROM glad.report_tracking WHERE report_id = ? AND user_id = ?", Integer.class, UUID.fromString(reportId), SecurityConfigTest.getTestUserOid()
         );
 
         assertThat(rowCount).isEqualTo(1);
@@ -31,7 +31,7 @@ public record ReportTrackingSteps(JdbcTemplate trackingJdbcTemplate) {
     public void shouldNotBeAnEntryInTheReportTrackingTableForReport(String reportId) {
 
         var rowCount = trackingJdbcTemplate.queryForObject(
-                "SELECT COUNT(id) FROM glad.report_tracking WHERE report_id = ? AND user_id = ?", Integer.class, UUID.fromString(reportId), SecurityConfigTest.getTestUserOidAsUuid()
+                "SELECT COUNT(id) FROM glad.report_tracking WHERE report_id = ? AND user_id = ?", Integer.class, UUID.fromString(reportId), SecurityConfigTest.getTestUserOid()
         );
 
         assertThat(rowCount).isEqualTo(0);

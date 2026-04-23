@@ -1,5 +1,6 @@
 package uk.gov.laa.pfla.configuration;
 
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.context.annotation.Bean;
@@ -27,11 +28,8 @@ import static org.springframework.security.config.Customizer.withDefaults;
 public class SecurityConfigTest {
     private final AuthorizationManager<RequestAuthorizationContext> authManager;
 
-    private static final String testUserOid = "eec2e3c9-02d1-4013-920b-9531a01f89fd";
-
-    public static UUID getTestUserOidAsUuid() {
-        return UUID.fromString(testUserOid);
-    }
+    @Getter
+    private static final UUID testUserOid = UUID.fromString("eec2e3c9-02d1-4013-920b-9531a01f89fd");
 
     @Bean
     @Primary
@@ -70,7 +68,7 @@ public class SecurityConfigTest {
             }
 
             @Override
-            public String extractUserId() {
+            public UUID extractUserId() {
                 return testUserOid;
             }
         };
