@@ -15,6 +15,9 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.intercept.RequestAuthorizationContext;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import uk.gov.laa.gpfd.config.builders.AuthorizeHttpRequestsBuilder;
+import uk.gov.laa.gpfd.utils.SecurityUtils;
+
+import java.util.List;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
@@ -49,4 +52,16 @@ public class SecurityConfigTest {
 
         return new InMemoryUserDetailsManager(testUser);
     }
+
+    @Bean
+    @Primary
+    public SecurityUtils securityUtils() {
+        return new SecurityUtils() {
+            @Override
+            public List<String> extractRoles() {
+                return RoleRegistry.getRoles();
+            }
+        };
+    }
+
 }
