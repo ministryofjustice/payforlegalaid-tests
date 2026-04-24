@@ -1,5 +1,6 @@
 package uk.gov.laa.pfla.configuration;
 
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.context.annotation.Bean;
@@ -18,6 +19,7 @@ import uk.gov.laa.gpfd.config.builders.AuthorizeHttpRequestsBuilder;
 import uk.gov.laa.gpfd.utils.SecurityUtils;
 
 import java.util.List;
+import java.util.UUID;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
@@ -25,6 +27,9 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @RequiredArgsConstructor
 public class SecurityConfigTest {
     private final AuthorizationManager<RequestAuthorizationContext> authManager;
+
+    @Getter
+    private static final UUID testUserOid = UUID.fromString("eec2e3c9-02d1-4013-920b-9531a01f89fd");
 
     @Bean
     @Primary
@@ -60,6 +65,11 @@ public class SecurityConfigTest {
             @Override
             public List<String> extractRoles() {
                 return RoleRegistry.getRoles();
+            }
+
+            @Override
+            public UUID extractUserId() {
+                return testUserOid;
             }
         };
     }
