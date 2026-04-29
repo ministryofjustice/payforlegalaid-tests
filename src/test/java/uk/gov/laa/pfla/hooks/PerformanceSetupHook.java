@@ -4,56 +4,84 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.cucumber.java.Before;
+import org.junit.platform.commons.logging.Logger;
+import org.slf4j.LoggerFactory;
+
 import uk.gov.laa.gpfd.model.ReportsGet200Response;
 import uk.gov.laa.pfla.performance.PerformanceReportRegistry;
-import static uk.gov.laa.pfla.scenario.AuthenticationState.AUTHENTICATED;
 import uk.gov.laa.pfla.service.HttpProvider;
+
+import java.util.concurrent.atomic.AtomicBoolean;
+
+import static org.junit.platform.commons.logging.LoggerFactory.getLogger;
+import static uk.gov.laa.pfla.scenario.AuthenticationState.AUTHENTICATED;
 
 public class PerformanceSetupHook {
 
+    private static final Logger logger = getLogger(SkipScenarioPredicate.class);
     private final HttpProvider httpProvider;
-    private static boolean initialised = false;
+    private final ObjectMapper objectMapper;
 
-    public PerformanceSetupHook(HttpProvider httpProvider) {
+    private static final AtomicBoolean initialised = new AtomicBoolean(false);
+
+    public PerformanceSetupHook(HttpProvider httpProvider, ObjectMapper objectMapper) {
         this.httpProvider = httpProvider;
+        this.objectMapper = objectMapper;
     }
 
     @Before("@performance")
     public void fetchReports() {
-        if (initialised) return; // only run once per suite
+        // Prevent duplicate initialisation (safe for parallel runs)
+        if (!initialised.compareAndSet(false, true)) {
+            return;
+        }
 
-        // Performance tests use Basic Auth, so set the state before making HTTP calls
+        // Performance tests use Basic Auth
         httpProvider.setAuthenticationState(AUTHENTICATED);
 
-        var response = httpProvider.getClient().getForEntity("/reports", String.class);
+        var response = httpProvider.getClient()
+                .getForEntity("/reports", String.class);
+
+        // Check HTTP status first
+        if (!response.getStatusCode().is2xxSuccessful()) {
+            throw new IllegalStateException(
+                    "Failed to fetch /reports. Status: " + response.getStatusCode()
+            );
+        }
+
         String responseBody = response.getBody();
 
-        if (responseBody == null || responseBody.isEmpty()) {
+        // Check body exists
+        if (responseBody == null || responseBody.isBlank()) {
             throw new IllegalStateException(
-                    "Failed to fetch /reports — check the application is running and accessible"
+                    "Failed to fetch /reports — empty response body"
             );
         }
 
-        // Check for service unavailability error
-        if (responseBody.contains("unavailable")) {
-            throw new IllegalStateException(
-                    "Service is currently unavailable: " + responseBody
-            );
-        }
-
-        // Parse JSON response manually
-        ObjectMapper mapper = new ObjectMapper();
         ReportsGet200Response reportsResponse;
         try {
-            reportsResponse = mapper.readValue(responseBody, ReportsGet200Response.class);
+            reportsResponse = objectMapper.readValue(
+                    responseBody,
+                    ReportsGet200Response.class
+            );
         } catch (JsonProcessingException e) {
-            throw new IllegalStateException("Failed to parse /reports response", e);
+            throw new IllegalStateException(
+                    "Failed to parse /reports response",
+                    e
+            );
         }
 
-        PerformanceReportRegistry.populate(reportsResponse.getReportList());
-        System.out.println("Performance registry loaded: " +
-                reportsResponse.getReportList().size() + " reports");
+        // Validate report list exists
+        if (reportsResponse.getReportList() == null) {
+            throw new IllegalStateException(
+                    "/reports returned null report list"
+            );
+        }
 
-        initialised = true;
+        PerformanceReportRegistry.validateReportsExist(
+                reportsResponse.getReportList()
+        );
+
+        logger.info(() -> "Performance benchmark reports validated against API response");
     }
 }

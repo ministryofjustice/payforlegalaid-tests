@@ -1,11 +1,9 @@
 package uk.gov.laa.pfla.steps;
 
 import java.util.List;
-import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpHeaders;
 
 import com.microsoft.playwright.Browser;
 import com.microsoft.playwright.BrowserContext;
@@ -32,7 +30,6 @@ public class PerformanceSteps {
     private String baseUrl;
 
     private Playwright playwright;
-    private Browser browser;
     private BrowserContext context;
     private Page page;
 
@@ -44,7 +41,7 @@ public class PerformanceSteps {
     public void launchBrowser() {
         playwright = Playwright.create();
 
-        browser = playwright.chromium().launch(
+        Browser browser = playwright.chromium().launch(
                 new BrowserType.LaunchOptions()
                         .setHeadless(true)
         );
@@ -57,7 +54,7 @@ public class PerformanceSteps {
             Cookie cookie = new Cookie("JSESSIONID", sessionCookie)
                     .setDomain(getDomainFromUrl(baseUrl))
                     .setPath("/")
-                    .setSecure(baseUrl.startsWith("https"));  // add this
+                    .setSecure(baseUrl.startsWith("https"));
             context.addCookies(List.of(cookie));
         } else {
             System.out.println("WARNING: JSESSIONID env var not set. Set JSESSIONID=<cookie-value> to authenticate.");
@@ -66,7 +63,7 @@ public class PerformanceSteps {
 
     private String getDomainFromUrl(String url) {
         try {
-            return new java.net.URL(url).getHost();
+            return java.net.URI.create(url).getHost();
         } catch (Exception e) {
             return "localhost";
         }
@@ -95,13 +92,12 @@ public class PerformanceSteps {
         }
     """);
 
-        // Playwright can return Integer or Double depending on the value
         double loadTime = ((Number) result).doubleValue();
 
         System.out.printf("UI page load time: %.0fms (SLA: %dms)%n", loadTime, thresholdMs);
         assertThat(loadTime)
                 .describedAs("Page load time should be under %dms", thresholdMs)
-                .isLessThan((double) thresholdMs);
+                .isLessThan(thresholdMs);
     }
 
     @When("the user downloads the {word} {word} report via the UI")
@@ -176,7 +172,7 @@ public class PerformanceSteps {
 
         assertThat(ttfb)
                 .describedAs("TTFB should be under %dms", thresholdMs)
-                .isLessThan((double) thresholdMs);
+                .isLessThan(thresholdMs);
     }
 
     @Then("the download should complete within {int} milliseconds")
@@ -188,6 +184,6 @@ public class PerformanceSteps {
 
         assertThat(duration)
                 .describedAs("Download should complete within %dms", thresholdMs)
-                .isLessThan((long) thresholdMs);
+                .isLessThan(thresholdMs);
     }
 }

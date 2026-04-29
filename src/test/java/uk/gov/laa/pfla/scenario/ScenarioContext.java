@@ -19,8 +19,6 @@ import uk.gov.laa.pfla.util.JsonDeserializer;
 @Component
 @ScenarioScope
 public class ScenarioContext {
-
-    @Setter(AccessLevel.NONE)
     private AuthenticationState authenticationState;
     private ResponseEntity<?> response;
     private final JsonDeserializer jsonDeserializer;
@@ -33,8 +31,9 @@ public class ScenarioContext {
     public <T> ResponseEntity<T> getResponseAs(Class<T> responseType) {
         return ofNullable(response)
                 .filter(res -> responseType.isInstance(res.getBody()))
-                .map(res -> (ResponseEntity<T>) res)
-                .orElseThrow(() -> new IllegalArgumentException("Response is not of type " + responseType.getSimpleName()));
+                .map(res -> ResponseEntity.ok(responseType.cast(res.getBody())))
+                .orElseThrow(() -> new IllegalArgumentException(
+                        "Response is not of type " + responseType.getSimpleName()));
     }
 
     public void validAuthenticationCookieProvided() {
@@ -43,10 +42,6 @@ public class ScenarioContext {
 
     public void invalidAuthenticationCookieProvided() {
         this.authenticationState = INVALID_CREDENTIALS;
-    }
-
-    public void setAuthenticationState(AuthenticationState state) {
-        this.authenticationState = state;
     }
 
     public void setAttribute(String key, Object value) {
