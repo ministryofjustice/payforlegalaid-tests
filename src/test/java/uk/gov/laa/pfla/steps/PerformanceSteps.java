@@ -46,7 +46,10 @@ public class PerformanceSteps {
                         .setHeadless(true)
         );
 
-        context = browser.newContext();
+        context = browser.newContext(
+                new Browser.NewContextOptions()
+                        .setAcceptDownloads(true)
+        );
         page = context.newPage();
 
         String sessionCookie = System.getenv("JSESSIONID");
@@ -109,56 +112,72 @@ public class PerformanceSteps {
                         "No report found for size: " + size + ", format: " + format
                 ));
 
+        String downloadUrl = baseUrl + "/reports/" + reportId + "/" + format;
         System.out.println("DEBUG: Downloading " + size + " " + format + " report, ID = " + reportId);
-        System.out.println("DEBUG: URL = " + baseUrl + "/reports/" + reportId + "/" + format);
+        System.out.println("DEBUG: URL = " + downloadUrl);
 
         long start = System.currentTimeMillis();
         scenarioContext.setAttribute("downloadStart", start);
 
-        final int[] responseStatus = {0};
+        final long[] ttfb = {0};
+        final int[] status = {0};
+        
         page.onResponse(response -> {
-            System.out.println("DEBUG: Response received: " + response.url() + " status=" + response.status());
-            responseStatus[0] = response.status();
-            if (response.url().contains("/" + format)) {
-                long ttfb = System.currentTimeMillis() - start;
-                scenarioContext.setAttribute("ttfb", (double) ttfb);
+            if (response.url().contains(reportId) && response.url().contains(format)) {
+                status[0] = response.status();
+                ttfb[0] = System.currentTimeMillis() - start;
+                System.out.println("DEBUG: Response received: " + response.url() + " status=" + response.status() + " ttfb=" + ttfb[0] + "ms");
             }
         });
 
         try {
-            // First try to wait for a download event
-            Download download = page.waitForDownload(
-                    new Page.WaitForDownloadOptions().setTimeout(5000),
-                    () -> page.navigate(
-                            baseUrl
-                                    + "/reports/"
-                                    + reportId
-                                    + "/"
-                                    + format
-                    )
-            );
-
-            download.path(); // wait for completion
-            long duration = System.currentTimeMillis() - start;
-            scenarioContext.setAttribute("downloadDuration", duration);
-            System.out.println("DEBUG: Download completed in " + duration + "ms");
+            // First navigate to reports page
+            page.navigate(baseUrl + "/reports");
+            page.waitForLoadState(LoadState.DOMCONTENTLOADED);
+            
+            // Try to find and click the download link
+            var downloadLink = page.locator("a[href*='/reports/" + reportId + "/" + format + "']");
+            
+            if (downloadLink.count() > 0) {
+                // Click link and wait for download
+                Download download = page.waitForDownload(
+                        () -> downloadLink.first().click()
+                );
+                download.path(); // wait for completion
+                
+                long duration = System.currentTimeMillis() - start;
+                scenarioContext.setAttribute("downloadDuration", duration);
+                scenarioContext.setAttribute("ttfb", (double) ttfb[0]);
+                System.out.println("DEBUG: Download completed in " + duration + "ms");
+            } else {
+                // No download link found - navigate directly to download URL
+                System.out.println("DEBUG: No download link found, navigating directly to: " + downloadUrl);
+                page.navigate(downloadUrl);
+                page.waitForLoadState(LoadState.DOMCONTENTLOADED);
+                
+                long duration = System.currentTimeMillis() - start;
+                scenarioContext.setAttribute("downloadDuration", duration);
+                scenarioContext.setAttribute("ttfb", (double) ttfb[0]);
+                System.out.println("DEBUG: Direct download completed in " + duration + "ms");
+            }
 
         } catch (Exception e) {
-            // If no download event, the response is returned directly
-            // Just measure the time to get the response
-            System.out.println("DEBUG: Direct response (no download event), measuring response time");
-            page.waitForLoadState(LoadState.DOMCONTENTLOADED);
-            long duration = System.currentTimeMillis() - start;
-            scenarioContext.setAttribute("downloadDuration", duration);
-            scenarioContext.setAttribute("ttfb", (double) duration);
-            System.out.println("DEBUG: Response received in " + duration + "ms");
+            // Playwright throws "Download is starting" error when navigating to a download URL
+            // This is expected behavior - we already captured TTFB from the response
+            if (e.getMessage() != null && e.getMessage().contains("Download is starting")) {
+                System.out.println("DEBUG: Download triggered (expected Playwright error), TTFB captured: " + ttfb[0] + "ms");
+                long duration = System.currentTimeMillis() - start;
+                scenarioContext.setAttribute("downloadDuration", duration);
+                scenarioContext.setAttribute("ttfb", (double) ttfb[0]);
+            } else {
+                throw new IllegalStateException("Download failed: " + e.getMessage(), e);
+            }
         }
 
-        int status = responseStatus[0];
-        if (status >= 400) {
+        if (status[0] >= 400) {
             throw new IllegalStateException(
-                    "Download request failed with status " + status +
-                            " for " + size + " " + format + " — check report IDs and formats"
+                    "Download request failed with status " + status[0] +
+                            " for " + size + " " + format
             );
         }
     }
