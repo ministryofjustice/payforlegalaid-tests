@@ -8,9 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import io.cucumber.spring.ScenarioScope;
-import lombok.AccessLevel;
 import lombok.Data;
-import lombok.Setter;
 import static uk.gov.laa.pfla.scenario.AuthenticationState.AUTHENTICATED;
 import static uk.gov.laa.pfla.scenario.AuthenticationState.INVALID_CREDENTIALS;
 import uk.gov.laa.pfla.util.JsonDeserializer;
@@ -31,7 +29,10 @@ public class ScenarioContext {
     public <T> ResponseEntity<T> getResponseAs(Class<T> responseType) {
         return ofNullable(response)
                 .filter(res -> responseType.isInstance(res.getBody()))
-                .map(res -> ResponseEntity.ok(responseType.cast(res.getBody())))
+                .map(res -> ResponseEntity
+                        .status(res.getStatusCode())
+                        .headers(res.getHeaders())
+                        .body(responseType.cast(res.getBody())))
                 .orElseThrow(() -> new IllegalArgumentException(
                         "Response is not of type " + responseType.getSimpleName()));
     }
