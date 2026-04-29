@@ -8,7 +8,6 @@ import uk.gov.laa.pfla.configuration.PlaywrightManager;
 
 import static java.lang.System.getenv;
 import static java.util.stream.Stream.of;
-import static org.junit.jupiter.api.Assumptions.abort;
 import static org.junit.jupiter.api.Assumptions.assumeFalse;
 import static org.junit.platform.commons.logging.LoggerFactory.getLogger;
 import static org.junit.platform.commons.util.StringUtils.isBlank;
@@ -55,7 +54,7 @@ public class Hooks {
             var skipMessage = "Skipping scenario '" + scenario.getName() + "' (matched pattern)";
             logger.info(() -> skipMessage);
             scenario.log(skipMessage);
-            abort("Test disabled by config: " + scenario.getName());
+            assumeFalse(true, "Test disabled by config");
         } else {
             logger.debug(() -> "No pattern matches - executing scenario");
         }
