@@ -1,17 +1,13 @@
 package uk.gov.laa.pfla.configuration;
 
 import com.fasterxml.jackson.databind.MappingJsonFactory;
-import liquibase.integration.spring.SpringLiquibase;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.flywaydb.core.Flyway;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.security.oauth2.client.registration.InMemoryClientRegistrationRepository;
@@ -19,9 +15,9 @@ import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.web.client.RestTemplate;
-import uk.gov.laa.pfla.client.RestTemplateWithErrorHandling;
 import uk.gov.laa.pfla.client.AuthenticationProvider;
 import uk.gov.laa.pfla.client.RestClient;
+import uk.gov.laa.pfla.client.RestTemplateWithErrorHandling;
 import uk.gov.laa.pfla.client.interceptor.AuthenticationInterceptor;
 import uk.gov.laa.pfla.client.interceptor.HostInterceptor;
 import uk.gov.laa.pfla.comparator.WorkbookComparator;
@@ -172,43 +168,32 @@ public class TestConfig {
         return MappingJsonFactory::new;
     }
 
-    /**
-     * Creates and configures a {@link SpringLiquibase} bean to be used for database,
-     * if the property `spring.liquibase.enabled` is set to `true` in the application properties.
-     *
-     * This method will set the data source to the specified {@link DataSource} bean, configure the
-     * change log file to be used by Liquibase, and ensure that the migrations are executed by
-     * setting {@code setShouldRun(true)}.
-     *
-     * @param dataSource The {@link DataSource} bean to be used by Liquibase for database connectivity.
-     * @return A configured {@link SpringLiquibase} instance ready for migration.
-     *
-     * @see SpringLiquibase
-     * @see DataSource
-     */
+    // Let this definition take over from the main one - This points it at the testcontainers postgres db
     @Bean
-    @Primary
-    @ConditionalOnProperty(name = "spring.liquibase.enabled", havingValue = "true")
-    public SpringLiquibase liquibase(@Qualifier("writeDataSource") DataSource dataSource) {
-        SpringLiquibase liquibase = new SpringLiquibase();
-        liquibase.setDataSource(dataSource);
-        liquibase.setChangeLog(liquibaseChangeLog);
-        liquibase.setShouldRun(true);
-        return liquibase;
+    public DataSource trackingDataSource() {
+        return DataSourceBuilder.create()
+                .url(TrackingDbSetup.POSTGRES.getJdbcUrl())
+                .username(TrackingDbSetup.POSTGRES.getUsername())
+                .password(TrackingDbSetup.POSTGRES.getPassword())
+                .build();
     }
 
+    // Manually get Flyway to act on the postgres db
+    // Using the default Spring config it was constantly attempting to apply Flyway to the other data sources
     @Bean
-    @Primary
-    @ConfigurationProperties(prefix = "gpfd.datasource.read-only")
-    DataSource readOnlyDataSource() {
-        return new DriverManagerDataSource();
-    }
+    public Flyway postgresFlyway(
+            @Qualifier("trackingDataSource") DataSource dataSource) {
 
-    @Bean
-    @Primary
-    JdbcTemplate readOnlyJdbcTemplate(@Qualifier("readOnlyDataSource") DataSource dataSource) {
-        JdbcTemplate template = new JdbcTemplate(dataSource);
-        return template;
+        Flyway flyway = Flyway.configure()
+                .dataSource(dataSource)
+                .schemas("glad")
+                .locations("classpath:flyway/migration/schema")
+                .baselineOnMigrate(true)   // optional, but often useful in ATs
+                .load();
+
+        flyway.migrate();
+
+        return flyway;
     }
 
 }
