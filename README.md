@@ -78,7 +78,8 @@ To run the smoke tests, you can use the following command:
 
 ## Running the performance tests (Playwright)
 performance.feature created to cover performance related UI metrics. Uses JSESSIONID to authenticate to an existing environment
-session, by default the UAT environment. Retrieve and set the JSESSIONID in terminal then run:
+session, by default the UAT environment. Retrieve the JSESSIONID by exporting it from a logged in session in UAT then set the 
+JSESSIONID in terminal and run:
 
 `mvn test -Dspring.profiles.active=uat -Dcucumber.filter.tags="@performance"`
 

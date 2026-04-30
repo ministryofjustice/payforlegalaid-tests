@@ -81,7 +81,6 @@ public class PerformanceSteps {
 
     @When("the user navigates to the reports listing page")
     public void navigateToReportListPage() {
-        System.out.println("DEBUG: Active cookies: " + context.cookies());
         page.navigate(baseUrl + "/reports");
         page.waitForLoadState(LoadState.NETWORKIDLE);
     }
