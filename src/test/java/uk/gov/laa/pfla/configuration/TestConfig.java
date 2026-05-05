@@ -1,7 +1,10 @@
 package uk.gov.laa.pfla.configuration;
 
-import com.fasterxml.jackson.databind.MappingJsonFactory;
-import liquibase.integration.spring.SpringLiquibase;
+import static java.util.List.of;
+import java.util.function.Supplier;
+
+import javax.sql.DataSource;
+
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,24 +22,24 @@ import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.web.client.RestTemplate;
-import uk.gov.laa.pfla.client.RestTemplateWithErrorHandling;
+
+import com.fasterxml.jackson.databind.MappingJsonFactory;
+
+import liquibase.integration.spring.SpringLiquibase;
 import uk.gov.laa.pfla.client.AuthenticationProvider;
+import static uk.gov.laa.pfla.client.AuthenticationProvider.basicAuth;
 import uk.gov.laa.pfla.client.RestClient;
+import uk.gov.laa.pfla.client.RestTemplateWithErrorHandling;
 import uk.gov.laa.pfla.client.interceptor.AuthenticationInterceptor;
 import uk.gov.laa.pfla.client.interceptor.HostInterceptor;
+import static uk.gov.laa.pfla.client.interceptor.HostInterceptor.withHost;
 import uk.gov.laa.pfla.comparator.WorkbookComparator;
+import uk.gov.laa.pfla.scenario.AuthenticationState;
 import uk.gov.laa.pfla.scenario.ScenarioContext;
 import uk.gov.laa.pfla.service.HttpProvider;
 import uk.gov.laa.pfla.util.JsonDeserializer;
 import uk.gov.laa.pfla.util.WorkbookUtil;
 import uk.gov.laa.pfla.util.workbook.WorkbookCreator;
-
-import javax.sql.DataSource;
-import java.util.function.Supplier;
-
-import static java.util.List.of;
-import static uk.gov.laa.pfla.client.AuthenticationProvider.basicAuth;
-import static uk.gov.laa.pfla.client.interceptor.HostInterceptor.withHost;
 
 
 @Configuration
@@ -90,6 +93,11 @@ public class TestConfig {
             @Override
             public RestTemplate getClient() {
                 return getClient(restClient, scenarioContext.getAuthenticationState());
+            }
+
+            @Override
+            public void setAuthenticationState(AuthenticationState state) {
+                scenarioContext.setAuthenticationState(state);
             }
         };
     }
