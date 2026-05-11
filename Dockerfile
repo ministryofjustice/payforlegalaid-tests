@@ -1,6 +1,6 @@
 # Stage 1: Dependency Resolution
 # Start off with alpine linux, and the amazon distribution of Java 25
-FROM maven:3.9.13-amazoncorretto-25-alpine AS dependency-builder
+FROM maven:3.9.13-amazoncorretto-25-alpine@sha256:b2549eefbac83c78fedc55c67a3385611df1cece7468f6d68e055a9e5772d556 AS dependency-builder
 
 # We pass in a branch ref, but default to main
 ARG REPO_REF=main
@@ -65,7 +65,7 @@ RUN mkdir -p /home/builder/.m2 && \
     -DskipTests \
     -Dmaven.artifact.threads=5
 
-FROM maven:3.9.13-amazoncorretto-25-alpine AS builder
+FROM maven:3.9.13-amazoncorretto-25-alpine@sha256:b2549eefbac83c78fedc55c67a3385611df1cece7468f6d68e055a9e5772d556 AS builder
 
 # Stage 2: Building the code
 # The idea here is basically that if the dependencies (i.e. payforlegalaid code) doesn't change, docker will reuse that stage of the image
@@ -95,7 +95,7 @@ RUN apk add --no-cache --virtual .build-deps gettext && \
 # Stage 3: the final image, using a distroless image which contains just java and jvm - no shell, package manager etc
 # So this is smaller, more secure, etc than using say alpine-coretto here like we did in Stage 1 and 2.
 
-FROM gcr.io/distroless/java25-debian13
+FROM gcr.io/distroless/java25-debian13@sha256:70036fed3c5ba28821c5fad98b613a2fb173cc52fa893b509abedaa2e82ba9c1
 WORKDIR /app
 
 LABEL org.opencontainers.image.authors="GPFD team (laa-payments-finance@digital.justice.gov.uk)" \
