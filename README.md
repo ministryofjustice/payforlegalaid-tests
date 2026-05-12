@@ -78,12 +78,17 @@ To run the smoke tests, you can use the following command:
 
 ## Running the performance tests (Playwright)
 performance.feature created to cover performance related UI metrics. Uses JSESSIONID to authenticate to an existing environment
-session, by default the UAT environment. Retrieve the JSESSIONID by exporting it from a logged in session in UAT then set the 
-JSESSIONID in terminal and run:
+session, by default the UAT environment. Retrieve the JSESSIONID by copying it from the browser DevTools -> Application -> Cookies 
+whilst logged into a session in UAT then run:
 
-`mvn test -Dspring.profiles.active=uat -Dcucumber.filter.tags="@performance"`
+```bash
+export JSESSIONID=<insert session ID>
+mvn test -Dspring.profiles.active=uat -Dcucumber.filter.tags="@performance"
+```
 
 Which grabs the URL from within application-uat.yml
+
+Alternatively, developers can manually trigger the performance tests via GitHub Actions by navigating to the Actions tab and running the "Performance Tests" workflow.
 
 ## Pre commit hooks
 

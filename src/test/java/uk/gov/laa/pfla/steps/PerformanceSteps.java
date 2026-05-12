@@ -149,15 +149,10 @@ public class PerformanceSteps {
                 scenarioContext.setAttribute("ttfb", (double) ttfb[0]);
                 System.out.println("DEBUG: Download completed in " + duration + "ms");
             } else {
-                // No download link found - navigate directly to download URL
-                System.out.println("DEBUG: No download link found, navigating directly to: " + downloadUrl);
-                page.navigate(downloadUrl);
-                page.waitForLoadState(LoadState.DOMCONTENTLOADED);
-                
-                long duration = System.currentTimeMillis() - start;
-                scenarioContext.setAttribute("downloadDuration", duration);
-                scenarioContext.setAttribute("ttfb", (double) ttfb[0]);
-                System.out.println("DEBUG: Direct download completed in " + duration + "ms");
+                throw new IllegalStateException(
+                        "Download link not found on page for " + size + " " + format + " report. " +
+                        "Only testing active reports that are on the page."
+                );
             }
 
         } catch (Exception e) {
