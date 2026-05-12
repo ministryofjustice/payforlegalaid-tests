@@ -95,7 +95,7 @@ RUN apk add --no-cache --virtual .build-deps gettext && \
 # Stage 3: the final image, using a distroless image which contains just java and jvm - no shell, package manager etc
 # So this is smaller, more secure, etc than using say alpine-coretto here like we did in Stage 1 and 2.
 
-FROM gcr.io/distroless/java25-debian13@sha256:70036fed3c5ba28821c5fad98b613a2fb173cc52fa893b509abedaa2e82ba9c1
+FROM gcr.io/distroless/java25-debian13@sha256:3e0a1496b365a18d2c01ccfe27c8bc93b1a6b8ca7460c02b8badb791bf296fce
 WORKDIR /app
 
 LABEL org.opencontainers.image.authors="GPFD team (laa-payments-finance@digital.justice.gov.uk)" \
