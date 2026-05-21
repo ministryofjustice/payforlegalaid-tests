@@ -1,6 +1,6 @@
 # Stage 1: Dependency Resolution
 # Start off with alpine linux, and the amazon distribution of Java 25
-FROM maven:3.9.13-amazoncorretto-25-alpine@sha256:b2549eefbac83c78fedc55c67a3385611df1cece7468f6d68e055a9e5772d556 AS dependency-builder
+FROM maven:3.9.15-amazoncorretto-25-alpine@sha256:89a321e504e1d98d92bd7c2798ea25e41cdd31aac51e95e22596b30ba49ed1a9 AS dependency-builder
 
 # We pass in a branch ref, but default to main
 ARG REPO_REF=main
@@ -65,7 +65,7 @@ RUN mkdir -p /home/builder/.m2 && \
     -DskipTests \
     -Dmaven.artifact.threads=5
 
-FROM maven:3.9.13-amazoncorretto-25-alpine@sha256:b2549eefbac83c78fedc55c67a3385611df1cece7468f6d68e055a9e5772d556 AS builder
+FROM maven:3.9.15-amazoncorretto-25-alpine@sha256:89a321e504e1d98d92bd7c2798ea25e41cdd31aac51e95e22596b30ba49ed1a9 AS builder
 
 # Stage 2: Building the code
 # The idea here is basically that if the dependencies (i.e. payforlegalaid code) doesn't change, docker will reuse that stage of the image
